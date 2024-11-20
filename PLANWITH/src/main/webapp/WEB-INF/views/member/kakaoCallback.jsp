@@ -4,7 +4,7 @@
 
 <script>
 	if (window.opener && !window.opener.closed) {
-	    window.opener.location.href = '${cpath}/team/viewTeams'  
+	    window.opener.location.href = '${cpath}/team/teamList'  
 	    setTimeout(() => {
 	        window.close()
 	    }, 200)    
