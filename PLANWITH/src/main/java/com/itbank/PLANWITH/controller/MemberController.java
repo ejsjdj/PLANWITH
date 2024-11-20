@@ -62,7 +62,7 @@ public class MemberController {
 			session.removeAttribute("loginCnt"); // 로그인 성공 시 실패 카운트 초기화
 			rttr.addFlashAttribute("message", "로그인 성공!");
 			rttr.addFlashAttribute("context", "login");
-			return "redirect:/team/viewTeams"; // 로그인 성공 시 리다이렉트
+			return "redirect:/team/teamList"; // 로그인 성공 시 리다이렉트
 		} catch (MemberNotFoundException e) { 
 			loginCnt++;
 			session.setAttribute("loginCnt", loginCnt); // 실패 시도 증가

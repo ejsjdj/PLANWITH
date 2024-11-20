@@ -27,21 +27,21 @@ public class TeamController {
     @GetMapping("/main")
     public String main(HttpSession session) {
        MemberDTO login = (MemberDTO) session.getAttribute("login");
-       if(login != null) return "redirect:/team/viewTeams";
-       else return "redirect:/team/view";
+       if(login != null) return "redirect:/team/teamList";
+       else return "redirect:/team/view";	// 비회원-> (@getMapping("/view"))
     }
     
     // 팀목록 페이지, 로그인 상태인 경우에만 보여진다
-    @GetMapping("/viewTeams")
+    @GetMapping("/teamList")
     public String viewTeams(HttpSession session, Model model) {
         MemberDTO login = (MemberDTO) session.getAttribute("login");
         if (login != null) {
             // 팀 목록을 항상 최신 상태로 불러옴
            List<TeamDTO> teamList = teamService.selectTeamListByMemberId(login.getId());
             session.setAttribute("teamList", teamList);
-            return "/team/viewTeams";  // 새로고침된 팀 목록을 보여주는 페이지
+            return "/team/teamList";  // 새로고침된 팀 목록을 보여주는 페이지
         }
-        return "redirect:/team/view";
+        return "redirect:/team/view";	// --- 비회원-> (@getMapping("/view"))
     }
     
    // 비로그인 상태에서 여행 시작하기 버튼, 로그인 상태에서의 팀생성 버튼 클릭 시 실행
@@ -54,16 +54,16 @@ public class TeamController {
           if(row > 0) {   
               List<TeamDTO> teamList = teamService.selectTeamListByMemberId(login.getId());
                session.setAttribute("teamList", teamList);
-               return "redirect:/team/viewTeams";   
+               return "redirect:/team/teamList";   
           }
        }
-        return "redirect:/team/view";   // 비로그인 상태인 경우 view로 이동 (@getMapping("/view")
+        return "redirect:/team/view";   // --- 비회원-> (@getMapping("/view"))
     }
     
     // 포워드해서 주소를 변경한다 (실제 이동하는곳은 teamView 페이지)
     @GetMapping("/view")   
     public String noTeam() {
-        return "team/teamView";
+        return "team/view";
     }
     
     // 초대코드로 팀에 합류할때
@@ -75,7 +75,7 @@ public class TeamController {
             int teamId = team.getId();   
             return "redirect:/team/view/" + teamId;
         } else {
-            return "redirect:/team/viewTeams";   // 해당하는 팀이 없으면 팀목록 페이지로 이동 
+            return "redirect:/team/teamList";   // 해당하는 팀이 없으면 팀목록 페이지로 이동 
         }
     }
     
@@ -95,7 +95,7 @@ public class TeamController {
         model.addAttribute("scheduleList", scheduleList);
         model.addAttribute("messageList", messageList);
         
-        return "team/teamView"; // 팀 상세화면으로 이동
+        return "team/view"; // 팀 상세화면으로 이동
     }
 
 }
