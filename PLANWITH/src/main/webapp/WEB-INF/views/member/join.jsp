@@ -8,7 +8,7 @@
         padding: 0;
     }
     .join-title {
-       font-size: 1.3rem;
+       	font-size: 1.3rem;
         margin-bottom: 2rem;
     }
     #joinForm {
@@ -345,20 +345,22 @@
    }
    
    // 아이디 중복체크
-   async function idCheckHandler() {
-      const userid = document.querySelector('input[name="userid"]').value
-      if(userid == '') {
-         return
-      }
-      const url = '${cpath}/members/idCheck?userid=' + userid
-      const result = await fetch(url).then(resp => resp.json())      
-      
-      swal(result.title, result.content, result.type)
-      
-      const userpw = document.querySelector('input[name="userpw"]')
-      if(result.success)   userpw.focus()
-      else            userid.select()
-   }   
+	async function idCheckHandler() {
+// 		console.log('idcheck!')
+		  const userid = joinForm.querySelector('input[name="userid"]').value
+// 		  console.log('userid:',userid)
+		  if(userid == '') {
+		     return
+		  }
+		  const url = '${cpath}/members/idCheck?userid=' + userid
+		  const result = await fetch(url).then(resp => resp.json())      
+		  
+		  swal(result.title, result.content, result.type)
+		  
+		  const userpw = document.querySelector('input[name="userpw"]')
+		  if(result.success)   	userpw.focus()
+		  else            		userid.select()
+   	}   
    
     // 캡차 인증을 위한 캡차 이미지 불러오기 (ajax)
    async function loadCaptchaHandler() {
