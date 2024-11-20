@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itbank.PLANWITH.component.FileComponent;
@@ -41,7 +42,7 @@ public class BoardController {
 	public String view(@PathVariable int id, Model model) {
     	// 게시글 정보 불러오기
     	BoardDTO board = boardService.selectOne(id);
-		model.addAttribute("board", board);
+		model.addAttribute("board", board);	
 		// 게시글 사진 불러오기
 		List<PhotoDTO> boardPhotoList = boardService.getPhotoListById(id);
 		model.addAttribute("boardPhotoList", boardPhotoList);
@@ -65,7 +66,7 @@ public class BoardController {
 		List<MultipartFile> list = dto.getFiles();
 		log.info(list);
 		
-		if ((list.size() <= 1 && list.get(0).getSize() == 0) == false) {
+		if (list != null && list.size() >= 1 && list.get(0).getSize() != 0) {
 			list.forEach(ob -> {
 				String storedFileName = fileComponent.uploadFile(ob);
 				PhotoDTO boardPhoto = new PhotoDTO();
@@ -92,15 +93,32 @@ public class BoardController {
     // 게시글 수정 처리
 	// 인터셉터 구현 시 수정
 	@PostMapping("/update/{id}")
-	public String update(BoardDTO board, HttpSession session) {
+	public String update(BoardDTO dto, boolean flag, HttpSession session) {
 	    MemberDTO login = (MemberDTO) session.getAttribute("login");
 	    if (login == null)	return "redirect:/member/login";
-	    board.setMemberId(login.getId());	// 작성자 저장
+	    dto.setMemberId(login.getId());	// 작성자 저장
 	    
-	    boardService.updateBoard(board);
+	    boardService.updateBoard(dto);
 	    
-	    
-        return "redirect:/board/boardList";
+		List<MultipartFile> list = dto.getFiles();
+		log.info(list);
+		log.info("flag : " + flag);
+		
+		// 수정버튼이 눌려져있고, 변경된 사진이 있는 경우
+		if (list != null && list.size() >= 1 && list.get(0).getSize() != 0 && flag) {
+			list.forEach(ob -> {
+				String storedFileName = fileComponent.uploadFile(ob);
+				PhotoDTO boardPhoto = new PhotoDTO();
+				boardPhoto.setOriginalFileName(ob.getOriginalFilename());
+				boardPhoto.setStoredFileName(storedFileName);
+				boardPhoto.setContentType(ob.getContentType());
+				boardPhoto.setRefId(dto.getId());
+				
+				boardService.deleteBoardPhoto(dto.getId());
+				boardService.updateBoardPhoto(boardPhoto);
+			});
+		} 
+		return "redirect:/board/boardList";	
 	}
  
     // 게시글 삭제
