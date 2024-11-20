@@ -60,6 +60,11 @@
         where id = #{id}
     </update>
 
+	<!-- 게시글 파일 수정 시 기존 파일 삭제 -->
+	<delete id="deleteBoardPhoto" parameterType="int">
+		delete from boardPhoto where boardId = #{refId}
+	</delete>
+	
     <!-- 게시글 삭제 -->
     <delete id="deleteBoard" parameterType="int">
         delete from board where id = #{id}
@@ -104,7 +109,17 @@
 		select * from boardPhoto where boardId = #{id}
 	</select> 
 	
-	<delete id="deletePhotoById" parameterType="int">
-		delete from boardPhoto where id = ${id}
+	<!-- 좋아요 -->
+	<select id="selectCnt" resultType="int">
+		select count(*) from likeBoard where boardId = #{boardId} and memberId = #{memberId}
+	</select>
+	
+	<insert id="insertLikeBoard" parameterType="like">
+		insert into likeBoard (boardId, memberId) values (#{boardId}, #{memberId})
+	</insert>
+	
+	<delete id="deleteLikeBoard" parameterType="like">
+		delete from likeBoard where boardId = #{boardId} and memberId = #{memberId}
 	</delete>
+	
 </mapper>
