@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.PLANWITH.repository.MapDAO">
+
+<!--   해당하는 place 가 이미 인서트 되어 있는지를 판별하기 위한 SQL   -->
+<select id="selectPlace" parameterType="place" resultType="int"> 
+	SELECT COUNT(*) 
+	FROM place 
+	WHERE name = #{name} AND address = #{address} 
+</select>
+
+<select id="insertPlace" parameterType="place"> 
+	INSERT INTO place (name, category, address) 
+	VALUES (#{name}, #{category}, #{address}) 
+</select>
+
+<select id="searchId" parameterType="place" resultType="int"> 
+	SELECT ID 
+	FROM PLACE 
+	WHERE NAME = #{name} AND ADDRESS = #{address} 
+</select>
+
+<select id="delete" parameterType="place"> 
+	DELETE 
+	FROM PLACE 
+	WHERE NAME = #{name} AND ADDRESS = #{address} 
+</select>
+
+<select id="selectScheduleListByTeamId" parameterType="int" resultType="schedule"> 
+	select s.id, startTime, endTime, placeId, content, teamId, createdTime, p.name as title, p.address as address 
+	from schedule s join place p on s.placeId = p.id 
+	where teamId = #{teamId} order by startTime 
+</select>
+
+<insert id="insertSchedule" parameterType="schedule"> 
+	insert into schedule (startTime, endTime, placeId, teamId, content) 
+	values (#{startTime}, #{endTime}, #{placeId}, #{teamId}, #{content}) 
+</insert>
+
+<delete id="deleteSchedule" parameterType="schedule"> 
+	delete 
+	from schedule 
+	where id = #{id} 
+</delete>
+
+<update id="updateTime" parameterType="schedule"> 
+	UPDATE schedule 
+	SET startTime = #{startTime}, endTime = #{endTime} 
+	WHERE id = #{id} 
+</update>
+
+<select id="selectPlaceIdById" parameterType="int"> 
+	SELECT PLACEID 
+	FROM SCHEDULE 
+	WHERE ID = #{ID} </select>
+
+<select id="selectPlaceById" parameterType="int" resultType="place"> 
+	select * 
+	from place 
+	where id = #{id} 
+</select>
+
+</mapper>

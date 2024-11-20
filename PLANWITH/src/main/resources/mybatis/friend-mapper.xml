@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.PLANWITH.repository.FriendDAO">
+	<select id="selectFriendList" parameterType="int">
+		select member.nickname, member.userid, C.status from friend 
+	    left join 
+	        (
+	        select A.*, memberLog.status from 
+	            (select max(id) as maxId, memberId from memberLog group by memberId) A
+	            join memberLog on A.maxId = memberLog.id
+	        ) C
+	            on C.memberId = friend.user2
+	    join member
+	        on member.id = friend.user2
+	    where friend.user1 = #{id}  
+	</select>
+	
+	<select id="selectMemberList" resultType="member" parameterType="string">
+		select userid, nickname from member 
+			where
+				nickname like '%' || #{search} || '%'
+				or
+				userid like '%' || #{search} || '%'
+	</select>
+	
+</mapper>
