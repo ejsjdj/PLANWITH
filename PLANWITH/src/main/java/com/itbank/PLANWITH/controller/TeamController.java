@@ -24,6 +24,9 @@ public class TeamController {
    
    @Autowired private TeamService teamService;
    
+   // git 테스트
+   // 1111122222
+   
     @GetMapping("/main")
     public String main(HttpSession session) {
        MemberDTO login = (MemberDTO) session.getAttribute("login");
