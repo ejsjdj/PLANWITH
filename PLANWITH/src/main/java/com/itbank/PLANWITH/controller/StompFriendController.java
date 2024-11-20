@@ -28,7 +28,4 @@ public class StompFriendController {
 //		memberService.insertFriendRequest();
 		return message;
 	}
-	
-	
-	
 }

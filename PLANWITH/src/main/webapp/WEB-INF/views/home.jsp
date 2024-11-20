@@ -348,7 +348,7 @@ footer > .footinfo > .bottom > .right > img {
             <a href="${cpath}/board/boardList">게시판 임시 구현</a>
          </p>
 
-         <form method="POST" action="${cpath}/team/create">
+         <form action="${cpath}/team/main">
             <button type="submit">(비회원 전용)여행 시작하기</button>
          </form>
 
@@ -395,7 +395,7 @@ footer > .footinfo > .bottom > .right > img {
 
    <script>
     document.getElementById('startBtn').addEventListener('click', function() {
-        location.href = cpath + '/team/viewTeams'
+        location.href = cpath + '/team/main'
     })
 
     document.getElementById('loginBtn').addEventListener('click', function() {
@@ -419,4 +419,3 @@ footer > .footinfo > .bottom > .right > img {
 
 </body>
 </html>
-

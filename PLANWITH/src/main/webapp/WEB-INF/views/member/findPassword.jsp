@@ -3,97 +3,185 @@
 
 <style>
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f8ff;
         margin: 0;
         padding: 0;
     }
 
-    h3.find-password-title {
-        color: #4682b4;
-        text-align: center;
-        margin-top: 20px;
-        margin-bottom: 20px;
+    .findPassword-title {
+       font-size: 1.3rem;
+        margin-bottom: 2rem;
     }
-
-    .find-password-form {
+    
+   #findPasswordForm {
         width: 90%;
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
+        max-width: 350px;
+        margin: 4rem auto;
+        padding: 3rem 5rem;
         background-color: #ffffff;
         border-radius: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-
-    .find-password-form p {
+    
+    #findPasswordForm div{
         margin-bottom: 15px;
     }
+    
+    #findPasswordForm .group label {
+       width: 100%; /* 이미 적용된 스타일 */
+       display: block; /* 줄 전체를 차지하도록 */
+       text-align: left; /* 텍스트 왼쪽 정렬 */
+   }
+   
+   #findPasswordForm .group:nth-of-type(1) p,
+   #findPasswordForm .group:nth-last-of-type(1) p {   /* 아이디 그룹 */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+   
+   #findPasswordForm .group:nth-of-type(1) p span, 
+   #findPasswordForm .group:nth-last-of-type(1) p span{
+       display: inline-flex;
+       justify-content: space-between;
+   }
 
-    .find-password-form input[type="text"],
-    .find-password-form input[type="email"],
-    .find-password-form input[type="submit"] {
-        width: calc(100% - 20px);
+   #findPasswordForm .group:nth-of-type(1) p span:nth-of-type(1),
+   #findPasswordForm .group:nth-last-of-type(1) p span:nth-of-type(1)
+    {
+       display: block;
+       width: 100%; 
+       margin-right: 0.8rem;
+   }
+
+   #findPasswordForm .group:nth-of-type(1) .submit,
+   #findPasswordForm .group:nth-last-of-type(1) .submit {
+      margin-top: 0;
+   }
+   
+   #findPasswordForm #idCheck, 
+   #findPasswordForm #reloadBtn {
+       font-size: 0.8rem; 
+       padding: 0.62rem 0.8rem;
+       margin-top: 0px;
+   }
+
+    #findPasswordForm input {       
+       margin-bottom: 15px; 
+    } 
+    
+    #findPasswordForm .group p {
+        margin-top: 2px;
+    }
+    
+    #findPasswordForm .group label {
+          transition-duration: 0.3s;
+    }
+    
+    #findPasswordForm .input,
+    #findPasswordForm .submit {
+        width: calc(100%);
         padding: 10px;
-        margin: 5px 0;
+        margin: 5px auto;
         border: 1px solid #d3d3d3;
         border-radius: 5px;
-        font-size: 14px;
+        font-size: 1rem;
+        box-sizing: border-box;
     }
-
-    .find-password-form input[type="submit"] {
-        background-color: lightskyblue;
+    
+    #findPasswordForm .input {
+       margin-top: 0px;
+    }
+    
+    #findPasswordForm .input:focus {
+       border-color: #B1C9EF;
+       outline: none;
+    }
+    
+    #findPasswordForm fieldset img {
+       width: 100%;
+    }
+    
+    .flex {
+       display: flex;
+       align-items: center;
+       margin-bottom: 0;
+    }
+    
+   #findPasswordForm .flex .group {
+       display: flex;
+       align-items: center;
+       margin-bottom: 0;
+       font-size: 0.85rem;
+        font-weight: 400;
+        text-decoration: none;
+        text-align: center;
+   }
+   
+   #findPasswordForm .flex .group input {
+      margin: auto 0.5rem;
+   }
+    
+   #findPasswordForm .flex .group:nth-of-type(1) input {
+      margin-left: 0;
+   }
+    
+    #findPasswordForm .submit {
+        background-color: #628ECB;
         color: white;
         border: none;
         cursor: pointer;
-        font-weight: bold;
         transition: background-color 0.3s;
     }
 
-    .find-password-form input[type="submit"]:hover {
-        background-color: #87cefa;
+    #findPasswordForm .submit:hover {
+        background-color: pink;
+    }
+    
+    #findPasswordForm .right {
+       text-align: right;   
     }
 
-    #captcha fieldset {
-        border: 1px solid #d3d3d3;
-        padding: 10px;
-        border-radius: 5px;
+    .small-point {
+       font-size: 0.75rem;
+       color: #081F5C;
+        font-weight: 500;
+        text-decoration: none;
+    }
+    
+    .small-grey {
+       font-size: 0.75rem;
+/*        color: #adb5bd; */
+       color: #999999;
+/*        color: #868e90; */
+        font-weight: 400;
+        text-decoration: none;
         text-align: center;
     }
-
-    #captcha img {
-        display: block;
-        margin: 0 auto 10px;
+    
+    .margin  {
+       margin: 1rem;
     }
-
-    #captcha input[type="button"] {
-        padding: 5px 10px;
-        background-color: #87cefa;
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        transition: background-color 0.3s;
+    
+    a:hover {
+        text-decoration: underline;
     }
-
-    #captcha input[type="button"]:hover {
-        background-color: lightskyblue;
-    }
+    
 </style>
-
-<h3 class="find-password-title">패스워드 재설정</h3>
+   
 
 <form id="findPasswordForm" class="find-password-form">
-    <p>
-        <input type="text" name="userid" placeholder="사용자아이디를 입력하세요" autocomplete="off" required autofocus>
-    </p>
-    <p>
-        <input type="email" name="email" placeholder="회원가입 시 설정한 이메일을 입력하세요" autocomplete="off" required>
-    </p>
+   <h3 class="findPassword-title">비밀번호 재설정</h3>
+   <div class="group">
+       <label for="findPassword-userid" class="small-grey">사용자 아이디를 입력해주세요</label>
+       <p><input id="findPassword-userid" class="input" type="text" name="userid" autocomplete="off" required autofocus></p>
+   </div>
+   <div class="group">
+       <label for="findPassword-email" class="small-grey">설정한 이메일을 입력해주세요</label>
+       <p><input id="findPassword-email" class="input" type="email" name="email"  autocomplete="off" required></p>
+   </div>
     <div id="captcha"></div>
     <p>
-        <input type="submit" value="재발급">
+        <input class="submit" type="submit" value="재발급">
     </p>
 </form>
 
@@ -147,12 +235,14 @@
     async function loadCaptchaHandler() {
         const url = '${cpath}/members/captcha'
         const result = await fetch(url).then(resp => resp.json())
-        let tag = '<fieldset><p>'
-        tag += '<img src="${cpath}/upload/captcha/' + result.captchaImage + '" width="300">'
-        tag += '<input type="button" name="reload" value="새로고침">'
-        tag += '</p>'
-        tag += '<input type="text" name="user_captcha" placeholder="그림에 나타난 글자를 입력하세요" required>'
-        tag += '</fieldset>'
+      let tag = '<fieldset><p>'
+      tag += '<img src="${cpath}/upload/captcha/' + result.captchaImage + '" width="300">'
+      tag += '<div class="group">'
+      tag += '<label for="findPassword-captcha" class="small-grey">그림에 나타난 글자를 입력하세요</label>'
+      tag += '<p><span><input id="findPassword-captcha" class="input" type="text" name="captcha" required></span>'
+      tag += '<span><input id="reloadBtn" class="submit" type="button" name="reload" value="새로고침"></span></p>'
+      tag += '</div>'
+      tag += '</fieldset>'
         document.getElementById('captcha').innerHTML = tag
         document.querySelector('input[name="reload"]').onclick = loadHandler
     }

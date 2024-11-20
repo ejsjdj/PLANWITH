@@ -82,6 +82,8 @@
 
 
 <script>
+
+
 	// 친구찾기를 위한 목록 (친구찾기 버튼을 누르면 모달을 띄우고 친구를 검색할 수 있다)
 
 	function modalHandler() {
@@ -184,10 +186,5 @@
 
 	window.addEventListener('DOMContentLoaded', loadHandler)
 </script>
-
-
-
-
-
 </body>
 </html>

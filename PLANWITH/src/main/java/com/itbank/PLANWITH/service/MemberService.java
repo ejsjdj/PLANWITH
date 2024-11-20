@@ -28,7 +28,7 @@ public class MemberService {
     @Autowired private HashComponent hashComponent;
     @Autowired private MemberDAO memberDAO;
     @Autowired private FileComponent fileComponent;
-    
+
     @Value("classpath:txt/privacy_policy_개인정보 수집,이용동의.txt")
     private Resource agreement;
 
@@ -251,7 +251,7 @@ public class MemberService {
 		return memberDAO.insertLog(login);
 	}
 
-	public String getAgreement() {
+    	public String getAgreement() {
 		return readResource(agreement);
 	}
 	

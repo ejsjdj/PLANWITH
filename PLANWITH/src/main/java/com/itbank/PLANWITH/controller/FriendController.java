@@ -10,7 +10,4 @@ public class FriendController {
 
 	@GetMapping("/friend")
 	public void friend() {}
-	
-	
-	
 }

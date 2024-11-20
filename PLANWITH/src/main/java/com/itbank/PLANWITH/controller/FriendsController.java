@@ -25,13 +25,12 @@ public class FriendsController {
 	@GetMapping
 	public List<MemberDTO> friendList(HttpSession session) {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
-		return friendService.getFriendList(login.getId());
+		if(login != null) { return friendService.getFriendList(login.getId()); }
+		return null;
 	}
 	
 	@GetMapping("/memberList")
 	public List<MemberDTO> memberList(@RequestParam(defaultValue = "") String search) {
 		return friendService.getMemberList(search);
 	}
-	
-	
 }

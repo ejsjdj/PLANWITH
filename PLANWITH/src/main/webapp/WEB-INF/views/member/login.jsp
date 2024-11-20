@@ -8,7 +8,7 @@
         margin: 0;
         padding: 0;
     }
-	
+   
     .login-title {
         color: #4682b4;
         text-align: center;
@@ -25,11 +25,11 @@
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
-	#loginForm label {
-	    width: 100%; /* 이미 적용된 스타일 */
-	    display: block; /* 줄 전체를 차지하도록 */
-	    text-align: left; /* 텍스트 왼쪽 정렬 */
-	}
+   #loginForm label {
+       width: 100%; /* 이미 적용된 스타일 */
+       display: block; /* 줄 전체를 차지하도록 */
+       text-align: left; /* 텍스트 왼쪽 정렬 */
+   }
 
     #loginForm input {
         margin-bottom: 15px;
@@ -40,7 +40,7 @@
     }
     
     #loginForm .group label {
-   	    transition-duration: 0.3s;
+          transition-duration: 0.3s;
     }
     
     #loginForm .input,
@@ -55,17 +55,17 @@
     }
     
     #loginForm .input {
-    	margin-top: 0px;
+       margin-top: 0px;
     }
     
     #loginForm .input:focus {
-    	border-color: #B1C9EF;
-    	outline: none;
+       border-color: #B1C9EF;
+       outline: none;
     }
     
     #loginForm .group:nth-of-type(2) input,
     #loginForm .group:nth-of-type(2) p {
-    	margin-bottom: 0;
+       margin-bottom: 0;
     }
 
     #loginForm .submit {
@@ -81,44 +81,44 @@
     }
     
     #loginForm .right {
-    	text-align: right;	
+       text-align: right;   
     }
 
     .small-point {
-    	font-size: 0.75rem;
-    	color: #081F5C;
-	  	font-weight: 500;
-	  	text-decoration: none;
+       font-size: 0.75rem;
+       color: #081F5C;
+        font-weight: 500;
+        text-decoration: none;
     }
     
     .small-grey {
-    	font-size: 0.75rem;
-/*     	color: #adb5bd; */
-    	color: #999999;
-/*     	color: #868e90; */
-	  	font-weight: 400;
-	  	text-decoration: none;
-	  	text-align: center;
+       font-size: 0.75rem;
+/*        color: #adb5bd; */
+       color: #999999;
+/*        color: #868e90; */
+        font-weight: 400;
+        text-decoration: none;
+        text-align: center;
     }
     
     .margin  {
-    	margin: 1rem;
+       margin: 1rem;
     }
     
     .a:hover {
-    	text-decoration: underline;
+       text-decoration: underline;
     }
     
     .social-login {
         text-align: center;
         margin-top: 20px;
-    	display: flex;
-    	width: 440px;
-    	margin: auto;
-    	justify-content: center; 
-    	width: 90%;
-    	height: 5rem;
-    	align-items: center;
+       display: flex;
+       width: 440px;
+       margin: auto;
+       justify-content: center; 
+       width: 90%;
+       height: 5rem;
+       align-items: center;
     }
 
     .social-login img {
@@ -142,8 +142,73 @@
     .join-link a {
         margin: 0 10px;
     }
+    
+    #loginForm #captcha {
+       margin-top: 2rem;
+    }
+    
+   #loginForm .group:nth-last-of-type(1) p {   
+   /* 아이디 그룹 */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+   
+   #loginForm .group:nth-last-of-type(1) p span{
+       display: inline-flex;
+       justify-content: space-between;
+   }
 
+   #loginForm .group:nth-last-of-type(1) p span:nth-of-type(1)
+    {
+       display: block;
+       width: 100%; 
+       margin-right: 0.8rem;
+   }
+
+   #loginForm .group:nth-last-of-type(1) .submit
+    {
+      margin-top: 0;
+   }
+   
+   #loginForm #reloadBtn {
+       font-size: 0.8rem; 
+       padding: 0.62rem 0.8rem;
+       margin-top: 0px;
+   }
+    
+    .line {
+      display: flex;
+      flex-basis: 100%;
+      align-items: center;
+/*       color: rgba(0, 0, 0, 0.35); */
+/*       font-size: 14px; */
+      margin: 8px 0px;
+   }
+   
+   .line::before {
+      content: "";
+      flex-grow: 1;
+      margin: 0px 16px;
+      background: rgba(0, 0, 0, 0.35);
+      height: 1px;
+      font-size: 0px;
+      line-height: 0px;
+      margin-left: 0px;
+   }
+   
+   .line::after {
+      content: "";
+      flex-grow: 1;
+      margin: 0px 16px;
+      background: rgba(0, 0, 0, 0.35);
+      height: 1px;
+      font-size: 0px;
+      line-height: 0px;
+      margin-right: 0px;
+   }
 </style>
+
 
 
 <form id="loginForm" method="POST" action="${cpath}/member/login">
@@ -156,12 +221,12 @@
 	</div>
 	<div class="group">
 	    <label for="login-userpw" class="small-grey">비밀번호</label>
-		<p><input id="login-userpw" class="input" type="password" name="userpw" required></p>
+		<p><input id="login-userpw" class="input" type="password" maxlength="20" name="userpw" required></p>
 	</div>
 	
     <div id="captcha"></div>
     <div class="right">
-	    <a class="small-grey a" href="${cpath}/member/findUserId">아이디 찾기</a>
+	    <a class="small-grey a" href="${cpath}/member/findUserid">아이디 찾기</a>
 	    <a class="small-grey a" href="${cpath}/member/findPassword">비밀번호 찾기</a>
     </div>
     <p><input class="submit" type="submit" value="로그인"></p>
@@ -171,7 +236,7 @@
 		    <span class="small-grey">아직 회원이 아니세요?</span><a class="small-point a" href="${cpath}/member/join">회원가입</a>
 		</div>
 		
-		<p class="small-grey margin">SNS 간편 로그인</p>
+      	<p class="small-grey margin line">SNS 간편 로그인</p>
 	    <div class="social-login">
 		    <p><img id="loginWithNaver" src="${cpath}/resources/naver/네이버축약형.png" alt="네이버 로그인 버튼"></p>
 		    <p><img id="loginWithKakao" src="${cpath}/resources/kakao/카카오축약형.png" alt="카카오 로그인 버튼"></p>
@@ -185,7 +250,7 @@
 	async function submitHandler(event) {
 		event.preventDefault()
 		const formData = new FormData()
-		formData.append('user_captcha', loginForm.querySelector('input[name="captcha"]').value)
+		formData.append('user_captcha', loginForm.querySelector('input[name="user_captcha"]').value)
 		const url = '${cpath}/members/captcha'
 		const opt = {
 			method: 'POST',
@@ -205,11 +270,14 @@
 	async function loadCaptchaHandler() {
 		const url = '${cpath}/members/captcha'
 		const result = await fetch(url).then(resp => resp.json())
-		let tag = '<fieldset><p>'
-		tag += '<img src="${cpath}/upload/captcha/' + result.captchaImage + '" width="300">'
-		tag += '<input type="button" name="reload" value="새로고침">'
-		tag += '<p><input class="input" type="text" name="captcha" placeholder="그림에 나타난 글자를 입력하세요" required></p>'
-		tag += '</fieldset>'
+	      let tag = '<fieldset><p>'
+	      tag += '<img src="${cpath}/upload/captcha/' + result.captchaImage + '" width="300">'
+	      tag += '<div class="group">'
+	      tag += '<label for="login-captcha" class="small-grey">그림에 나타난 글자를 입력하세요</label>'
+	      tag += '<p><span><input id="login-captcha" class="input" type="text" name="user_captcha" required></span>'
+	      tag += '<span><input id="reloadBtn" class="submit" type="button" name="reload" value="새로고침"></span></p>'
+	      tag += '</div>'
+	      tag += '</fieldset>'
 		document.getElementById('captcha').innerHTML = tag
 		document.querySelector('input[name="reload"]').onclick = loadHandler
 	}
