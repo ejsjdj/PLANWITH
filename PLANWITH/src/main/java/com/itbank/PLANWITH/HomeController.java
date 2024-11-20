@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class HomeController {
 	
-	// 20241120
+	// 성재의 테스트
 
 	@RequestMapping("/")
 	public String home() {
