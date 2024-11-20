@@ -12,7 +12,7 @@
         margin-bottom: 2rem;
     }
     
-   #findPasswordForm {
+   	#findPasswordForm {
         width: 90%;
         max-width: 350px;
         margin: 4rem auto;
@@ -32,20 +32,17 @@
        text-align: left; /* 텍스트 왼쪽 정렬 */
    }
    
-   #findPasswordForm .group:nth-of-type(1) p,
-   #findPasswordForm .group:nth-last-of-type(1) p {   /* 아이디 그룹 */
+   #findPasswordForm .group:nth-last-of-type(1) p {  
       display: flex;
       align-items: center;
       justify-content: space-between;
    }
    
-   #findPasswordForm .group:nth-of-type(1) p span, 
    #findPasswordForm .group:nth-last-of-type(1) p span{
        display: inline-flex;
        justify-content: space-between;
    }
 
-   #findPasswordForm .group:nth-of-type(1) p span:nth-of-type(1),
    #findPasswordForm .group:nth-last-of-type(1) p span:nth-of-type(1)
     {
        display: block;
@@ -53,12 +50,10 @@
        margin-right: 0.8rem;
    }
 
-   #findPasswordForm .group:nth-of-type(1) .submit,
    #findPasswordForm .group:nth-last-of-type(1) .submit {
       margin-top: 0;
    }
    
-   #findPasswordForm #idCheck, 
    #findPasswordForm #reloadBtn {
        font-size: 0.8rem; 
        padding: 0.62rem 0.8rem;
@@ -254,4 +249,20 @@
     const findPasswordForm = document.getElementById('findPasswordForm')
     findPasswordForm.addEventListener('submit', resetPasswordHandler)
     window.addEventListener('DOMContentLoaded', loadHandler)
+</script>
+
+<!-- 스타일 스크립트 -->
+<script>
+	document.querySelectorAll('#findPasswordForm .group').forEach((group) => {
+	    const input = group.querySelector('.input')
+	    const label = group.querySelector('.small-grey')
+	
+	    input.addEventListener('focus', () => {
+	        label.style.color = '#B1C9EF'
+	    })
+		// blur는 focus가 벗어나면 발생하는 이벤트
+	    input.addEventListener('blur', () => {	
+	        label.style.color = ''
+	    })
+	})
 </script>
