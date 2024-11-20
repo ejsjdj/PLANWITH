@@ -9,90 +9,191 @@
         padding: 0;
     }
 
-    h3.find-userid-title {
-        text-align: center;
-        color: #4682b4;
-        margin-top: 20px;
+    .findUserid-title {
+       	font-size: 1.3rem;
+        margin-bottom: 2rem;
     }
-
-    .find-userid-form {
+    
+    #findUseridForm {
         width: 90%;
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
+        max-width: 350px;
+        margin: 4rem auto;
+        padding: 3rem 5rem;
         background-color: #ffffff;
         border-radius: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-
-    .find-userid-form div {
+    
+    #findUseridForm div{
         margin-bottom: 15px;
     }
+    
+    #findUseridForm .group label {
+       width: 100%; /* 이미 적용된 스타일 */
+       display: block; /* 줄 전체를 차지하도록 */
+       text-align: left; /* 텍스트 왼쪽 정렬 */
+   }
+   
+   #findUseridForm .group:nth-of-type(1) p,
+   #findUseridForm .group:nth-last-of-type(1) p {   /* 아이디 그룹 */
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+   }
+   
+   #findUseridForm .group:nth-of-type(1) p span, 
+   #findUseridForm .group:nth-last-of-type(1) p span{
+       display: inline-flex;
+       justify-content: space-between;
+   }
 
-    .find-userid-form label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #333;
+   #findUseridForm .group:nth-of-type(1) p span:nth-of-type(1),
+   #findUseridForm .group:nth-last-of-type(1) p span:nth-of-type(1)
+    {
+       display: block;
+       width: 100%; 
+       margin-right: 0.8rem;
+   }
+
+   #findUseridForm #requestCodeButton {
+		font-size: 0.8rem; 
+      	margin-top: 0;
+      	width: 6rem;
+    	padding: 0.6rem;
+   }
+   
+   #findUseridForm .submit {
+       padding: 0.62rem 0.8rem;
+       margin-top: 0px;
+   }
+
+    #findUseridForm input {       
+       margin-bottom: 15px; 
+    } 
+    
+    #findUseridForm .group p {
+        margin-top: 2px;
     }
-
-    .find-userid-form input[type="email"],
-    .find-userid-form input[type="text"] {
-        width: 100%;
+    
+    #findUseridForm .group label {
+          transition-duration: 0.3s;
+    }
+    
+    #findUseridForm .input,
+    #findUseridForm .submit {
+        width: calc(100%);
         padding: 10px;
-        font-size: 14px;
-        border: 1px solid #ccc;
+        margin: 5px auto;
+        border: 1px solid #d3d3d3;
         border-radius: 5px;
+        font-size: 1rem;
         box-sizing: border-box;
     }
-
-    .find-userid-form button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        font-weight: bold;
-        color: #ffffff;
-        background-color: lightskyblue; /* 버튼 색상 변경 */
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-top: 10px;
+    
+    #findUseridForm .input {
+       margin-top: 0px;
     }
-
-    .find-userid-form button:hover {
-        background-color: #87cefa; /* 호버 색상 변경 */
+    
+    #findUseridForm .input:focus {
+       border-color: #B1C9EF;
+       outline: none;
     }
-
-    #find-userid-result {
-        width: 90%;
-        max-width: 500px;
-        margin: 20px auto;
-        padding: 10px;
+    
+    #findUseridForm fieldset img {
+       width: 100%;
+    }
+    
+    .flex {
+       display: flex;
+       align-items: center;
+       margin-bottom: 0;
+    }
+    
+   #findUseridForm .flex .group {
+       display: flex;
+       align-items: center;
+       margin-bottom: 0;
+       font-size: 0.85rem;
+        font-weight: 400;
+        text-decoration: none;
         text-align: center;
-        color: #4682b4;
-        font-weight: bold;
+   }
+   
+   #findUseridForm .flex .group input {
+      margin: auto 0.5rem;
+   }
+    
+   #findUseridForm .flex .group:nth-of-type(1) input {
+      margin-left: 0;
+   }
+    
+    #findUseridForm .submit {
+        background-color: #628ECB;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
     }
+
+    #findUseridForm .submit:hover {
+        background-color: pink;
+    }
+    
+    #findUseridForm .right {
+       text-align: right;   
+    }
+
+    .small-point {
+       font-size: 0.75rem;
+       color: #081F5C;
+        font-weight: 500;
+        text-decoration: none;
+    }
+    
+    .small-grey {
+       font-size: 0.75rem;
+/*        color: #adb5bd; */
+       color: #999999;
+/*        color: #868e90; */
+        font-weight: 400;
+        text-decoration: none;
+        text-align: center;
+    }
+    
+    .margin  {
+       margin: 1rem;
+    }
+    
+    a:hover {
+        text-decoration: underline;
+    }
+
 </style>
 
-<h3 class="find-userid-title">아이디 찾기</h3>
 
-<form id="findUserIdForm" class="find-userid-form" method="POST">
-    <div>
-        <label for="sendCode">이메일</label>
-        <input type="email" name="email" required placeholder="이메일을 입력하세요">
+<form id="findUseridForm" class="findUserid-form" method="POST">
+<h3 class="findUserid-title">아이디 찾기</h3>
+    <div class="group">
+        <label for="findUserid-sendCode" class="small-grey">이메일</label>
+        <p>
+        	<span>
+		        <input id="findUserid-sendCode" class="input" type="email" name="email" required>
+        	</span>
+        	<span>
+		    	<button class="submit" type="button" id="requestCodeButton">인증번호 요청</button>
+        	</span>
+        </p>
     </div>
-    <button type="button" id="requestCodeButton">인증번호 요청</button>
 
-    <div>
-        <label for="verificationCode">인증번호</label>
-        <input type="text" name="userInputCode" required placeholder="인증번호 입력">
+    <div class="group">
+        <label for="findUserid-verificationCode" class="small-grey">인증번호</label>
+        <p><input id="findUserid-verificationCode" class="input" 
+        type="text" name="userInputCode" maxlength="10" required></p>
     </div>
-    <button type="submit">아이디 찾기</button>
+    <button class="submit" type="submit">아이디 찾기</button>
 </form>
 
-<div id="find-userid-result"></div>
+<div id="findUserid-result"></div>
 
 <script>
     // 인증번호 요청
@@ -136,4 +237,20 @@
 
     document.getElementById('requestCodeButton').addEventListener('click', requestVerificationCode)
     document.getElementById('findUserIdForm').addEventListener('submit', findUserId)
+</script>
+
+<!-- 스타일 스크립트 -->
+<script>
+	document.querySelectorAll('#findUseridForm .group').forEach((group) => {
+	    const input = group.querySelector('.input')
+	    const label = group.querySelector('.small-grey')
+	
+	    input.addEventListener('focus', () => {
+	        label.style.color = '#B1C9EF'
+	    })
+		// blur는 focus가 벗어나면 발생하는 이벤트
+	    input.addEventListener('blur', () => {	
+	        label.style.color = ''
+	    })
+	})
 </script>

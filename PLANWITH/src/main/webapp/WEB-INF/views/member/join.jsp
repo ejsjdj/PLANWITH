@@ -8,7 +8,7 @@
         padding: 0;
     }
     .join-title {
-       font-size: 1.3rem;
+       	font-size: 1.3rem;
         margin-bottom: 2rem;
     }
     #joinForm {
@@ -311,6 +311,7 @@
    }
     
    // 아이디 중복체크
+
    async function idCheckHandler() {
       const userid = joinForm.querySelector('input[name="userid"]').value
       if(userid == '') {
