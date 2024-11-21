@@ -3,6 +3,7 @@ package com.itbank.PLANWITH.repository;
 import java.util.List;
 
 import com.itbank.PLANWITH.model.BoardDTO;
+import com.itbank.PLANWITH.model.LikeDTO;
 import com.itbank.PLANWITH.model.PhotoDTO;
 import com.itbank.PLANWITH.model.ReplyDTO;
 
@@ -28,6 +29,15 @@ public interface BoardDAO {
 
 	List<PhotoDTO> selectPhotoByBoardId(int id);
 
-	void deletePhotoById(int id);
+	int deletePhotoById(int id);
+
+	int deleteBoardPhoto(int refId);
+
+	int selectCnt(LikeDTO dto);
+
+	int insertLikeBoard(LikeDTO dto);
+
+	int deleteLikeBoard(LikeDTO dto);
+
 
 }

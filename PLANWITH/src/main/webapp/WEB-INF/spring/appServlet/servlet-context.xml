@@ -61,7 +61,8 @@
          <mapping path="/board/**" />
          <mapping path="/friend/**"/>
          <mapping path="/team/**"/>
-         <mapping path="/map/**"/>
+         <exclude-mapping path="/team/main"/>
+         <exclude-mapping path="/team/view"/>
          
          <beans:bean class="com.itbank.PLANWITH.interceptor.LoginInterceptor" />
       </interceptor>

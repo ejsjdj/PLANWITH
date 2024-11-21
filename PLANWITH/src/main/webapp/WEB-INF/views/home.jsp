@@ -17,11 +17,15 @@
 }
 </style>
 <style>
+html {
+   width: 100%;
+}
 body {
    height: 3000px;
    margin: 0;
    font-size: 0.8rem;
    font-family: "Noto Sans KR", sans-serif;
+   width: 100%;
 }
 
 /* 스크롤바 스타일링 */
@@ -61,10 +65,6 @@ body {
    background-attachment: fixed;
 }
 
-.first { /* 처음 웹페이지 로드 시 보이는 모니터 크기의 화면부분 */
-   
-}
-
 .header {
    width: 100%;
    height: 70px;
@@ -83,8 +83,7 @@ body {
 
 /* container 공통 클래스 */
 .container {
-   width: 80%;
-   max-width: 1200px;
+   width: 1000px;
    margin: 0 auto;
    padding: 20px;
    box-sizing: border-box;
@@ -110,7 +109,7 @@ body {
    height: 100%;
 }
 
-.header-wrap-flex > .left {
+.header-wrap-flex>.left {
    justify-content: center;
    align-items: center;
    display: flex;
@@ -120,7 +119,7 @@ body {
    z-index: 6;
 }
 
-.header-wrap-flex > .left > .titleLink {
+.header-wrap-flex>.left>.titleLink {
    width: 100%;
    height: 100%;
    position: relative;
@@ -129,21 +128,24 @@ body {
    align-items: center;
 }
 
-.header-wrap-flex > .left > .titleLink > .logoImg {
+.header-wrap-flex>.left>.titleLink>.logoImg {
    width: 100px;
    position: absolute;
    z-index: 7;
 }
-.header-wrap-flex > .left > .titleLink > .logoImgHover {
+
+.header-wrap-flex>.left>.titleLink>.logoImgHover {
    width: 100px;
    position: absolute;
    display: none;
    z-index: 7;
 }
-.header-wrap-flex > .left > .titleLink:hover > logoImg {
+
+.header-wrap-flex>.left>.titleLink:hover>logoImg {
    display: none;
 }
-.header-wrap-flex > .left > .titleLink:hover > logoImgHover {
+
+.header-wrap-flex>.left>.titleLink:hover>logoImgHover {
    display: block;
 }
 
@@ -205,72 +207,79 @@ body {
    padding-top: 0;
 }
 
-.header > .container > header-wrap > .header-wrap-flex > .right {
+.header>.container>header-wrap>.header-wrap-flex>.right {
    width: 50px;
    height: 100%;
    display: flex;
    justify-content: center;
    align-items: center;
 }
-.header > .container > header-wrap > .header-wrap-flex > .right > #menuBtn {
+
+.header>.container>header-wrap>.header-wrap-flex>.right>#menuBtn {
    width: 100%;
    height: 100%;
    border: 0;
    background-color: 0;
 }
 
-
 footer {
-    top: -70px;
-    width: 100%;
-    height: 205px;
-    display: flex;
-    justify-content: center;
-    background-color: whitesmoke;
-    border-top: 1px solid rgb(219, 219, 219);
-    position: relative;
-    z-index: 5;
-}
-footer > .footinfo {
-    width: 80%;
-    height: 90%;
-    padding-top: 20px;
-}
-footer > .footinfo > .top {
-    width: 100%;
-    height: 35px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-footer > .footinfo > .top > .left {
-    color: rgb(113, 113, 113);
-}
-footer > .footinfo > .top > .right > a > button {
-    border: 1px solid rgb(168, 168, 168);
-    border-radius: 5px;
-    width: 80px;
-    height: 30px;
-}
-footer > .footinfo > .middle {
-    width: 100%;
-    height: 50px;
-}
-footer > .footinfo > .middle > span {
-    color: rgb(169, 169, 169);
-    font-size: 12px;
-}
-footer > .footinfo > .bottom {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-footer > .footinfo > .bottom > .right > img {
-    width: 50px;
-    border-radius: 50px;
+   top: -70px;
+   width: 100%;
+   height: 205px;
+   display: flex;
+   justify-content: center;
+   background-color: whitesmoke;
+   border-top: 1px solid rgb(219, 219, 219);
+   position: relative;
+   z-index: 5;
 }
 
+footer>.footinfo {
+   width: 80%;
+   height: 90%;
+   padding-top: 20px;
+}
+
+footer>.footinfo>.top {
+   width: 100%;
+   height: 35px;
+   display: flex;
+   justify-content: space-between;
+   margin-top: 20px;
+}
+
+footer>.footinfo>.top>.left {
+   color: rgb(113, 113, 113);
+}
+
+footer>.footinfo>.top>.right>a>button {
+   border: 1px solid rgb(168, 168, 168);
+   border-radius: 5px;
+   width: 80px;
+   height: 30px;
+}
+
+footer>.footinfo>.middle {
+   width: 100%;
+   height: 50px;
+}
+
+footer>.footinfo>.middle>span {
+   color: rgb(169, 169, 169);
+   font-size: 12px;
+}
+
+footer>.footinfo>.bottom {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   margin-top: 20px;
+}
+
+footer>.footinfo>.bottom>.right>img {
+   width: 50px;
+   border-radius: 50px;
+}
 </style>
 </head>
 

@@ -56,14 +56,18 @@ body, html {
 }
 
 header {
-	
+   width: 100%;
+   height: 70px;
+   background-color: #96C6D2;
 }
 
 .header-flex {
-	height: 50px;
-	background-color: #96C6D2;
-	display: flex;
-	justify-content: space-between;
+   width: 960px;
+   margin: 0 auto;
+   height: 30px;
+   padding: 20px;
+   display: flex;
+   justify-content: space-between;
 }
 
 .header-flex>.header-left {
@@ -182,37 +186,39 @@ header {
 }
 
 .myPage {
-	display: flex;
-	justify-content: space-between;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
 }
 
 .myPage>.myInfo {
-	margin-right: 30px;
+   margin-right: 30px;
 }
 
 .myPage>.myInfo>p:nth-child(1) {
-	margin-bottom: 0;
+   margin-bottom: 0;
 }
 
 .myPage>.myInfo>p:nth-child(2) {
-	margin-top: 0;
+   margin-top: 0;
 }
 
 .myPage>.myInfo>p>span {
-	font-size: 20px;
-	font-weight: 500;
+   font-size: 20px;
+   font-weight: 500;
 }
 
 .myPage>.myInfo>p>a {
-	color: darkgrey;
-	text-decoration: none;
-	font-size: 13px;
+   color: darkgrey;
+   text-decoration: none;
+   font-size: 13px;
 }
 
 .profileImg {
-	width: 70px;
-	height: 70px;
-	border-radius: 50%;
+   width: 70px;
+   height: 70px;
+   border-radius: 50%;
+   margin-left: 20px;
 }
 
 /*    -------------------------------- footer ----------------------------------------- */
