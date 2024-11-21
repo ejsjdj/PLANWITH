@@ -14,5 +14,6 @@
 		<typeAlias type="com.itbank.PLANWITH.model.ScheduleDTO" alias="schedule"/>
 		<typeAlias type="com.itbank.PLANWITH.model.PlaceDTO" alias="place"/>
 		<typeAlias type="com.itbank.PLANWITH.model.ReplyDTO" alias="reply"/>
+		<typeAlias type="com.itbank.PLANWITH.model.LikeDTO" alias="like"/>
 	</typeAliases>
 </configuration>

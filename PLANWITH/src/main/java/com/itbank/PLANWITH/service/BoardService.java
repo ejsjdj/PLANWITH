@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.itbank.PLANWITH.component.FileComponent;
 import com.itbank.PLANWITH.model.BoardDTO;
+import com.itbank.PLANWITH.model.LikeDTO;
 import com.itbank.PLANWITH.model.PhotoDTO;
 import com.itbank.PLANWITH.model.ReplyDTO;
 import com.itbank.PLANWITH.repository.BoardDAO;
@@ -52,6 +53,13 @@ public class BoardService {
     	return boardDAO.updateBoard(board);
     }
 
+	public int updateBoardPhoto(PhotoDTO photo) {
+    	List<PhotoDTO> photoList = boardDAO.selectPhotoByBoardId(photo.getRefId());
+		for (PhotoDTO dto : photoList) fileComponent.deleteFile(dto.getStoredFileName());
+		
+		return boardDAO.insertBoardPhoto(photo);
+	}
+    
     // 게시글 삭제
     public int deleteBoard(int id) {
     	// 게시글 안에 있는 업로드된 파일 삭제
@@ -61,6 +69,13 @@ public class BoardService {
         return boardDAO.deleteBoard(id);
     }
 
+	public int deleteBoardPhoto(int id) {
+    	List<PhotoDTO> photoList = boardDAO.selectPhotoByBoardId(id);
+		for (PhotoDTO dto : photoList) fileComponent.deleteFile(dto.getStoredFileName());
+		
+		return boardDAO.deleteBoardPhoto(id);
+	}
+    
     // 댓글목록 불러오기
 	public List<ReplyDTO> getReplyList(int id) {
 		return boardDAO.getReplyList(id);
@@ -69,6 +84,15 @@ public class BoardService {
 	// 댓글 작성
 	public int writeReply(ReplyDTO dto) {
 		return boardDAO.writeReply(dto);
+	}
+	
+	// 좋아요 기능
+	public int likeBoard(LikeDTO dto) {
+		int count = boardDAO.selectCnt(dto);	// 로그인 아이디랑 해당 보드에 해당하는 좋아요가 있는지 확인
+		if(count == 0) boardDAO.insertLikeBoard(dto);	// 좋아요 안했으면 추가
+		if(count == 1) boardDAO.deleteLikeBoard(dto);	// 좋아요 해있으면 취소
+		
+		return count;	// 0 이면 추가됨, 1 이면 삭제됨
 	}
 
 }

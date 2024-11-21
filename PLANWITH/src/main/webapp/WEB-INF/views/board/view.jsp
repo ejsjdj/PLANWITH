@@ -8,8 +8,7 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-		}
-		
+		}	
 	</style>
 	
 	
@@ -34,7 +33,9 @@
 	</div>
 	<div>${board.content }</div>
 	<hr>
-
+	
+	<div id="like">게시글이 좋으면 눌러주세요!</div>
+	
 	<div class="replyList">
 	<c:forEach var="reply" items="${replyList }">
 		<div class="reply ${reply.replyDepth == 0 ? 'parent' : '' }" 
@@ -60,35 +61,52 @@
 	</div>	
 
 	<script>
+		// 댓글 
 		function clickHandler(event) {
-		    let target = this
+		    let target = this			
 		    while (!target.classList.contains('parent')) {
 		        target = target.previousElementSibling
 		    }
 		    
 		    const id = +target.dataset.id
 			const replyTo = event.target.children[0].querySelector('span').textContent
-			console.log(replyTo)
 	    	const replyContent = replyForm.querySelector('textarea[name="content"]')
-		    
-		    // replyDepth는 항상 1
-		    
-	    	event.target.appendChild(replyForm);
+		       
 	    	replyContent.placeholder = '@' + replyTo + ' '
 	    	replyContent.focus()
 	    	replyForm.querySelector('input[name="parentId"]').value = id
-	    	replyForm.querySelector('input[name="replyDepth"]').value = 1
+	    	replyForm.querySelector('input[name="replyDepth"]').value = 1	// replyDepth는 항상 1	
 	    	
 	    	replyForm.onsubmit = function(event) {
 	    		replyContent.value = '@' + replyTo + ' ' + replyContent.value
 		    	console.log(replyForm.querySelector('textarea[name="content"]').value)
-	    	}    	
+	    	} 	
 		}
-		
+				
 		const replyForm = document.getElementById('replyForm')
 		const addReplyDiv = document.querySelectorAll('.reply')
 		
 		addReplyDiv.forEach(reply => reply.addEventListener('click', clickHandler))
 	</script>
+	
+	<script>
+		// 좋아요
+		async function likeHandler() {
+			const url = '${cpath}/boards/likeBoard/${board.id}'
+			const result = await fetch(url).then(resp => resp.json())
+			console.log(result)
+			
+			if(result.deleteLike) {
+				like.innerText = '🤍안좋아요'
+			} else {
+				like.innerText = '❤️좋아요'
+			}	
+		}
+		
+		const like = document.getElementById('like')
+		like.addEventListener('click', likeHandler)
+	</script>
+	
+	
 </body>
 </html>

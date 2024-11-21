@@ -37,16 +37,16 @@ h3 {
     background-color: #f9f9f9;
 }
 
+.bodyBox > .inlineBox > .items > .item:hover {
+	border: 1px solid #DEF5EE;
+    background-color: #DEF5EE;
+	cursor: pointer;
+}
+
 .bodyBox > .inlineBox > .items > .item > .title {
     font-weight: bold;
     font-size: 18px;
-}
-.bodyBox > .inlineBox > .items > .item > .title > a {
-    text-decoration: none;    
     color: #0073e6;
-}
-.bodyBox > .inlineBox > .items > .item > .title > a:hover {
-    color: #75baff;
 }
 
 .bodyBox > .inlineBox > .items > .item > .meta {
@@ -61,12 +61,6 @@ h3 {
     font-size: 14px;
     color: #555;
     line-height: 1.5;
-}
-
-.bodyBox > .inlineBox > .items > .item > .content > a {
-    color: #0073e6;
-    text-decoration: none;
-    margin-left: 5px;
 }
 
 #insert {
@@ -88,10 +82,10 @@ h3 {
         <div class="items" id="postContainer">
             <!-- 서버에서 전달된 list를 사용하여 게시글 목록을 출력 -->
             <c:forEach var="board" items="${list}">
-                <div class="item">
+                <div class="item" data-id="${board.id }">
                     <!-- 게시글 제목 -->
                     <div class="title">
-                        <a href="${cpath }/board/view/${board.id }">${board.title }</a>
+                        ${board.title }
                     </div>
                     <!-- 게시글 작성자 및 작성일 -->
                     <div class="meta">
@@ -105,13 +99,22 @@ h3 {
                         <c:if test="${board.content.length() <= 100}">
                             ${board.content}
                         </c:if>
-                        <a href="${cpath }/board/view/${board.id }">자세히 보기</a>
                     </div>
                 </div>
             </c:forEach>
         </div>
     </div>
 </div>
+
+<script>
+	const itemAll = document.querySelectorAll('.item')
+	
+	itemAll.forEach(item => item.addEventListener('click', function(event) {
+		const id = event.currentTarget.dataset.id
+		console.log('id : ' + id)
+		location.href = '${cpath}/board/view/' + id
+	}))
+</script>
 
 
 </body>
