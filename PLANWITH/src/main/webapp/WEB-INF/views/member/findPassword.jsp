@@ -136,6 +136,10 @@
        text-align: right;   
     }
 
+    #findPasswordForm fieldset {
+    	border-radius: 5px;
+    }
+
     .small-point {
        font-size: 0.75rem;
        color: #081F5C;
