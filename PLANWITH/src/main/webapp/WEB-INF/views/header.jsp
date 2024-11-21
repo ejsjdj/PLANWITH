@@ -62,6 +62,7 @@ header {
 	background-color: white;
 	border-bottom: 1px solid #f5f6f8;
 	position: fixed;
+	z-index: 5;
 }
 
 .header-flex {
@@ -129,7 +130,7 @@ header {
 	right: -300px;
 	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 	transition: right 0.3s ease;
-	z-index: 20;
+	z-index: 5;
 }
 
 .sidebar.open {
@@ -154,28 +155,28 @@ header {
 	cursor: pointer;
 }
 
-.sidebarContent {
+.sidebarmodalBox {
 	padding: 20px;
 }
 
-.sidebarContent ul {
+.sidebarmodalBox ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
-.sidebarContent ul li {
+.sidebarmodalBox ul li {
 	margin: 15px 0;
 }
 
-.sidebarContent ul li a {
+.sidebarmodalBox ul li a {
 	text-decoration: none;
 	color: #333;
 	font-size: 16px;
 	transition: color 0.3s ease;
 }
 
-.sidebarContent ul li a:hover {
+.sidebarmodalBox ul li a:hover {
 	color: #96C6D2;
 }
 
@@ -187,7 +188,7 @@ header {
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.4);
-	z-index: 10;
+	z-index: 4;
 }
 
 .myPage {
@@ -311,10 +312,10 @@ footer>.footinfo>.bottom>.right>img {
 	background-color: rgba(255, 255, 255, 0);
 	width: 100%;
 	height: 100%;
-	z-index: 21;
+	z-index: 6;
 }
 
-.content {
+.modalBox {
 	width: 470px;
 	height: 430px;
 	padding: 15px;
@@ -324,16 +325,17 @@ footer>.footinfo>.bottom>.right>img {
 	background-color: white;
 	border: 1px solid black;
 	border-radius: 25px;
-	z-index: 22;
+	z-index: 7;
 	left: 25%;
+	top: 15%;
 }
 
-.content>p {
+.modalBox>p {
 	display: flex;
 	justify-content: center;
 }
 
-.content>p>span {
+.modalBox>p>span {
 	color: #4682b4;
 	font-size: 22px;
 	font-weight: 500;
@@ -341,7 +343,7 @@ footer>.footinfo>.bottom>.right>img {
 	justify-content: center;
 }
 
-.content>.searchFriendList {
+.modalBox>.searchFriendList {
 	border: 1px dashed blue;
 	width: 450px;;
 	height: 230px;
@@ -444,7 +446,7 @@ footer>.footinfo>.bottom>.right>img {
 			<h3>메뉴</h3>
 			<button id="closeSidebar" class="closeSidebarBtn">X</button>
 		</div>
-		<div class="sidebarContent">
+		<div class="sidebarmodalBox">
 			<c:if test="${not empty login }">
 				<div class="myPage">
 					<img class="profileImg"
@@ -506,7 +508,7 @@ footer>.footinfo>.bottom>.right>img {
 	<!-- 친구찾기 모달 -->
 	<div id="addModal" class="modal hidden">
 		<div class="overlay"></div>
-		<div class="content">
+		<div class="modalBox">
 			<p>
 				<span>친구찾기</span>
 			</p>
@@ -679,7 +681,7 @@ footer>.footinfo>.bottom>.right>img {
 			memberList.innerHTML = tag
 
               // 모달에 추가
-			document.querySelector('#addModal > .content').appendChild(memberList)
+			document.querySelector('#addModal > .modalBox').appendChild(memberList)
     
             // 아직 친구요청 구현 X .. memberId 가 안넘어옴
 			const sendFriendRequestBtn = document.getElementById('sendFriendRequestBtn')
