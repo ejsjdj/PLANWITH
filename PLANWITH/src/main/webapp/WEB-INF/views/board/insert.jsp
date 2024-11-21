@@ -97,6 +97,7 @@
 		border-radius: 8px;
 		font-size: 18px;
 	}
+	
 	.removeInputBtn:hover {
 		background-color: red;
 	}

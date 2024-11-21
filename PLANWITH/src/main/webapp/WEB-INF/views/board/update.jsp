@@ -167,6 +167,7 @@
 				<input  type="button" id="rollbackBtn" value="사진수정취소">
 			</p>
 			
+			
 			<p class="normalTagP">
 				<span>내용</span>
 		    	<textarea id="updateContent" name="content">${board.content}</textarea>
@@ -184,10 +185,11 @@
 
 
 
+
 <script>
 	
 	const updateBoardForm = document.getElementById('updateBoardForm')
-
+	
 	function changeHandler(event) {
 	    // event.target 은 파일을 첨부하는 input 요소이다
 	    // preview는 미리보기 그림을 보여줄 div 요소이다
