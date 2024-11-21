@@ -115,7 +115,6 @@ public class TeamService {
 		TeamMemberDTO teamMemberDTO = new TeamMemberDTO(teamId, memberId);
 		
 		int row = teamDAO.selectTeamMember(teamMemberDTO);
-		System.out.println("row: " + row);
 		return row > 0;	
 	}
 

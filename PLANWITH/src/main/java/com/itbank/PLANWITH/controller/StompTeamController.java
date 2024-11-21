@@ -104,7 +104,6 @@ public class StompTeamController {
     // 시간 수정했을 시
     @MessageMapping("/updateScheduleTime/{teamId}")
     public void updateScheduleTime(@DestinationVariable int teamId, @Payload ScheduleDTO scheduleDTO) {
-    	System.out.println("scheduleDTO 의 시간 처리 : " + scheduleDTO.getStartTime() + ".." + scheduleDTO.getEndTime());
     	
     	mapService.updateTime(scheduleDTO);
     	
