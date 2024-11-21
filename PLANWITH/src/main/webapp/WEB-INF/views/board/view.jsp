@@ -155,7 +155,11 @@
 		    const id = +target.dataset.id
 			const replyTo = event.target.children[0].querySelector('span').textContent
 	    	const replyContent = replyForm.querySelector('textarea[name="content"]')
+	    	const currentDepth = replyForm.querySelector('input[name="replyDepth"]').value
 		       
+	    	if(currentDepth == 1 && replyForm.querySelector('input[name="parentId"]').value == id) {
+	    		
+	    	}
 	    	replyContent.placeholder = '@' + replyTo + ' '
 	    	replyContent.focus()
 	    	replyForm.querySelector('input[name="parentId"]').value = id

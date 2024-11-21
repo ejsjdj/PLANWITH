@@ -181,7 +181,7 @@ a:hover {
    width: 100%;
    box-sizing: border-box;
    border-radius: 5px;
-   height: 100%;
+   height: 9rem;
 }
 
 #agreement-check {
@@ -379,6 +379,7 @@ a:hover {
    
    // 처음 문서가 실행될 때 실행되는 함수, 캡차를 작동시킨다
    function loadHandler() {
+	   joinForm.querySelector('input[name="userid"]').focus
       loadCaptchaHandler()
    }
    

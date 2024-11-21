@@ -275,7 +275,7 @@
     }
     
 </style>
-
+<div class="modalOverlay"></div>
 <div class="teamListBody container">
 	<div class="teamBoxes">
 	
@@ -424,9 +424,7 @@
 	        }
 	    })
 	})
-
 </script>
-
 
 </body>
 </html>
