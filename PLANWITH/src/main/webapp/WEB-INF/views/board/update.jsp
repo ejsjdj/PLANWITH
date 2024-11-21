@@ -4,39 +4,184 @@
 
 <style>
 	.preview {
-	position: relative;
-	box-sizing: border-box;
-	bottom: 0;
-	width: 100px;
-	height: 100px;
-	background-position: center center;
-	background-repeat: no-repeat;
-	background-size: auto 100%;
-	margin-top: 20px;
-	overflow: hidden;
-	border: 1px solid lime;
-   }
+		position: relative;
+		box-sizing: border-box;
+		bottom: 0;
+		width: 100px;
+		height: 100px;
+		background-position: center center;
+		background-repeat: no-repeat;
+		background-size: auto 100%;
+		margin-top: 20px;
+		overflow: hidden;
+		border: 1px solid #dadada;
+		border-radius: 10px;
+   	}
+   	.updateMainBody {
+		width: 100%;
+		height: auto;
+		display: flex;
+		padding-top: 70px;
+   	}
+   	.updateMainBody > .updateInnerBox {
+   		width: 600px;
+   		height: auto;
+   		padding: 50px;
+   		margin: 80px auto;
+   		background-color: #ffffff;
+    	border-radius: 10px;
+    	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   	}
+   	.updateMainBody > .updateInnerBox > h3 {
+   		display: flex;
+   		justify-content: center;
+   		font-size: 22px;
+   	}
+   	.updateMainBody > .updateInnerBox > #updateBoardForm > .normalTagP {
+   		display: flex;
+   		flex-flow: column;
+   		margin: 25px 0;
+   	}
+   	.updateMainBody > .updateInnerBox > #updateBoardForm > .normalTagP > span {
+   		margin-left: 10px;
+   		font-size: 14px;
+   		color: #7a7a7a;
+   	}
+   	#title {
+   		width: 580px;
+   		height: 30px;
+   		padding: 5px 10px;
+   		font-size: 16px;
+   		border: 1px solid #dadada;
+   		border-radius: 10px;
+   	}
+   	#updateContent {
+   		width: 580px;
+   		height: 150px;
+   		padding: 5px 10px;
+   		border: 1px solid #dadada;
+   		border-radius: 10px;
+   		font-size: 16px;
+    	font-family: auto;
+   	}
+   	#tag {
+   		width: 580px;
+   		height: 30px;
+   		padding: 5px 10px;
+   		font-size: 16px;
+   		border: 1px solid #dadada;
+   		border-radius: 10px;
+   	}
+   	#updateSubmit {
+   		background: linear-gradient(70deg, #172d9d, #561689);
+   		color: white;
+   		width: 600px;
+   		height: 50px;
+   		border-radius: 10px;
+   		font-size: 18px;
+   		border: 0;
+   		transition: background 0.4s ease;
+   	}
+   	#updateSubmit:hover {
+		filter: brightness(1.2);
+	}
+	.removeInputBtn {
+		width: 35px;
+		height: 35px;
+		border: 0;
+		background-color: #ff6a84;
+		color: white;
+		border-radius: 8px;
+		font-size: 18px;
+	}
+	.removeInputBtn:hover {
+		background-color: red;
+	}
+	#addFileBtn {
+		border: 0;
+		background-color: #afe2af;
+		height: 30px;
+		padding: 5px;
+		font-size: 16px;
+		border-radius: 8px;
+		color: white;
+	}
+	#addFileBtn:hover {
+		background-color: #64c864;
+	}
+	#deleteFilesBtn {
+		border: 0;
+		background-color: #afe2af;
+		height: 30px;
+		padding: 5px;
+		font-size: 16px;
+		border-radius: 8px;
+		color: white;
+	}
+	#deleteFilesBtn:hover {
+		background-color: #64c864;
+	}
+	#rollbackBtn {
+		border: 0;
+		background-color: #ff6a84;
+		height: 30px;
+		padding: 5px;
+		font-size: 16px;
+		border-radius: 8px;
+		color: white;
+		margin-top: 5px;
+	}
+	#rollbackBtn:hover {
+		background-color: red;
+	}
+	.inputFile {
+	    display: flex;
+	    flex-flow: column; 
+	}
+	.inputFile.hidden {
+    	display: none !important; /* !important로 우선순위를 높임 */
+	}
 </style>
 
+<div class="updateMainBody">
+	<div class="updateInnerBox">
+		<h3>게시글 수정</h3>
+		
+		<form id="updateBoardForm" method="POST" enctype="multipart/form-data">
+		
+		    <p class="normalTagP">
+		    	<span>제목</span>
+		    	<input type="text" id="title" name="title" value="${board.title}">
+		    </p>
+		    
+		    <!-- 사진리스트, 삭제버튼 누르면 ajax로 전부삭제, 추가누르면 disable 풀리고 추가만 가능 -->
+		   	<p class="normalTagP">
+		   		<input type="button" id="deleteFilesBtn" value="사진지우고 다시 올리기">
+		   	</p> 
 
-<h3>게시글 수정</h3>
 
-<form id="updateBoardForm" method="POST" enctype="multipart/form-data">
+			<div class="fileArea inputFile hidden"></div>
+			
+			<p class="inputFile hidden">
+				<input id="addFileBtn" type="button" value="+">
+				<input  type="button" id="rollbackBtn" value="사진수정취소">
+			</p>
+			
+			<p class="normalTagP">
+				<span>내용</span>
+		    	<textarea id="updateContent" name="content">${board.content}</textarea>
+		    </p>
+		    
+		    <p class="normalTagP">
+		    	<span>태그</span>
+		    	<input type="text" id="tag" name="tag" value="${board.tag}">
+		    </p>	
+		    <p><input type="hidden" name="flag" value="false"></p> 
+		    <p class="normalTagP"><input id="updateSubmit" type="submit" value="수정하기"></p>
+		</form>
+	</div>
+</div>
 
-    <p><input type="text" id="title" name="title" value="${board.title}"></p>
-    <!-- 사진리스트, 삭제버튼 누르면 ajax로 전부삭제, 추가누르면 disable 풀리고 추가만 가능 -->
-   	<p><input  type="button" id="deleteFilesBtn" value="사진지우고 다시 올리기"></p> 
-<!--    	<p></p>  -->
-	<div class="fileArea inputFile hidden"></div>
-	<p class="inputFile hidden">
-		<input id="addFileBtn" type="button" value="사진추가">
-		<input  type="button" id="rollbackBtn" value="사진수정취소">
-	</p>
-    <textarea name="content">${board.content}</textarea>
-    <p><input type="text" id="tag" name="tag" value="${board.tag}"></p>
-    <p><input type="hidden" name="flag" value="false"></p> 
-    <p><input type="submit" value="수정하기"></p>
-</form>
 
 
 <script>
