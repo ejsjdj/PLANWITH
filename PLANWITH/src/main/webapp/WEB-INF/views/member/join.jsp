@@ -137,7 +137,11 @@
     #joinForm .right {
        text-align: right;   
     }
-
+	    
+    #joinForm fieldset {
+    	border-radius: 5px;
+    }
+    
     .small-point {
        font-size: 0.75rem;
        color: #081F5C;
@@ -168,14 +172,18 @@
         padding: 10px;
         max-height: 150px;
         overflow-y: auto;
-        margin-bottom: 15px;
+        margin-bottom: 0;
         font-size: 0.8rem;
         color: #495057;
+        width: 100%;
+        box-sizing: border-box;
+        border-radius: 5px;
     }
         
     #agreement-check {
-          font-size: 0.85rem;
+        font-size: 0.85rem;
         font-weight: 400;
+        display: flex;
     }
     
     #agreement-check * {
@@ -245,9 +253,12 @@
     <div id="agreement-section">
 <!--         <div id="agreement-content"></div> -->
 		<textarea id="agreement-content" readonly>${agreement}</textarea>
-        <label>
+		<br>
+        <label id="agreement-check">
+            <span>
             <input type="checkbox" name="termsCheck" id="termsCheck" value="true" required>
-            위의 약관과 개인정보 처리방침에 동의합니다.
+            </span>
+            <span>위의 약관과 개인정보 처리방침에 동의합니다.</span>
         </label>
     </div>
 	

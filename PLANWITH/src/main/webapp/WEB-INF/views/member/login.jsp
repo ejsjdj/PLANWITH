@@ -176,6 +176,10 @@
        padding: 0.62rem 0.8rem;
        margin-top: 0px;
    }
+   
+    #loginForm fieldset {
+    	border-radius: 5px;
+    }
     
     .line {
       display: flex;
