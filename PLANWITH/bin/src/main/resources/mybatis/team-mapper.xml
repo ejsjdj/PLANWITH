@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.itbank.PLANWITH.repository.TeamDAO">
+
+    <insert id="insertTeam" parameterType="team">
+        insert into team 
+        	(name, inviteCode)
+        values 
+        	(#{name}, #{inviteCode})
+    </insert>
+
+    <select id="selectRecentTeamId" resultType="int">
+       	select max(id) from team
+    </select>
+    
+	<insert id="insertTeamMember" parameterType="teamMember">
+	    insert into teamMember
+	        (memberId, teamId) 
+	    values
+	        (#{memberId}, #{teamId})
+	</insert>
+	
+	<select id="selectTeamById" parameterType="int" resultType="team">
+	    select 
+	        id, name, createTime, inviteCode
+	    from team
+	    where id = #{teamId}
+	</select>
+    
+	<select id="selectTeamListByMemberId" parameterType="int" resultType="team">
+	    select 
+	        id, 
+	        name, 
+	        createTime, 
+	        inviteCode
+	    from team
+	    where id in (	
+	    	select teamId from teamMember 
+	    	where memberId = #{memberId}
+	    )
+	</select>
+	
+	<select id="selectTeamByInviteCode" parameterType="String" resultType="team">
+		select 
+			id, name, createTime, inviteCode
+		from team
+		where inviteCode = #{inviteCode}
+	</select>
+
+	<select id="selectMemberListByTeamId" parameterType="int" resultType="member">
+    	select 
+    		m.id,
+    		m.nickname, 
+    		m.userid,
+    		mp.storedFileName as member_photo
+    	from teamMember tm
+    	join member m
+    		on tm.memberId = m.id
+    	left join memberPhoto mp 
+    		on m.id = mp.memberId
+    	where tm.teamId = #{teamId}
+	</select>	
+	
+	<select id="selectScheduleListByTeamId" parameterType="int" resultType="schedule">
+			select
+				id,
+				startTime,
+				endTime,
+				placeId,
+				content,
+				teamId,
+				createdTime
+			from schedule
+			where teamId = #{teamId}
+			order by startTime
+	</select>	
+
+	   <select id="selectMessageListByTeamId" parameterType="int" resultType="message">
+      select 
+         ms.id,
+         ms.teamId,
+         ms.memberId,
+         ms.content,
+         ms.sentTime,
+         ms.isUser,
+         m.nickname as nickname
+      from message ms
+        join member m
+            on ms.memberId = m.id
+        
+      where teamId = #{teamId}
+      order by sentTime 
+   </select>  		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+	<insert id="insertMessage" parameterType="message">
+	    insert into message
+	        (teamId, memberId, content, isUser)
+	    values
+	        (#{teamId}, #{memberId}, #{content}, #{isUser})
+	</insert>
+	
+	<delete id="deleteMemberFromTeam" parameterType="teammember" >
+		delete from teamMember
+		where 
+			memberId = #{memberId}
+			and
+			teamId = #{teamId}
+	</delete>
+	
+	<select id="selectTeamMember" parameterType="teammember" resultType="int">
+		select 
+			count(*)
+		from teamMember
+		where 
+			memberId = #{memberId}
+			and
+			teamId = #{teamId}
+	</select>
+	
+	<select id="selectMemberNicknameById" parameterType="int" resultType="String">
+		select 
+			nickname
+		from member
+		where id = #{id}
+	</select>
+	
+	<update id="updateTeamName" parameterType="team">
+		update team
+		set
+			name = #{name}
+		where id = #{id}
+	</update>
+	
+	<select id="selectLastSystemMessage" parameterType="message" resultType="string">
+	    select 
+	        content
+	    from 
+	        message
+	    where 
+	        teamId = #{teamId}
+	        and 
+	        memberId = #{memberId}
+	        and 
+	        isUser = 0
+	    order by 
+	        id DESC
+	    fetch first 1 row only
+	</select>
+	
+ 
+	
+</mapper>

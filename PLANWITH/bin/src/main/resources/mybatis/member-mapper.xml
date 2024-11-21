@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itbank.PLANWITH.repository.MemberDAO">  
+
+    <!-- ID 중복 확인 -->
+    <select id="selectCount" parameterType="String" resultType="int">
+        SELECT COUNT(*) FROM member WHERE userid = #{userid}
+    </select>
+
+    <!-- salt 값 조회 -->
+    <select id="selectSalt" parameterType="String" resultType="String">
+        SELECT salt FROM member WHERE userid = #{userid}
+    </select>
+
+	<!-- 일반 회원가입 시 & SNS 회원가입 시 -->
+	<insert id="insertMember" parameterType="member">
+		insert into member (userid, salt, hash, nickname, gender, email, address)
+					values(#{userid, jdbcType=VARCHAR}, #{salt, jdbcType=VARCHAR}, #{hash, jdbcType=VARCHAR}, 
+					#{nickname, jdbcType=VARCHAR}, #{gender, jdbcType=VARCHAR}, 
+					#{email, jdbcType=VARCHAR}, #{address, jdbcType=VARCHAR}) 
+	</insert>
+	
+	<!-- SNS 회원가입 시 -->
+	<insert id="insertSNSMember" parameterType="member">
+		insert all 
+			into member (userid, salt, hash, nickname, gender, email, address)
+					values(#{snsId, jdbcType=VARCHAR}, #{salt, jdbcType=VARCHAR}, #{hash, jdbcType=VARCHAR}, 
+					#{nickname, jdbcType=VARCHAR}, #{gender, jdbcType=VARCHAR}, 
+					#{email, jdbcType=VARCHAR}, #{address, jdbcType=VARCHAR})
+					
+			into snsInfo (memberId, snsId, snsType) values (member_seq.CURRVAL, #{snsId}, #{snsType})
+		select * from dual
+	</insert>
+
+	<!-- 일반로그인 -->
+	<select id="selectLogin" parameterType="member">
+	    select M.id, M.userid, M.nickname, M.gender, M.email, M.address, ML.status,
+	           P.storedFileName as "memberPhoto"
+	    from member M
+	    left join memberPhoto P ON M.id = P.memberId
+	    left join memberLog ML on M.id = ML.memberId
+        where M.userid = #{userid} and M.hash = #{hash}
+        order by ML.loginDate DESC
+        fetch FIRST 1 row ONLY
+	</select>
+	
+	<!-- SNS로그인 -->
+	<select id="selectSNSLogin" parameterType="member">
+	    select M.id, M.nickname, M.gender, M.email, M.address, ML.status,
+	           P.storedFileName as "memberPhoto",
+	           S.snsType as snsType
+	    from member M
+	    left join memberPhoto P on M.id = P.memberId
+	    left join memberLog ML on M.id = ML.memberId
+	    join snsInfo S on M.id = S.memberId  
+	    where M.userid = #{snsId}
+        order by ML.loginDate desc
+        fetch first 1 row only
+	</select>
+
+    <!-- memberPhoto 조회 -->
+    <select id="getPhotoByMemberId" parameterType="int" resultType="photo">
+	    select P.* 
+	    	from memberPhoto P 
+	    		right join member M on P.memberId = M.id
+	    	where P.memberId = #{id}
+	</select>
+
+    <!-- MEMBERPHOTO 테이블에 프로필 사진 추가 -->
+    <insert id="insertMemberPhoto" parameterType="photo">
+        INSERT INTO MEMBERPHOTO (originalFileName, storedFileName, contentType, memberId)
+        VALUES (#{originalFileName}, #{storedFileName}, #{contentType}, #{refId})
+    </insert>
+
+    <!-- MEMBERPHOTO 테이블에 프로필 사진 업데이트 -->
+    <update id="updateMemberPhoto" parameterType="photo">
+        UPDATE MEMBERPHOTO
+        SET originalFileName = #{originalFileName},
+            storedFileName = #{storedFileName},
+            contentType = #{contentType}
+        WHERE memberId = #{refId}
+    </update>
+
+	<!-- update 이후 login에 반영하기 위한 함수 (userid만 확인해서 가져온다) -->
+	<select id="selectLoginById" parameterType="int" resultType="member">
+	       select m.id, m.userid, m.nickname, m.gender, m.email, m.address, s.snsType, ML.status,
+	           p.storedFileName as "memberPhoto"
+	       from member m
+	       left join memberPhoto p ON m.id = p.memberId
+	        left join snsInfo S on m.userid = s.snsId
+	        left join memberLog ML on M.id = ML.memberId
+	       where m.id = #{id}
+	        order by ML.loginDate DESC
+	        fetch FIRST 1 row ONLY
+	   </select> 
+
+	<!-- 닉네임, 이메일, 주소, 성별 수정 쿼리 -->
+	<update id="updateProfileInfo" parameterType="member">
+	    update member
+	    set nickname = #{nickname},
+	        email = #{email},
+	        address = #{address, jdbcType=VARCHAR},
+	        gender = #{gender}
+	    where id = #{id}
+	</update>
+
+	<!-- 해시 조회 쿼리 (현재 비밀번호 검증용) -->
+    <select id="selectHash" parameterType="int" resultType="String">
+        select hash from member where id = #{id}
+    </select>
+
+	<!-- 비밀번호 재설정 -->
+	<update id="updatePassword" parameterType="member">
+		update member
+			set
+				salt = #{salt},
+				hash = #{hash}
+			where
+				userid = #{userid}
+				and
+				email = #{email}
+<!-- 				id = #{id} -->
+	</update>
+
+   <!-- 회원 삭제 -->
+    <delete id="deleteMember" parameterType="int">
+        delete from member where id = #{id}
+    </delete>
+
+ 	<!-- 비밀번호 찾기할때 필요한 userid랑 email -->
+    <select id="selectEmailAndUserid" parameterType="member" resultType="int">
+		select count(*) from member
+			where
+				userid = #{userid}
+				and
+				email = #{email}
+	</select>
+	
+	<!-- 이메일이 DB에 존재하는지 체크여부 -->
+	<select id="checkEmailExists" parameterType="String" resultType="int">
+	    select count(*)
+	    from member
+	    where email = #{email}
+	</select>	
+	
+	<select id="selectUserIdByEmail" parameterType="String" resultType="String">
+	    select userid 
+	    from member 
+	    where email = #{email}
+	</select>	
+	
+	<!-- 로그인정보 로그저장, 로그인시 status는 1.. -->
+	<insert id="insertLog" parameterType="member">
+		insert into memberLog (memberId, status) values (#{id}, ${status})
+	</insert>
+
+
+</mapper>
+
+
+
+
+
