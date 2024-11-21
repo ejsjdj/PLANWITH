@@ -49,7 +49,7 @@ public class MemberService {
 			int row = insertLogin(member);
 //	        System.out.print("status 처리후 의 member 출력 : ");
 //			System.out.println(member);
-	        log.info("로그인아이디 : " + member.getId() + ", 로그인status : " + member.getStatus());
+//	        log.info("로그인아이디 : " + member.getId() + ", 로그인status : " + member.getStatus());
 		} else {
 			throw new MemberNotFoundException();
 		}

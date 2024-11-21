@@ -244,7 +244,7 @@ header {
 	color: #96C6D2;
 }
 
-.modal-overlay {
+.sidebarOverlay {
 	display: none;
 	position: fixed;
 	top: 0;
@@ -292,7 +292,7 @@ header {
 	margin-left: 10px;
 }
 
-.green {
+.loginStatus {
 	width: 20px;
 	height: 20px;
 	background-color: green;
@@ -423,7 +423,7 @@ footer>.footinfo>.bottom>.right>img {
 	padding: 10px;
 }
 
-#searchFriendId {
+.searchFriendInput {
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
 	font-size: 1rem;
@@ -431,7 +431,7 @@ footer>.footinfo>.bottom>.right>img {
 	padding: 10px;
 }
 
-#searchSubmit {
+.searchSubmit {
 	background: linear-gradient(70deg, #172d9d, #561689);
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
@@ -445,7 +445,7 @@ footer>.footinfo>.bottom>.right>img {
 	height: 40px;
 }
 
-#searchSubmit:hover {
+.searchSubmit:hover {
 	background: linear-gradient(70deg, #172d9d, #561689);
 }
 
@@ -506,12 +506,12 @@ footer>.footinfo>.bottom>.right>img {
 		</div>
 	</header>
 
-	<!-- ------------------------------------ jps div 추가 아래부터 modal-overlay 까지 복붙 ------------------------------------------ -->
+	<!-- ------------------------------------ jps div 추가 아래부터 sidebarOverlay 까지 복붙 ------------------------------------------ -->
 
 	<div id="sidebar" class="sidebar">
 		<div class="sidebarHeader">
 			<img class="sidebarHeaderImg" src="${cpath }/resources/image/plan with.png">
-			<button id="closeSidebar" class="closeSidebarBtn">X</button>
+			<button id="closeSidebarBtn" class="closeSidebarBtn">X</button>
 		</div>
 		<div class="sidebarmodalBox">
 			<c:if test="${not empty login }">
@@ -538,7 +538,7 @@ footer>.footinfo>.bottom>.right>img {
 				<ul>
 					<li><a href="${cpath}/team/teamList">나의 일정</a></li>
 					<li><a href="${cpath}/board/boardList">게시판 보기</a></li>
-					<li><a href="${cpath }/member/logout">로그아웃</a></li>
+					<li><a id="logoutBtn" href="${cpath }/member/logout">로그아웃</a></li>
 				</ul>
 				
 			</c:if>
@@ -551,8 +551,7 @@ footer>.footinfo>.bottom>.right>img {
 			</c:if>
 		</div>
 	</div>
-
-	<div class="modal-overlay"></div>
+	<div class="sidebarOverlay"></div>
 
 <!-- 	<footer> -->
 <%-- 		<c:if test="${footerVisible != false}"> --%>
@@ -583,7 +582,7 @@ footer>.footinfo>.bottom>.right>img {
 <!-- 	</footer> -->
 
 	<!-- 친구찾기 모달 -->
-	<div id="addModal" class="modal hidden">
+	<div id="searchFriendModal" class="modal hidden">
 		<div class="overlay"></div>
 		<div class="modalBox">
 			<p>
@@ -591,202 +590,184 @@ footer>.footinfo>.bottom>.right>img {
 			</p>
 			<form id="searchFriendForm">
 				<p>
-					<input id="searchFriendId" type="text" name="userid"
-						placeholder="친구 아이디를 입력하세요" autocomplete="off"> <input
-						id="searchSubmit" type="submit" value="검색">
+					<input class="searchFriendInput" type="text" name="search"
+						placeholder="친구 아이디를 입력하세요" autocomplete="off"> 
+					<input class="searchSubmit" type="submit" value="검색">
 				</p>
 			</form>
-			<div class="searchFriendList">여기는 검색후 친구 목록 뜨는 곳</div>
+			<div class="searchFriendList"></div>
 			<p>
-				<button id="closeModal" class="closeModal">닫기</button>
+				<button id="closeModalBtn" class="closeModalBtn">닫기</button>
 			</p>
 		</div>
 	</div>
 
 
-	<!-- 스크립트 -------------------------------------->
-
 	<script>
 		const cpath = '${cpath}'
-		// 회원/비회원 체크
-		const login = '${login != null ? login : 'null'}'	
-
-    // 친구 목록 불러오기
-    async function loadFriendListHandler() {
-
-            const url = '${cpath}/friends' // 서버 API URL
+		const login = '${login != null ? login : 'null'}'	// 회원/비회원 체크 
+						
+	    // 회원의 친구 목록 불러오는 함수
+	    async function loadFriendListHandler() {
+			
+			const url = cpath + '/friends' 
             let result = await fetch(url).then(resp => resp.json())
-//             console.log(result)
+//          	console.log(result)
+			// 친구 목록 
             const friendList = document.getElementById('friendList')
-
-            // 친구 목록 렌더링
-			  let tag = ''
-			  result.forEach(member => {
+	
+			let tag = ''
+			result.forEach(member => {
 				tag += '<p><span>' + member.nickname + '(' + member.userid + ') </span>'
-				tag += '<div class="' + (member.status == 1 ? 'green' : 'grey') + '"></div></p>'
-			  })
+				tag += '<div class="' + (member.status == 1 ? 'loginStatus' : 'logoutStatus') + '"></div></p>'
+			})
             // 결과가 없을 경우
             if (result.length === 0) {
                 tag = '<p class="small-grey">친구 목록이 비어 있습니다.</p>'
             }
             friendList.innerHTML = tag    
-    }
-	
+	    }
+		
+		document.getElementById('logoImg').addEventListener('click', function() {
+				location.href = cpath
+		})
+		document.getElementById('boardBtn').addEventListener('click', function() {
+				location.href = cpath + '/board/boardList'
+		})	
 
-      document.getElementById('logoImg').addEventListener('click',
-            function() {
-               location.href = cpath
-            })
-      document.getElementById('boardBtn').addEventListener('click',
-            function() {
-               location.href = cpath + '/board/boardList'
-            })
+// ----- 사이드 바 스크립트 -----
+		const menuBtn = document.getElementById('menuBtn')
+		const sidebar = document.getElementById('sidebar')
+		const closeSidebarBtn = document.getElementById('closeSidebarBtn')
+		const sidebarModalOverlay = document.querySelector('.sidebarOverlay')
+		const friendsBtn = document.getElementById('friendsBtn')
+	      
+		// 메뉴 버튼 클릭 시 사이드바 열기
+		menuBtn.addEventListener('click', function (event) {
+				if('${login}' != '') {loadFriendListHandler()}
+				sidebar.classList.add('open')
+				sidebarModalOverlay.style.display = 'block'
+				event.stopPropagation() // 이벤트 전파 중단
+		})
+	      
+		// 닫기 버튼 클릭 시 사이드바 닫기
+		closeSidebarBtn.addEventListener('click', function (event) {
+    			sidebar.classList.remove('open')
+    			sidebarModalOverlay.style.display = 'none'
+    			event.stopPropagation() // 이벤트 전파 중단
+		})
+	      
+		// 문서의 다른 부분 클릭 시 사이드바 닫기
+		document.addEventListener('click', function () {
+				sidebar.classList.remove('open')
+				sidebarModalOverlay.style.display = 'none'
+		})
+	      
+		// 사이드바 내부 클릭 시 이벤트 전파 방지
+		sidebar.addEventListener('click', function (event) {
+				event.stopPropagation() // 이벤트 전파 중단
+		})
+	      
+// ----- 친구검색 스크립트 -----
 
-      //------------------------------------------ 아래 스크립트 부분 붙여넣기 하면 됨 ------------------------------------------------
-      // 사이드 바 스크립트 내용
-      // 사이드 바 스크립트
-      const menuBtn = document.getElementById('menuBtn')
-      const sidebar = document.getElementById('sidebar')
-      const closeSidebarBtn = document.getElementById('closeSidebar')
-      const modalOverlay = document.querySelector('.modal-overlay')
-      const friendsBtn = document.getElementById('friendsBtn')
-      
-      // 메뉴 버튼 클릭 시 사이드바 열기
-      menuBtn.addEventListener('click', function (event) {
-    	  loadFriendListHandler()
-          sidebar.classList.add('open')
-          modalOverlay.style.display = 'block'
-          event.stopPropagation() // 이벤트 전파 중단
-      })
-      
-      // 닫기 버튼 클릭 시 사이드바 닫기
-      closeSidebarBtn.addEventListener('click', function (event) {
-          sidebar.classList.remove('open')
-          modalOverlay.style.display = 'none'
-          event.stopPropagation() // 이벤트 전파 중단
-      });
-      
-      // 문서의 다른 부분 클릭 시 사이드바 닫기
-      document.addEventListener('click', function () {
-          sidebar.classList.remove('open')
-          modalOverlay.style.display = 'none'
-      })
-      
-      // 사이드바 내부 클릭 시 이벤트 전파 방지
-      sidebar.addEventListener('click', function (event) {
-          event.stopPropagation() // 이벤트 전파 중단
-      });
-      
-      // ----------------------------------------------- 친구목록 ------------------------------------------------
-        
-		// 친구 찾기 모달 열기 및 검색 처리
-      	function toggleModal() {
-          	document.getElementById('addModal').classList.toggle('hidden')
+		// 친구 찾기 모달 
+		function toggleModal() {
+			document.getElementById('searchFriendModal').classList.toggle('hidden')
       	}
-      
-		// 모달 닫기 버튼 기능 추가
-      	const closeModalButton = document.getElementById('closeModal')
+	      
+      	const closeModalBtn = document.getElementById('closeModalBtn')
+      	// 닫기 버튼 클릭 시 친구검색 모달이 닫힌다
+		closeModalBtn.addEventListener('click', toggleModal)
 
-      	// 닫기 버튼 클릭 시 모달 닫기
-      	if (closeModalButton) {
-          	closeModalButton.addEventListener('click', toggleModal)
-      	}
-	
-     	// 오버레이 클릭 시 모달 닫기
-      	if (modalOverlay) {
-      	    modalOverlay.addEventListener('click', toggleModal)
-      	}
-
-     	// 친구 찾기에서 회원 조회
+     	// 친구 검색 시 회원을 조회하는 함수
 		async function getMemberList(search = '') {    
-			const url = '${cpath}/friends/memberList?search=' + search
+      		
+			const url = cpath + '/friends/memberList?search=' + search
 			const result = await fetch(url).then(resp => resp.json())
-			console.log('검색된 회원 목록:', result)
-			
-			let memberList = document.querySelector('.memberList')
-			if (!memberList) {
-			    memberList = document.createElement('div')
-			    memberList.classList.add('memberList')
-		}
-
-              // 회원 목록 렌더링
-              let tag = ''
-              result.forEach(member => {
-            	tag += '<p>' + member.nickname +'(' + member.userid + ')</p>'
-      			tag += '<p>'
-            	tag += '	<button id="sendFriendRequestBtn" data-memberId="' + member.id + '">친구요청</button>'
-            	tag += '</p>'
-              })
-
-			memberList.innerHTML = tag
-
-              // 모달에 추가
-			document.querySelector('#addModal > .modalBox').appendChild(memberList)
-    
-            // 아직 친구요청 구현 X .. memberId 가 안넘어옴
-			const sendFriendRequestBtn = document.getElementById('sendFriendRequestBtn')
-			sendFriendRequestBtn.addEventListener('click', function(event) {
-				const memberId = event.target.dataset.memberId
-				console.log(memberId)
-				const message = {
-						sender: '${login.id}',
-						receiver: memberId
-				}
-				stomp.send('/app/friendRequest', {}, JSON.stringify(message))				
-		})         
-      }
-     
-		function getFriendSearchListHandler() {
-	          toggleModal()
+// 			console.log('검색된 회원 목록:', result)
+		
+			// 검색한 회원들의 목록을 띄운다
+			const searchFriendList = document.querySelector('.searchFriendList')
 	
-	          // 모달 내부 검색 폼 처리
-		 	  const searchFriendForm = document.getElementById('searchFriendForm')
-			  const searchInput = searchFriendForm.getElementById('searchFriendId')
-			  
-			  searchInput.addEventListener('keyup', (event) => {
-		             const search = event.target.value
-		             getMemberList(search)
-	          })
-		}
-   		
+	        let tag = ''
+			if(search == '') tag = '<p class="small-grey">검색할 회원의 닉네임을 입력하세요.</p>'
+			else {
+		        result.forEach(member => {
+		      		tag += '<p>' + member.nickname +'(' + member.userid + ')'
+		      		tag += '<button id="sendFriendRequestBtn" data-memberId="' + member.id + '">친구요청</button></p>'
+		        })
+		        if (result.length === 0) {
+					tag = '<p class="small-grey">해당하는 회원이 없습니다.</p>'
+				}				
+			}
+			searchFriendList.innerHTML = tag
+
+		
+		
+		
+	            // 아직 친구요청 구현 X .. memberId 가 안넘어옴
+// 				const sendFriendRequestBtn = document.getElementById('sendFriendRequestBtn')
+// 				sendFriendRequestBtn.addEventListener('click', function(event) {
+// 					const memberId = event.currentTarget.dataset.memberId
+// 					console.log(memberId)
+// 					const message = {
+// 							sender: '${login.id}',
+// 							receiver: memberId
+// 					}
+// 					stomp.send('/app/friendRequest', {}, JSON.stringify(message))				
+// 			})         
+	      }
+      	
 		// 친구찾기 버튼 누르면 실행되는 함수
+		function FriendSearchHandler() {
+			toggleModal()		
+			// 모달 내부 검색 폼 처리
+			const searchFriendForm = document.getElementById('searchFriendForm')
+			const searchFriendInput = searchFriendForm.querySelector('input[name="search"]')
+			searchFriendInput.addEventListener('keyup', function(event) {
+					const search = event.target.value
+					getMemberList(search)
+			})
+		}
+	   				
 		const friendSearchBtn = document.getElementById('friendSearchBtn')	  
 		if('${login}' != '') {
-			friendSearchBtn.addEventListener('click', getFriendSearchListHandler)		  
+			friendSearchBtn.addEventListener('click', FriendSearchHandler)		  
 		}
- 	</script>
+	 	</script>
 
-	<script>      
-      // WebSocket 연결
-     
-      const sockJS = new SockJS('${cpath}/endpoint')
-      const stomp = Stomp.over(sockJS)
-      
-      if ('${login}' != '') {
-          stomp.connect({}, onConnect)
-      }
-
-      function onConnect() {
-		console.log('WebSocket 연결 성공')
-		stomp.subscribe('/broker/status', onCheckStatus) // /broker/friend의 메시지를 구독하고 수신가능, 수신시 onCheckStatus 함수 실행
-		stomp.send('/app/connection', {} , '${login.nickname}님이 로그인했습니다')	// 내 접속 상태를 알린다
-// 		stomp.subscribe('/broker/online', onReceiveFriendRequest)	// 친구요청을 위한 stomp 구독
-      }
-
-	// 웹소켓으로 메시지를 받으면 친구목록을 새로고침한다
-	function onCheckStatus(message) {
-		loadFriendListHandler()			
-	}
+		<script>      
+	      // WebSocket 연결	     
+	      const sockJS = new SockJS(cpath + '/endpoint')
+	      const stomp = Stomp.over(sockJS)
+	      
+	      if ('${login}' != '') {
+	          stomp.connect({}, onConnect)
+	      }
 	
-	// 웹소켓 연결이 끊기면 함수가 실행된다 (끊기는 시점은 .. 로그아웃 했을때)
-	function onDisconnect() {
-		stomp.send('/app/connection', {} , '${login.nickname}님이 로그아웃했습니다')
-		location.href = '${cpath }/member/logout'
-	}
+	      function onConnect() {
+			console.log('WebSocket 연결 성공')
+			stomp.subscribe('/broker/status', onCheckStatus) // /broker/friend의 메시지를 구독하고 수신가능, 수신시 onCheckStatus 함수 실행
+			stomp.send('/app/connection', {} , '${login.nickname}님이 로그인했습니다')	// 내 접속 상태를 알린다
+	// 		stomp.subscribe('/broker/online', onReceiveFriendRequest)	// 친구요청을 위한 stomp 구독
+	      }
+	
+		// 웹소켓으로 메시지를 받으면 친구목록을 새로고침한다
+		function onCheckStatus(message) {
+			loadFriendListHandler()			
+		}
 		
-// 	const logoutBtn = document.getElementById('logoutBtn')
-// 	logoutBtn.addEventListener('click', onDisconnect)
+		// 웹소켓 연결이 끊기면 함수가 실행된다 (끊기는 시점은 .. 로그아웃 했을때)
+		function onDisconnect() {
+			stomp.send('/app/connection', {} , '${login.nickname}님이 로그아웃했습니다')
+			location.href = cpath + '/member/logout'
+		}
+			
+		const logoutBtn = document.getElementById('logoutBtn')
+// 		stomp.disconnect(onDisconnect))
+		
+	// 	window.addEventListener('DOMContentLoaded', loadFriendListHandler)
+	      
+	</script>
 	
-// 	window.addEventListener('DOMContentLoaded', loadFriendListHandler)
-      
-   </script>
+	
