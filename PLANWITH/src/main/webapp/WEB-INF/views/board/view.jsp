@@ -34,7 +34,8 @@
 	<div>${board.content }</div>
 	<hr>
 	
-	<div id="like">게시글이 좋으면 눌러주세요!</div>
+	<div id="like"><c:if test="${board.like == 1}"> ❤️ </c:if>
+		<c:if test="${board.like == 0}"> 🤍 </c:if></div>
 	
 	<div class="replyList">
 	<c:forEach var="reply" items="${replyList }">

@@ -13,11 +13,17 @@
 		    B.tag,
 		    B.memberId,
 		    M.nickname,
-            MP.storedFileName AS memberPhoto   
+            MP.storedFileName AS memberPhoto,   
+            l.likeCnt AS "like"
 		        FROM 
 		            board B
 		        LEFT JOIN member M ON B.memberid = M.id
 				LEFT JOIN memberPhoto MP ON M.id = MP.memberId
+				LEFT JOIN 
+			    (SELECT boardId, COUNT(*) AS likeCnt
+			     FROM likeBoard 
+			     GROUP BY boardId) l
+                 ON b.id = l.boardId
 		        order by B.id DESC
 	</select>
 	
@@ -32,25 +38,35 @@
 	    VALUES (#{originalFileName}, #{storedFileName}, #{contentType}, #{refId})
 	</insert>
 
-	<!-- 특정 게시글 조회 -->
+	<!-- 특정 게시글 조회, 좋아요(likeBoard)에 값이 존재하면 1, 아니면 0 -->
     <select id="selectOne" parameterType="int" resultType="board">
-        SELECT 
-            b.id,   
-            b.title,            
-            b.writedate,
-            b.content,
-            b.tag,   
-            b.memberId,
-            m.nickname,
-            mp.storedFileName AS memberPhoto   
-        FROM 
-            board b
-        left join
-            member m on b.memberid = m.id
-        left join 
-            memberphoto mp on m.id = mp.memberid
-        WHERE b.id = #{id}
-        ORDER BY b.id DESC
+		SELECT 
+		    b.id,   
+		    b.title,            
+		    b.writedate,
+		    b.content,
+		    b.tag,   
+		    b.memberId,
+		    m.nickname,
+		    mp.storedFileName AS memberPhoto,
+		    CASE 
+		        WHEN EXISTS (
+		            SELECT * 
+		            FROM likeBoard lb
+		            WHERE lb.boardId = b.id AND lb.memberid = m.id
+		        ) THEN 1
+		        ELSE 0
+		    END AS "like"
+		FROM 
+		    board b
+		LEFT JOIN
+		    member m ON b.memberid = m.id
+		LEFT JOIN 
+		    memberphoto mp ON m.id = mp.memberid
+		WHERE 
+		    b.id = #{id}
+		ORDER BY 
+		    b.id DESC
     </select>
 
     <!-- 게시글 수정 -->

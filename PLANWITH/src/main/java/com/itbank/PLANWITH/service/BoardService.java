@@ -52,16 +52,9 @@ public class BoardService {
     public int updateBoard(BoardDTO board) {
     	return boardDAO.updateBoard(board);
     }
-
-	public int updateBoardPhoto(PhotoDTO photo) {
-    	List<PhotoDTO> photoList = boardDAO.selectPhotoByBoardId(photo.getRefId());
-		for (PhotoDTO dto : photoList) fileComponent.deleteFile(dto.getStoredFileName());
-		
-		return boardDAO.insertBoardPhoto(photo);
-	}
     
     // 게시글 삭제
-    public int deleteBoard(int id) {
+    public int deleteBoard(int id) {	// 업로드 파앨 삭제, DB 삭제
     	// 게시글 안에 있는 업로드된 파일 삭제
     	List<PhotoDTO> photoList = boardDAO.selectPhotoByBoardId(id);
 		for (PhotoDTO dto : photoList) fileComponent.deleteFile(dto.getStoredFileName());
