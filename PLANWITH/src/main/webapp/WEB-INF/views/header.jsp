@@ -227,6 +227,14 @@ header {
 	margin-left: 20px;
 }
 
+.green {
+	width: 20px;
+	height: 20px;
+	background-color: green;
+}
+
+
+
 /*    -------------------------------- footer ----------------------------------------- */
 footer {
 	bottom: -50%;
@@ -421,16 +429,10 @@ footer>.footinfo>.bottom>.right>img {
 </head>
 <body>
 
-
 	<header>
 		<div class="header-flex">
 			<div class="header-left">
 				<img id="logoImg" src="${cpath }/resources/image/plan with.png">
-			</div>
-			<div class="buttons">
-				<button id="scheduleBtn" class="button disabled">일정</button>
-				<button id="mapBtn" class="button disabled">지도</button>
-				<button id="chatBtn" class="button disabled">채팅</button>
 			</div>
 			<div class="header-right">
 				<button id="boardBtn" class="button">게시판</button>
@@ -443,7 +445,7 @@ footer>.footinfo>.bottom>.right>img {
 
 	<div id="sidebar" class="sidebar">
 		<div class="sidebarHeader">
-			<h3>메뉴</h3>
+			<h3>메뉴</h3> 
 			<button id="closeSidebar" class="closeSidebarBtn">X</button>
 		</div>
 		<div class="sidebarmodalBox">
@@ -460,7 +462,7 @@ footer>.footinfo>.bottom>.right>img {
 						</p>
 					</div>
 				</div>
-				<div class="friendList"></div>
+				<div id="friendList"></div>
 				<p>
 					<button id="friendSearchBtn">친구찾기</button>
 				</p>
@@ -530,30 +532,36 @@ footer>.footinfo>.bottom>.right>img {
 	<!-- 스크립트 -------------------------------------->
 
 	<script>
-	
 		const cpath = '${cpath}'
 		// 회원/비회원 체크
-		const login = '${login != null ? login : 'null'}'
+		const login = '${login != null ? login : 'null'}'	
+
+    // 친구 목록 불러오기
+    async function loadFriendListHandler() {
+
+            const url = '${cpath}/friends' // 서버 API URL
+            let result = await fetch(url).then(resp => resp.json())
+//             console.log(result)
+            const friendList = document.getElementById('friendList')
+
+            // 친구 목록 렌더링
+			  let tag = ''
+			  result.forEach(member => {
+				tag += '<p><span>' + member.nickname + '(' + member.userid + ') </span>'
+				tag += '<div class="' + (member.status == 1 ? 'green' : 'grey') + '"></div></p>'
+			  })
+            // 결과가 없을 경우
+            if (result.length === 0) {
+                tag = '<p>친구 목록이 비어 있습니다.</p>'
+            }
+            friendList.innerHTML = tag    
+    }
 	
-	</script>
-
-
-
-
-	<script>
-      function disableHandler() {
-         document.getElementById('scheduleBtn').classList.remove('disabled')
-         document.getElementById('mapBtn').classList.remove('disabled')
-         document.getElementById('chatBtn').classList.remove('disabled')
-      }
 
       document.getElementById('logoImg').addEventListener('click',
             function() {
-
-               location.href = cpath + '/team/main'
-
+               location.href = cpath
             })
-
       document.getElementById('boardBtn').addEventListener('click',
             function() {
                location.href = cpath + '/board/boardList'
@@ -570,6 +578,7 @@ footer>.footinfo>.bottom>.right>img {
       
       // 메뉴 버튼 클릭 시 사이드바 열기
       menuBtn.addEventListener('click', function (event) {
+    	  loadFriendListHandler()
           sidebar.classList.add('open')
           modalOverlay.style.display = 'block'
           event.stopPropagation() // 이벤트 전파 중단
@@ -594,43 +603,7 @@ footer>.footinfo>.bottom>.right>img {
       });
       
       // ----------------------------------------------- 친구목록 ------------------------------------------------
-      
-      // 친구 목록 불러오기
-      async function loadFriendListHandler() {
-
-              const url = '${cpath}/friends' // 서버 API URL
-              let result = await fetch(url)
-              if(!result) result = result.then(resp => resp.json())
-              console.log(result)
-              const friendList = document.getElementById('friendList')
-              if (!friendList) {
-                  console.log('friendList 가 없습니다')
-                  return
-              }
-
-              // 친구 목록 렌더링
-			  let tag = ''
-			  result.forEach(member => {
-				tag += '<p><span>' + member.nickname + '(' + member.userid + ') </span>'
-				tag += '<span class="' + (member.status == 1 ? 'green' : 'grey') + '"></span></p>'
-			  })
-
-              // 결과가 없을 경우
-              if (result.length === 0) {
-                  tag = '<p>친구 목록이 비어 있습니다.</p>'
-              }
-
-              friendList.innerHTML = tag    
-      }
-
-      	
-		// loadFreindHandler 는 사이드바가 열리면 실행 되게끔 ... 수정
-		const infoBtn = document.getElementById('infoBtn')
-		if (infoBtn) {
-		    infoBtn.addEventListener('click', loadFriendListHandler)
-		}
-
-      
+        
 		// 친구 찾기 모달 열기 및 검색 처리
       	function toggleModal() {
           	document.getElementById('addModal').classList.toggle('hidden')
@@ -639,35 +612,27 @@ footer>.footinfo>.bottom>.right>img {
 		// 모달 닫기 버튼 기능 추가
       	const closeModalButton = document.getElementById('closeModal')
 
-      	// 모달 닫기 함수
-      	function closeModal() {
-          	document.getElementById('addModal').classList.add('hidden')
-      	}
-
       	// 닫기 버튼 클릭 시 모달 닫기
       	if (closeModalButton) {
-          	closeModalButton.addEventListener('click', closeModal)
+          	closeModalButton.addEventListener('click', toggleModal)
       	}
 	
      	// 오버레이 클릭 시 모달 닫기
       	if (modalOverlay) {
-      	    modalOverlay.addEventListener('click', function () {
-      	        toggleModal()
-      	    })
+      	    modalOverlay.addEventListener('click', toggleModal)
       	}
 
-
-	  async function getMemberList(search = '') {
-        
-              const url = '${cpath}/friends/memberList?search=' + search
-              const result = await fetch(url).then(resp => resp.json())
-              console.log('검색된 회원 목록:', result)
-
-              let memberList = document.querySelector('.memberList')
-              if (!memberList) {
-                  memberList = document.createElement('div')
-                  memberList.classList.add('memberList')
-              }
+     	// 친구 찾기에서 회원 조회
+		async function getMemberList(search = '') {    
+			const url = '${cpath}/friends/memberList?search=' + search
+			const result = await fetch(url).then(resp => resp.json())
+			console.log('검색된 회원 목록:', result)
+			
+			let memberList = document.querySelector('.memberList')
+			if (!memberList) {
+			    memberList = document.createElement('div')
+			    memberList.classList.add('memberList')
+		}
 
               // 회원 목록 렌더링
               let tag = ''
@@ -696,31 +661,29 @@ footer>.footinfo>.bottom>.right>img {
 		})         
       }
      
-	function getFriendSearchListHandler() {
-          toggleModal()
-
-          // 모달 내부 검색 폼 처리
-	 	  const searchFriendForm = document.getElementById('searchFriendForm')
-		  const searchInput = searchFriendForm.querySelector('input[name="userid"]')
-		  searchInput.addEventListener('keyup', (event) => {
-	             const search = event.target.value
-	             getMemberList(search)
-          })
-	}
-   
+		function getFriendSearchListHandler() {
+	          toggleModal()
 	
-	  const friendSearchBtn = document.getElementById('friendSearchBtn')
-	  console.log(friendSearchBtn)
-	  
-	  if('${login}' != '') {
-		  friendSearchBtn.addEventListener('click', getFriendSearchListHandler)		  
-	  }
+	          // 모달 내부 검색 폼 처리
+		 	  const searchFriendForm = document.getElementById('searchFriendForm')
+			  const searchInput = searchFriendForm.getElementById('searchFriendId')
+			  
+			  searchInput.addEventListener('keyup', (event) => {
+		             const search = event.target.value
+		             getMemberList(search)
+	          })
+		}
+   		
+		// 친구찾기 버튼 누르면 실행되는 함수
+		const friendSearchBtn = document.getElementById('friendSearchBtn')	  
+		if('${login}' != '') {
+			friendSearchBtn.addEventListener('click', getFriendSearchListHandler)		  
+		}
  	</script>
 
 	<script>      
       // WebSocket 연결
-
-      
+     
       const sockJS = new SockJS('${cpath}/endpoint')
       const stomp = Stomp.over(sockJS)
       
@@ -749,6 +712,6 @@ footer>.footinfo>.bottom>.right>img {
 // 	const logoutBtn = document.getElementById('logoutBtn')
 // 	logoutBtn.addEventListener('click', onDisconnect)
 	
-	window.addEventListener('DOMContentLoaded', loadFriendListHandler)
+// 	window.addEventListener('DOMContentLoaded', loadFriendListHandler)
       
    </script>
