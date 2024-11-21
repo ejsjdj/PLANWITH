@@ -100,6 +100,7 @@ h3 {
                             ${board.content}
                         </c:if>
                     </div>
+                    <p> ❤ ${board.like }</p>
                 </div>
             </c:forEach>
         </div>

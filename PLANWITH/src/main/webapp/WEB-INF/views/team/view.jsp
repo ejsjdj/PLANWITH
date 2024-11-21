@@ -505,7 +505,8 @@
 	width: 100%;
 	height: 100%;
 	display: flex;
-}
+    margin-top: 8rem;
+ }
 
 .scheduleContainer {
 	position: relative;
