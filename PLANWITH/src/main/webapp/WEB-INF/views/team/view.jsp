@@ -95,9 +95,10 @@
 	z-index: 1000;
 }
 
-#modal.hidden, #timeModal.hidden {
+.hidden{
 	display: none;
 }
+
 
 #modal>.overlay {
 	position: fixed;
@@ -537,6 +538,32 @@ img {
 }
 </style>
 
+<!-- 디자인 기능 구현을 위한 스타일 -->
+<!-- 버튼을 누를때 움직이는 기능 구현 및 관련 스타일 -->
+<style>
+	#viewHandler {
+	    width: 100px;
+	    display: flex;
+	    flex-direction: column; /* 세로로정렬 */
+	    margin-right: 5px;
+	}
+	
+	.viewFunctionSelect {
+	    width: 100%;
+	    height: 100px;
+	    text-align: center;
+	    display: flex;
+	    align-items: center; /* 수직정렬인데 적용이 되는지모르겠음 */
+	    justify-content: center; /* 수평 */
+	    border: 2px solid black; /* 테두리모양이다 */
+	    background-color: #f0f0f0; /* 버튼 색깔이 진부해서 바꿔야 할듯 */
+	}
+	
+	.viewFunctionSelect:hover { /* 마우스를 올렸을때 어떻게 나타나게 할까? */
+		
+	}
+</style>
+
  <!-- 맵에서 표시할 모달 -->
 <div id="modal" class="hidden">
 	<div id="overlay" class="overlay"></div>
@@ -560,6 +587,11 @@ img {
 <!-- 일정HTML -->
 <div class="scheduling">
 	<div id="range"></div>
+	<div id="viewHandler">
+		<div class="viewFunctionSelect" id="mapHomeBtn">지도홈</div>
+		<div class="viewFunctionSelect" id="planBtn">일정</div>
+		<div class="viewFunctionSelect" id="wishListBtn">위시</div>
+	</div>
 	<div class="scheduleContainer"></div>
 
 	<!-- 지도HTML -->
@@ -686,6 +718,22 @@ img {
 </div>
 <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script> -->
 
+<!-- 디자인 기능 구현을 위한 스크립트(버튼을 누르면 해당 창이 생겼다 사라졌다 하는 기능) -->
+<script>
+	const mapHomeBtn = document.getElementById('mapHomeBtn')
+	const planBtn = document.getElementById('planBtn')
+	const wishListBtn = document.getElementById('wishListBtn')
+	
+	function hide () {
+		target.classList.toggle('hidden')
+	}
+	
+	function 
+	
+	mapHomeBtn.onclick = hide
+	planBtn.onclick = hide
+	wishListBtn.onclick = hide
+</script>
 
 <script>
 	const teamId = '${team.id}'
