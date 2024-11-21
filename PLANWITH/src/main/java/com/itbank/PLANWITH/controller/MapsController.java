@@ -107,7 +107,7 @@ public class MapsController {
 	}
 	
 	// place를 가져와야함
-	@GetMapping("/searchPlacebyScheduleId/{id}")
+	@GetMapping("/searchPlaceByScheduleId/{id}")
 	public PlaceDTO searchPlaceByScheduleId(@PathVariable int id) {
 		int placeId = mapService.searchPlaceByScheduleId(id);
 		return mapService.selectPlaceById(placeId);

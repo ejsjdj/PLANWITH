@@ -15,6 +15,8 @@ public class MessageDTO {
 	   private int isUser;
 	   private String nickname;
 	   
+	   private String storedFileName;
+	   
 	   public MessageDTO() {
 	   }
 	   
