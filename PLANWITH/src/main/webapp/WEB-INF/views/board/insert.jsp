@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
 
+
+
 <style>
 	#tmp {
 		display: none;
@@ -17,22 +19,133 @@
 		background-size: auto 100%;
 		margin-top: 20px;
 		overflow: hidden;
-		border: 1px solid lime;
-   }
+		border: 1px solid #dadada;
+		border-radius: 10px;
+   	}
+   	.insertMainBody {
+		width: 100%;
+		height: auto;
+		display: flex;
+		padding-top: 70px;
+   	}
+   	.insertMainBody > .insertInnerBox {
+   		width: 600px;
+   		height: auto;
+   		padding: 50px;
+   		margin: 80px auto;
+   		background-color: #ffffff;
+    	border-radius: 10px;
+    	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+   	}
+   	.insertMainBody > .insertInnerBox > h3 {
+   		display: flex;
+   		justify-content: center;
+   		font-size: 22px;
+   	}
+   	.insertMainBody > .insertInnerBox > #writeForm > p {
+   		display: flex;
+   		flex-flow: column;
+   		margin: 25px 0;
+   	}
+   	.insertMainBody > .insertInnerBox > #writeForm > p > span {
+   		margin-left: 10px;
+   		font-size: 14px;
+   		color: #7a7a7a;
+   	}
+   	#insertTitle {
+   		width: 580px;
+   		height: 30px;
+   		padding: 5px 10px;
+   		font-size: 16px;
+   		border: 1px solid #dadada;
+   		border-radius: 10px;
+   	}
+   	#insertContent {
+   		width: 580px;
+   		height: 150px;
+   		padding: 5px 10px;
+   		border: 1px solid #dadada;
+   		border-radius: 10px;
+   		font-size: 16px;
+    	font-family: auto;
+   	}
+   	#insertTag {
+   		width: 580px;
+   		height: 30px;
+   		padding: 5px 10px;
+   		font-size: 16px;
+   		border: 1px solid #dadada;
+   		border-radius: 10px;
+   	}
+   	#insertSubmit {
+   		background: linear-gradient(70deg, #172d9d, #561689);
+   		color: white;
+   		width: 600px;
+   		height: 50px;
+   		border-radius: 10px;
+   		font-size: 18px;
+   		border: 0;
+   		transition: background 0.4s ease;
+   	}
+   	#insertSubmit:hover {
+		filter: brightness(1.2);
+	}
+	.removeInputBtn {
+		width: 35px;
+		height: 35px;
+		border: 0;
+		background-color: #ff6a84;
+		color: white;
+		border-radius: 8px;
+		font-size: 18px;
+	}
+	
+	.removeInputBtn:hover {
+		background-color: red;
+	}
+	#addFileBtn {
+		border: 0;
+		background-color: #afe2af;
+		height: 30px;
+		padding: 5px;
+		font-size: 16px;
+		border-radius: 8px;
+		color: white;
+	}
+	#addFileBtn:hover {
+		background-color: #64c864;
+	}
 </style>
 
-<h3>게시물 작성</h3>
+<div class="insertMainBody">
+	<div class="insertInnerBox">
+		<h3>게시물 작성</h3>
+		
+		<form id="writeForm" method="POST" enctype="multipart/form-data">
+			<p>
+				<span>제목</span>
+				<input id="insertTitle" type="text" name="title" autofocus required>
+			</p>
+			
+			<div class="fileArea"></div>
+			<p><input id="addFileBtn" type="button" value="+"></p>
+			
+			<p>	
+				<span>내용</span>
+				<textarea id="insertContent" name="content"></textarea>
+			</p>
+			
+			<p>
+				<span>태그</span>
+				<input id="insertTag" type="text" name="tag" >
+			</p>
+			
+			<p><input id="insertSubmit" type="submit" value="완료">
+		</form>
+	</div>
+</div>
 
-<form id="writeForm" method="POST" enctype="multipart/form-data">
-	<p><input type="text" name="title" placeholder="제목" autofocus required></p>
-	
-	<div class="fileArea"></div>
-	<p><input id="addFileBtn" type="button" value="사진추가"></p>
-	
-	<textarea name="content"></textarea>
-	<p><input type="text" name="tag" placeholder="태그 입력"></p>
-	<p><input type="submit" value="완료">
-</form>
+
 
 <script>
 
