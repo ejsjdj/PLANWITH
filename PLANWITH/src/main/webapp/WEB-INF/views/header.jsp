@@ -27,6 +27,11 @@ body {
 	font-family: "Noto Sans KR", sans-serif;
 	position: relative;
 }
+
+a {
+	text-decoration: none;
+}
+
 /* 스크롤바 스타일링 */
 ::-webkit-scrollbar {
 	width: 12px;
@@ -192,7 +197,7 @@ header {
 	padding:12px;
 }
 
-.sidebarmodalBox #friendSearchBtn {
+.sidebarmodalBox .sidebarBtn {
 	width: 15rem;
 	padding: 10px;
 	margin: 5px auto;
@@ -209,7 +214,7 @@ header {
 	transition: background-color 0.3s;
 }
 
-.sidebarmodalBox #friendSearchBtn:hover {
+.sidebarmodalBox .sidebarBtn:hover {
 	background-color: pink;
 	
 }
@@ -356,7 +361,7 @@ footer>.footinfo>.bottom>.right>img {
 	border-radius: 50px;
 }
 
-#friendsBtn {
+.sidebarBtn {
 	border: 0;
 	background-color: rgba(255, 255, 255, 0);
 	font-size: 16px;
@@ -366,7 +371,7 @@ footer>.footinfo>.bottom>.right>img {
 	color: #333;
 }
 
-#friendsBtn:hover {
+.sidebarBtn:hover {
 	color: #96C6D2;
 }
 
@@ -524,7 +529,7 @@ footer>.footinfo>.bottom>.right>img {
 				</div>
 				<div class="sidebarFriendDiv">
 					<p>
-						<button id="friendSearchBtn">친구찾기</button>
+						<button id="friendSearchBtn" class="sidebarBtn">친구찾기</button>
 					</p>
 				<div class="sidebarListName">친구 목록</div>
 					<div id="friendList"></div>
@@ -538,9 +543,10 @@ footer>.footinfo>.bottom>.right>img {
 				
 			</c:if>
 			<c:if test="${empty login }">
+				<p class="small-grey">로그인이 되어있지 않습니다</p>
+				<a class="sidebarBtn" href="${cpath }/member/login">로그인 후 이용하기</a>
 				<ul>
 					<li><a href="${cpath }/team/main">여행지 검색</a></li>
-					<li><a href="${cpath }/member/login">로그인 후 이용하기</a></li>
 				</ul>
 			</c:if>
 		</div>
