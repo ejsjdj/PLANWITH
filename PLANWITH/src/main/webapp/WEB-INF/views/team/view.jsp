@@ -4,13 +4,28 @@
 
 <!-- 이건 채팅 스타일 -->
 <style>
+body {
+	overflow: hidden;
+}
 #chatArea {
 	left: 80%;
 	position: absolute;
 	width: 20%;
-	height: 100%;
+	height: 650px;
+	z-index: 15;
 }
-
+.middleSideChat {
+	height: 450px;
+}
+.chatBox {
+	background-color: #FDEBC8;
+}
+#chatBoxBtn {
+	position: absolute;
+	right: 400px;
+	bottom: 50px;
+	z-index: 300;
+}
 .chatBox {
 	border: 1px solid black;
 	height: 700px;
@@ -95,7 +110,7 @@
 	z-index: 1000;
 }
 
-.hidden{
+.hidden {
 	display: none;
 }
 
@@ -170,7 +185,7 @@
 }
 
 .map_wrap {
-	position: absolute;
+/* 	position: absolute; */
 	width: 100%;
 	height: 90%;
 	right: 20%;
@@ -178,15 +193,14 @@
 
 #menu_wrap {
 	position: absolute;
-	top: 0;
-	left: 20%;
+	top: 120px;
 	bottom: 0;
-	width: 20%;
-	height: 100%;
+	width: 300px;
+	height: 700px;
 	padding: 5px;
 	overflow-y: auto;
 	background: rgba(255, 255, 255, 1);
-	z-index: 1;
+	z-index: 3;
 	font-size: 12px;
 	border-radius: 10px;
 }
@@ -218,14 +232,14 @@
 /*    카테고리검색을 위한 스타일 */
 #category {
 	position: absolute;
-	top: 10px;
 	right: 20%;
 	border-radius: 5px;
 	border: 1px solid #909090;
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 	background: #fff;
 	overflow: hidden;
-	z-index: 2;
+	z-index: 5;
+	top: 130px;
 }
 
 #category li {
@@ -500,19 +514,19 @@
 </style>
 
 <style>
-/*    스케쥴 설정을 위한 디자인 */
+/* 스케쥴 설정을 위한 디자인 */
 .scheduling {
-	width: 100%;
-	height: 100%;
+	width: 90%;
+	height: 80%;
 	display: flex;
     margin-top: 8rem;
  }
 
 .scheduleContainer {
-	position: relative;
-	left: 0%;
-	width: 20%;
-	z-index: 1;
+	position: absolute;
+	left: 70px;
+	width: 350px;
+	z-index: 300;
 }
 
 .schedule {
@@ -543,7 +557,7 @@ img {
 <!-- 버튼을 누를때 움직이는 기능 구현 및 관련 스타일 -->
 <style>
 	#viewHandler {
-	    width: 100px;
+	    width: 70px;
 	    display: flex;
 	    flex-direction: column; /* 세로로정렬 */
 	    margin-right: 5px;
@@ -587,19 +601,20 @@ img {
 <!--  <div class="wrap"> -->
 <!-- 일정HTML -->
 <div class="scheduling">
+	<div id="chatBoxBtn">채팅박스버튼</div>
 	<div id="range"></div>
 	<div id="viewHandler">
-		<div class="viewFunctionSelect" id="mapHomeBtn">지도홈</div>
+		<div class="viewFunctionSelect" id="mapHomeBtn">지도검색</div>
 		<div class="viewFunctionSelect" id="planBtn">일정</div>
 		<div class="viewFunctionSelect" id="wishListBtn">위시</div>
 	</div>
-	<div class="scheduleContainer"></div>
+	<div class="scheduleContainer hidden"></div>
 
 	<!-- 지도HTML -->
 	<div class="map_wrap" style="right: 0">
 		<!-- 지도를 불러온다 -->
 		<div id="map"
-			style="width: 50%; height: 100%; left: 30%; position: relative; overflow: hidden;"></div>
+			style="width: 100%; height: 100%; position: absolute; overflow: hidden;"></div>
 
 		<!-- 지도 카테고리 -->
 		<ul id="category">
@@ -610,8 +625,7 @@ img {
 			<li id="CE7" data-order="4"><span class="category_bg cafe"></span>카페</li>
 			<li id="PK6" data-order="5"><span class="category_bg park"></span>주차장</li>
 		</ul>
-		<!-- 지도 검색목록 -->
-		<div id="menu_wrap" class="bg_white">
+		<div id="menu_wrap" class="bg_white hidden">
 			<div class="option">
 				<div>
 					<form onsubmit="searchPlaces(); return false;">
@@ -625,6 +639,7 @@ img {
 			<!-- listEl -->
 			<div id="pagination"></div>
 		</div>
+		<!-- 지도 검색목록 -->
 	</div>
 	<!-- 지도HTML 끝 -->
 
@@ -713,7 +728,6 @@ img {
 			</c:choose>
 		</div>
 		<!-- chatBox -->
-
 	</div>
 	<!-- chatArea -->
 </div>
@@ -721,19 +735,39 @@ img {
 
 <!-- 디자인 기능 구현을 위한 스크립트(버튼을 누르면 해당 창이 생겼다 사라졌다 하는 기능) -->
 <script>
-	const mapHomeBtn = document.getElementById('mapHomeBtn')
+	const searchMenuBtn = document.getElementById('mapHomeBtn')
 	const planBtn = document.getElementById('planBtn')
-	const wishListBtn = document.getElementById('wishListBtn')
+	const wishListBtn = document.getElementById('wishListBtn')	
+	const chatBoxBtn = document.getElementById('chatBoxBtn')
 	
-	function hide () {
-		target.classList.toggle('hidden')
+	function updateMenuWrapPosition() {
+	    const scheduleContainer = document.querySelector('.scheduleContainer');
+	    const menu_wrap = document.getElementById('menu_wrap');
+	    if (scheduleContainer.classList.contains('hidden')) {
+	        menu_wrap.style.left = '70px';
+	    } else {
+	        menu_wrap.style.left = '420px';
+	    }
+	}
+
+	searchMenuBtn.onclick = function() {
+	    console.log('지도검색 클릭');
+	    const menu_wrap = document.getElementById('menu_wrap');
+	    menu_wrap.classList.toggle('hidden');
+	    updateMenuWrapPosition();
 	}
 	
-	function 
+	planBtn.onclick = function () {
+	    const scheduleContainer = document.querySelector('.scheduleContainer');
+	    scheduleContainer.classList.toggle('hidden');
+	    updateMenuWrapPosition();
+	}
 	
-	mapHomeBtn.onclick = hide
-	planBtn.onclick = hide
-	wishListBtn.onclick = hide
+	chatBoxBtn.onclick = function () {
+		const chatArea = document.getElementById('chatArea')
+		chatArea.classList.toggle('hidden')
+	}
+	
 </script>
 
 <script>
@@ -803,7 +837,6 @@ img {
    
    // 검색 결과 목록과 마커를 표출하는 함수입니다
    function displayPlaces(places) {
-
 		var listEl = document.getElementById('placesList')
 		var menuEl = document.getElementById('menu_wrap')
 		var fragment = document.createDocumentFragment()
@@ -1389,7 +1422,8 @@ img {
 	       const msg = JSON.parse(message.body)
 	       const messageDIV = document.createElement('div')
 	       if (msg.isUser === 1) {
-	           messageDIV.textContent = msg.nickname + ': ' + msg.content    // 일반 사용자 채팅 메시지
+	    	   messageDIV.textContent = msg.storedFileName
+	           messageDIV.textContent += msg.nickname + ': ' + msg.content    // 일반 사용자 채팅 메시지
 	       } else {
 	           messageDIV.textContent = msg.content   // 시스템 메시지
 	       }
