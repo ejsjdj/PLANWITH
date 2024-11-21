@@ -347,40 +347,6 @@
    	<div class="requestToAddFriend"></div>
 </div>
 
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const modal = document.querySelector(".createAndJoinTeamModal")
-        const modalOverlay = document.querySelector(".modalOverlay")
-        const createButton = document.querySelector("#createButton")
-        const closeButton = document.querySelector(".modal-close-button")
-
-        // 페이지 로드 시 모달과 오버레이 숨기기
-        modal.style.display = "none"
-        modalOverlay.style.display = "none"
-
-        // "일정 추가하기" 버튼 클릭 시 모달과 오버레이 표시
-        createButton.addEventListener("click", function () {
-            modal.style.display = "flex"
-            modalOverlay.style.display = "block"
-        })
-
-        // 닫기 버튼 클릭 시 모달과 오버레이 숨기기
-        closeButton.addEventListener("click", function () {
-            modal.style.display = "none"
-            modalOverlay.style.display = "none"
-        })
-
-        // 오버레이 클릭 시 모달과 오버레이 숨기기
-        modalOverlay.addEventListener("click", function (event) {
-            if (event.target === modalOverlay) {
-                modal.style.display = "none"
-                modalOverlay.style.display = "none"
-            }
-        })
-    })
-</script>
-
 <!-- 스타일 스크립트 -->
 <script>
 	document.addEventListener("DOMContentLoaded", function () {

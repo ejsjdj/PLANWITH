@@ -153,21 +153,33 @@
 		    }
 		    
 		    const id = +target.dataset.id
-			const replyTo = event.target.children[0].querySelector('span').textContent
+			const replyTo = this.children[0].querySelector('span').textContent
 	    	const replyContent = replyForm.querySelector('textarea[name="content"]')
-	    	const currentDepth = replyForm.querySelector('input[name="replyDepth"]').value
-		       
-	    	if(currentDepth == 1 && replyForm.querySelector('input[name="parentId"]').value == id) {
-	    		
-	    	}
-	    	replyContent.placeholder = '@' + replyTo + ' '
-	    	replyContent.focus()
-	    	replyForm.querySelector('input[name="parentId"]').value = id
-	    	replyForm.querySelector('input[name="replyDepth"]').value = 1	// replyDepth는 항상 1	
+	    	const parentIdInput = replyForm.querySelector('input[name="parentId"]')
+	    	const replyDepthInput = replyForm.querySelector('input[name="replyDepth"]')
+	   		console.log('replydepthinput.value', replyDepthInput.value)
+		    
+	    	const currentDepth = replyDepthInput.value
+	    	console.log('currentDepth', currentDepth)
 	    	
+	    	if(currentDepth == 1 && parentIdInput.value == id) {	// 답글이라면
+	    		replyContent.placeholder = '댓글 작성'
+    			replyContent.value = ''
+   				parentIdInput.value = 0
+				replyDepthInput.value = 0
+	    	}
+	    	else {													// 답글상태가 아니였다면(그냥 댓글이였다면)
+	    		replyContent.placeholder = '@' + replyTo + ' '
+		    	replyContent.focus()
+		    	parentIdInput.value = id
+		    	replyDepthInput.value = 1	// replyDepth는 항상 1	
+	    	}
+		    
 	    	replyForm.onsubmit = function(event) {
-	    		replyContent.value = '@' + replyTo + ' ' + replyContent.value
-		    	console.log(replyForm.querySelector('textarea[name="content"]').value)
+	    		const currentDepth = replyDepthInput.value
+	    		if (currentDepth == 1) {	// 답글상태라면
+	    			replyContent.value = '@' + replyTo + ' ' + replyContent.value
+	    		}
 	    	} 	
 		}
 				
