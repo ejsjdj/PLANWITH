@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ include file="../header.jsp"%>
-
 <style>
 body {
    margin: 0;
@@ -17,6 +16,7 @@ body {
    width: 90%;
    max-width: 350px;
    margin: 4rem auto;
+   margin-top: 8rem;
    padding: 3rem 5rem;
    background-color: #ffffff;
    border-radius: 10px;
@@ -73,26 +73,26 @@ body {
 }
 
 #joinForm .group label {
-   transition-duration: 0.3s;
+    transition-duration: 0.3s;
 }
 
 #joinForm .input, #joinForm .submit {
-   width: calc(100%);
-   padding: 10px;
-   margin: 5px auto;
-   border: 1px solid #d3d3d3;
-   border-radius: 5px;
-   font-size: 1rem;
-   box-sizing: border-box;
+	width: calc(100%);
+	padding: 10px;
+	margin: 5px auto;
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+	font-size: 1rem;
+	box-sizing: border-box;
 }
 
 #joinForm .input {
-   margin-top: 0px;
+    margin-top: 0px;
 }
 
 #joinForm .input:focus {
-   border-color: #B1C9EF;
-   outline: none;
+    border-color: #B1C9EF;
+    outline: none;
 }
 
 #joinForm fieldset img {
@@ -125,6 +125,8 @@ body {
 
 #joinForm .submit {
    background-color: #628ECB;
+/*    background-color: #033495; */
+/*    background-color: #4267a9; */
    color: white;
    border: none;
    cursor: pointer;
@@ -179,6 +181,7 @@ a:hover {
    width: 100%;
    box-sizing: border-box;
    border-radius: 5px;
+   height: 100%;
 }
 
 #agreement-check {

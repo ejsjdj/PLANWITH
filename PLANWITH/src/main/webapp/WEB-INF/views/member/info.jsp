@@ -4,28 +4,52 @@
 
 <style>
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f8ff;
         margin: 0;
         padding: 0;
     }
+    
+    .middle-grey {
+		font-size: 0.85rem;
+		color: #999999;
+		font-weight: 400;
+		text-decoration: none;
+		text-align: center;
+	}
+	
+	.info-card .black {
+		color: #495057;
+		font-size: 0.95rem;
+	}
 
-    h3.info-title {
-        color: #4682b4;
-        text-align: center;
-        margin: 20px 0;
+    .info-title {
+        font-size: 1.3rem;
+   		margin-bottom: 2rem;
     }
 
     .info-card {
-        width: 90%;
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+       width: 55rem;
+	   max-width: 55rem;
+	   margin: 4rem auto;
+	   margin-top: 8rem;
+	   padding: 3rem 5rem;
+	   background-color: #ffffff;
+	   border-radius: 10px;
+	   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-
+    
+    .info-card-flex {
+    	display: flex;
+    }
+    
+    .info-card-flex .left,
+    .info-card-flex .right {
+    	flex: 1;
+    }
+	
+	.info-card-flex .right {
+		display: flex;
+		align-items: center;
+	}
     /* 회원 정보 섹션 */
     .info-profile-card {
         margin-bottom: 20px;
@@ -33,7 +57,7 @@
 
     .info-profile-card img.info-profile-image {
         display: block;
-        margin: 10px auto;
+        margin: 30px auto;
         width: 150px;
         height: 150px;
         border-radius: 50%;
@@ -41,18 +65,33 @@
     }
 
     .info-item {
-        display: flex; /* 라벨과 값을 수평 정렬 */
-        justify-content: space-between; /* 라벨 왼쪽, 값 오른쪽 정렬 */
-        align-items: center; /* 세로 중앙 정렬 */
-        margin-bottom: 15px;
+        display: flex; 
+        justify-content: center; 
+        align-items: center; 
+        margin-bottom: 2rem;
         font-size: 1rem;
     }
-
-    .info-label {
-        font-weight: bold;
-        width: 40%; /* 라벨 고정 너비 */
-        text-align: left; /* 라벨 왼쪽 정렬 */
+    
+    .info-card .info-name {
+    	margin-bottom: 0;
     }
+    
+    .info-label {
+        font-weight: 600;
+        width: 40%; 
+        text-align: center; 
+        font-size: 1.3rem;
+    }
+    
+/*     .info-card .input { */
+/*     	width: calc(100%); */
+/* 		padding: 10px; */
+/* 		margin: 5px auto; */
+/* 		border: 1px solid #d3d3d3; */
+/* 		border-radius: 5px; */
+/* 		font-size: 1rem; */
+/* 		box-sizing: border-box; */
+/*     } */
 
     .info-value {
         text-align: right; /* 값 오른쪽 정렬 */
@@ -60,118 +99,95 @@
         color: #333;
     }
 
-    /* 버튼 그룹 스타일 */
-    .info-button-group {
-        width: 90%;
-        max-width: 500px;
-        margin: 20px auto;
-        text-align: center;
-    }
-
-    .info-button-group a {
-        display: block;
-        margin: 10px auto;
-        text-decoration: none;
-    }
-
-    .info-button-group button {
-        width: calc(100% - 20px);
-        max-width: 300px;
-        height: 50px;
-        margin: 10px auto;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
-        background-color: #87cefa;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s;
-    }
-
-    .info-button-group button:hover {
-        background-color: #4682b4;
-    }
+     .info-button-group { 
+         width: 90%; 
+        max-width: 300px; 
+        margin: 20px auto; 
+         text-align: center; 
+         justify-content: center;
+         align-items: center;
+		
+     } 
 
     /* 회원 탈퇴 버튼만 토마토색 */
     .info-delete-button {
-        width: calc(100% - 20px);
-        max-width: 300px;
-        height: 50px;
-        margin: 10px auto;
-        border: none;
-        border-radius: 5px;
-        font-size: 14px;
        	background-color: tomato !important;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background-color 0.3s;
     }
 
     .info-delete-button:hover {
         background-color: #e04141; 
     }
-
-    /* 링크 스타일 */
-    .info-button-group a {
-        color: #4682b4;
-        font-weight: bold;
+    
+    .info-button-group .submit {
+   		width: 70%;
+		padding: 15px;
+		margin: 10px auto;
+		border: 1px solid #d3d3d3;
+		border-radius: 2rem;
+		font-size: 0.9rem;
+		box-sizing: border-box;
+	   	background-color: #6495ED;	/* 이게 나을까? 아니면 아래? ㅁㄹ */
+/* 	   	background-color: #0099FF; */
+/* 	   	background-color: #628ECB; */
+	/*    background-color: #033495; */
+	/*    background-color: #4267a9; */
+	   color: white;
+	   border: none;
+	   cursor: pointer;
+	   transition: background-color 0.3s;
+	   font-weight: 400;
     }
-
-    .info-button-group a:hover {
-        text-decoration: underline;
-    }
+    
 </style>
 
-<h3 class="info-title">회원정보</h3>
 
 <div class="info-card info-profile-card">
-    <div>
-        <p class="info-label">프로필 이미지</p>
-        <img class="info-profile-image" src="${cpath}/upload/${login.memberPhoto != null ? login.memberPhoto : 'default.png'}" alt="프로필 이미지">
-    </div>
-    <div class="info-item">
-        <span class="info-label">닉네임</span>
-        <span class="info-value">${login.nickname}</span>
-    </div>
-    <div class="info-item">
-        <span class="info-label">이메일</span>
-        <span class="info-value">${login.email}</span>
-    </div>
-    <div class="info-item">
-        <span class="info-label">주소</span>
-        <span class="info-value">${login.address}</span>
-    </div>
-    <div class="info-item">
-        <span class="info-label">성별</span>
-        <span class="info-value">
-            <c:if test="${login.gender == 'M'}">남성</c:if>
-            <c:if test="${login.gender == 'F'}">여성</c:if>
-            <c:if test="${login.gender == 'U' || empty login.gender}">비공개</c:if>
-        </span>
+	<h3 class="info-title">회원정보</h3>
+	<div class="info-card-flex">
+		<div class="left">
+		    <div>
+		        <img class="info-profile-image" src="${cpath}/upload/${login.memberPhoto != null ? login.memberPhoto : 'default.png'}" alt="프로필 이미지">
+		    </div>
+		    <div class="info-item info-name">
+		        <span class="info-label">${login.nickname}</span>
+		    </div>
+		    <div class="info-item">
+		        <span class="middle-grey">${login.email}</span>
+		    </div>
+		    <div class="info-item">
+		        <span class="middle-grey black">
+		            <c:if test="${login.gender == 'M'}">남성</c:if>
+		            <c:if test="${login.gender == 'F'}">여성</c:if>
+		            <c:if test="${login.gender == 'U' || empty login.gender}">비공개</c:if>
+		        </span>
+		    </div>
+		    <div class="info-item">
+		        <span class="middle-grey black">${login.address}</span>
+		    </div>	
+	    </div>
+	    
+	    <div class="right" >
+		    <div class="info-button-group">
+			    <a href="${cpath}/member/updateInfo">
+			        <button class="submit">기본 정보 수정</button>
+			    </a>
+			    <a href="${cpath}/member/updateProfileImage">
+			        <button class="submit">프로필 사진 수정</button>
+			    </a>
+			    <c:if test="${login.snsType == null}">
+			        <a href="${cpath}/member/updatePassword">
+			            <button class="submit">비밀번호 수정</button>
+			        </a>
+			    </c:if>
+				<form id="infoDeleteForm" action="${cpath}/member/delete" method="POST">
+					    <button type="submit" class="info-delete-button submit">회원 탈퇴</button>
+				</form>
+			</div>
+	    </div>
     </div>
 </div>
 
-<div class="info-button-group">
-    <a href="${cpath}/member/updateInfo">
-        <button>기본 정보 수정</button>
-    </a>
-    <a href="${cpath}/member/updateProfileImage">
-        <button>프로필 사진 수정</button>
-    </a>
-    <c:if test="${login.snsType == null}">
-        <a href="${cpath}/member/updatePassword">
-            <button>비밀번호 수정</button>
-        </a>
-    </c:if>
-</div>
 
-<form id="infoDeleteForm" action="${cpath}/member/delete" method="POST">
-	<div class="info-button-group">
-	    <button type="submit" class="info-delete-button">회원 탈퇴</button>
-	</div>
-</form>
 
 
 <script>

@@ -547,7 +547,7 @@ body {
 	margin: 5px 0; /* 단락 간격 설정 */
 }
 
-img {
+.chatImg {
 	width: 60px;
 	height: 60px;
 }
@@ -681,14 +681,14 @@ img {
 						<div class="topRight">
 							<div id="inviteBtn">
 								<button>
-									<img
+									<img class="chatImg"
 										src="https://cdn-icons-png.flaticon.com/512/2228/2228706.png"
 										width="30px">
 								</button>
 							</div>
 							<div id="exitTeamBtn">
 								<button>
-									<img
+									<img class="chatImg"
 										src="https://e7.pngegg.com/pngimages/311/926/png-clipart-button-computer-icons-exit-angle-rectangle-thumbnail.png"
 										width="30px">
 								</button>

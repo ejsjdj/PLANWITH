@@ -75,9 +75,10 @@
    		width: 70%;
         padding: 10px;
         margin: 5px auto;
+        margin-top: 8px;
         border: 1px solid #d3d3d3;
         border-radius: 3rem;
-        font-size: 0.9rem;
+        font-size: 0.8rem;
         box-sizing: border-box;
    		background-color: #033495;
 /*    		background-color: #628ECB; */
