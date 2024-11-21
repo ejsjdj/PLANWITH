@@ -19,6 +19,7 @@
         width: 90%;
         max-width: 350px;
         margin: 4rem auto;
+     	margin-top: 8rem;
         padding: 3rem 5rem;
         background-color: #ffffff;
         border-radius: 10px;
@@ -40,7 +41,7 @@
     }
     
     #loginForm .group label {
-          transition-duration: 0.3s;
+        transition-duration: 0.3s;
     }
     
     #loginForm .input,
@@ -179,6 +180,11 @@
    
     #loginForm fieldset {
     	border-radius: 5px;
+    	border: 1px solid #d3d3d3;
+    }	
+    
+	#loginForm fieldset img {
+       width: 100%;
     }
     
     .line {

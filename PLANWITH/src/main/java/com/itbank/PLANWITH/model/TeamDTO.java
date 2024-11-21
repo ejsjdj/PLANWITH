@@ -36,6 +36,12 @@ public class TeamDTO implements Serializable {
 	private Date createTime;
 	private String inviteCode;
 	
+	private int howmanyMembers;
+	private	Date startTime;
+	private	Date endTime;
+	private String firstPlaceName;
+	
+	
 	private List<MemberDTO> team_members;
 
 //	채팅룸에 이전에 채팅을 가져올때 필요한 리스트 필요시 구현
@@ -81,6 +87,40 @@ public class TeamDTO implements Serializable {
 		this.inviteCode = inviteCode;
 	}
 
+	public int getHowmanyMembers() {
+		return howmanyMembers;
+	}
 
+	public void setHowmanyMembers(int howmanyMembers) {
+		this.howmanyMembers = howmanyMembers;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getFirstPlaceName() {
+		return firstPlaceName;
+	}
+
+	public void setFirstPlaceName(String firstPlaceName) {
+		this.firstPlaceName = firstPlaceName;
+	}
 	
 }
