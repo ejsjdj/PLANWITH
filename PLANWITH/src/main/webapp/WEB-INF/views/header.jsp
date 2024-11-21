@@ -120,17 +120,28 @@ header {
 	display: none;
 }
 
+.small-grey {
+   font-size: 0.75rem;
+   /*        color: #adb5bd; */
+   color: #999999;
+   /*        color: #868e90; */
+   font-weight: 400;
+   text-decoration: none;
+   text-align: center;
+}
+
 /*    ----------------------------------------- style 사이드바 수정한 곳 ----------------------------------------- */
 .sidebar {
 	width: 300px;
 	height: 100vh;
 	background-color: #f8f9fa;
+	background-color: white;
 	position: fixed;
 	top: 0;
 	right: -300px;
 	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 	transition: right 0.3s ease;
-	z-index: 5;
+	z-index: 20;
 }
 
 .sidebar.open {
@@ -141,22 +152,70 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 15px;
-	background-color: #96C6D2;
-	color: white;
-	border-bottom: 1px solid #e0e0e0;
+	padding: 20px;
+	color: black;
+	border-bottom: 1px solid #ffffff;
+	height: 30px;
+}
+
+.sidebarHeader .sidebarHeaderImg {
+	width: 100px;
 }
 
 .closeSidebarBtn {
 	background: none;
 	border: none;
 	font-size: 18px;
-	color: white;
+	color: black;
 	cursor: pointer;
 }
 
 .sidebarmodalBox {
 	padding: 20px;
+}
+
+.sidebarmodalBox .sidebarListName {
+	font-size: 0.7rem;
+	background-color: #f1f3f5;
+	background-color: #f8f9fa;
+	background-color: #f3f3f3;
+	padding: 0.3rem 0.7rem;
+	color: #495057;				/* 회색 살짝 들어간 검은색 */
+}
+
+.sidebarmodalBox #friendList {
+	background-color: #f8f9fa;	
+}
+
+.sidebarmodalBox #friendList p{
+	margin: 0;
+	padding:12px;
+}
+
+.sidebarmodalBox #friendSearchBtn {
+	width: 15rem;
+	padding: 10px;
+	margin: 5px auto;
+	border: 1px solid #d3d3d3;
+	border-radius: 2rem;
+	font-size: 0.8rem;
+	box-sizing: border-box;
+	justify-content: center;
+	display: flex;
+	background-color: #033495;
+	color: white;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.sidebarmodalBox #friendSearchBtn:hover {
+	background-color: pink;
+	
+}
+
+.sidebarmodalBox .sidebarFriendDiv {
+	margin-bottom: 1rem;
 }
 
 .sidebarmodalBox ul {
@@ -166,13 +225,13 @@ header {
 }
 
 .sidebarmodalBox ul li {
-	margin: 15px 0;
+	padding: 1rem 0.7rem;
 }
 
 .sidebarmodalBox ul li a {
 	text-decoration: none;
 	color: #333;
-	font-size: 16px;
+	font-size: 0.9rem;
 	transition: color 0.3s ease;
 }
 
@@ -195,6 +254,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 0 0;
 }
 
 .myPage>.myInfo {
@@ -220,11 +280,11 @@ header {
 	font-size: 13px;
 }
 
-.profileImg {
+.myPage .profileImg {
 	width: 70px;
 	height: 70px;
 	border-radius: 50%;
-	margin-left: 20px;
+	margin-left: 10px;
 }
 
 .green {
@@ -445,7 +505,7 @@ footer>.footinfo>.bottom>.right>img {
 
 	<div id="sidebar" class="sidebar">
 		<div class="sidebarHeader">
-			<h3>메뉴</h3> 
+			<img class="sidebarHeaderImg" src="${cpath }/resources/image/plan with.png">
 			<button id="closeSidebar" class="closeSidebarBtn">X</button>
 		</div>
 		<div class="sidebarmodalBox">
@@ -462,11 +522,20 @@ footer>.footinfo>.bottom>.right>img {
 						</p>
 					</div>
 				</div>
-				<div id="friendList"></div>
-				<p>
-					<button id="friendSearchBtn">친구찾기</button>
-				</p>
-				<div class="addFriendRequest"></div>
+				<div class="sidebarFriendDiv">
+					<p>
+						<button id="friendSearchBtn">친구찾기</button>
+					</p>
+				<div class="sidebarListName">친구 목록</div>
+					<div id="friendList"></div>
+					<div class="addFriendRequest"></div>
+				</div>
+				<ul>
+					<li><a href="${cpath}/team/teamList">나의 일정</a></li>
+					<li><a href="${cpath}/board/boardList">게시판 보기</a></li>
+					<li><a href="${cpath }/member/logout">로그아웃</a></li>
+				</ul>
+				
 			</c:if>
 			<c:if test="${empty login }">
 				<ul>
@@ -552,7 +621,7 @@ footer>.footinfo>.bottom>.right>img {
 			  })
             // 결과가 없을 경우
             if (result.length === 0) {
-                tag = '<p>친구 목록이 비어 있습니다.</p>'
+                tag = '<p class="small-grey">친구 목록이 비어 있습니다.</p>'
             }
             friendList.innerHTML = tag    
     }
