@@ -25,6 +25,7 @@
 <style>
 body {
 	font-family: "Noto Sans KR", sans-serif;
+	position: relative;
 }
 /* 스크롤바 스타일링 */
 ::-webkit-scrollbar {
@@ -56,18 +57,20 @@ body, html {
 }
 
 header {
-   width: 100%;
-   height: 70px;
-   background-color: #96C6D2;
+	width: 100%;
+	height: 70px;
+	background-color: white;
+	border-bottom: 1px solid #f5f6f8;
+	position: fixed;
 }
 
 .header-flex {
-   width: 960px;
-   margin: 0 auto;
-   height: 30px;
-   padding: 20px;
-   display: flex;
-   justify-content: space-between;
+	width: 1160px;
+	margin: 0 auto;
+	height: 30px;
+	padding: 20px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .header-flex>.header-left {
@@ -91,10 +94,12 @@ header {
 
 .header-right {
 	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .button {
-	border: 2px solid #96C6D2;
+	border: 1px solid #dadada;
 	margin: 5px;
 	border-radius: 10px;
 	width: 60px;
@@ -186,39 +191,39 @@ header {
 }
 
 .myPage {
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
 
 .myPage>.myInfo {
-   margin-right: 30px;
+	margin-right: 30px;
 }
 
 .myPage>.myInfo>p:nth-child(1) {
-   margin-bottom: 0;
+	margin-bottom: 0;
 }
 
 .myPage>.myInfo>p:nth-child(2) {
-   margin-top: 0;
+	margin-top: 0;
 }
 
 .myPage>.myInfo>p>span {
-   font-size: 20px;
-   font-weight: 500;
+	font-size: 20px;
+	font-weight: 500;
 }
 
 .myPage>.myInfo>p>a {
-   color: darkgrey;
-   text-decoration: none;
-   font-size: 13px;
+	color: darkgrey;
+	text-decoration: none;
+	font-size: 13px;
 }
 
 .profileImg {
-   width: 70px;
-   height: 70px;
-   border-radius: 50%;
-   margin-left: 20px;
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	margin-left: 20px;
 }
 
 /*    -------------------------------- footer ----------------------------------------- */
@@ -296,6 +301,79 @@ footer>.footinfo>.bottom>.right>img {
 	color: #96C6D2;
 }
 
+/* ---------------------------------------------  modal  ---------------------------------------------- */
+#addmodal {
+	width: 100%;
+	height: 100%;
+}
+
+#addmodal>.overlay {
+	background-color: rgba(255, 255, 255, 0);
+	width: 100%;
+	height: 100%;
+	z-index: 21;
+}
+
+.content {
+	width: 470px;
+	height: 430px;
+	padding: 15px;
+	display: flex;
+	flex-flow: column;
+	position: fixed;
+	background-color: white;
+	border: 1px solid black;
+	border-radius: 25px;
+	z-index: 22;
+	left: 25%;
+}
+
+.content>p {
+	display: flex;
+	justify-content: center;
+}
+
+.content>p>span {
+	color: #4682b4;
+	font-size: 22px;
+	font-weight: 500;
+	display: flex;
+	justify-content: center;
+}
+
+.content>.searchFriendList {
+	border: 1px dashed blue;
+	width: 450px;;
+	height: 230px;
+	padding: 10px;
+}
+
+#searchFriendId {
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+	font-size: 1rem;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+#searchSubmit {
+	background: linear-gradient(70deg, #172d9d, #561689);
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+	font-size: 1rem;
+	box-sizing: border-box;
+	color: white;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s;
+	width: 150px;
+	height: 40px;
+}
+
+#searchSubmit:hover {
+	background: linear-gradient(70deg, #172d9d, #561689);
+}
+
 .hidden {
 	display: none;
 }
@@ -345,7 +423,7 @@ footer>.footinfo>.bottom>.right>img {
 	<header>
 		<div class="header-flex">
 			<div class="header-left">
-				<img id="logoImg" src="${cpath }/resources/image/plan with흰.png">
+				<img id="logoImg" src="${cpath }/resources/image/plan with.png">
 			</div>
 			<div class="buttons">
 				<button id="scheduleBtn" class="button disabled">일정</button>
@@ -397,49 +475,57 @@ footer>.footinfo>.bottom>.right>img {
 
 	<div class="modal-overlay"></div>
 
-	<footer>
-		<c:if test="${footerVisible != false}">
-			<div class="footinfo">
-				<div class="top">
-					<div class="left">
-						<span>고객 센터</span>
-					</div>
-					<div class="right">
-						<a href="${cpath}/member/login">MEMBER</a>
-					</div>
-				</div>
-				<div class="middle">
-					<span> (주)기범컴퍼니 플랜위드는 통신판매중개로서 통신판매의 당사자가 아니며<br> 상품
-						거래정보 및 거래등에 대한 책임을 지지않습니다.
-					</span>
-				</div>
-				<div class="bottom">
-					<div class="left">
-						<span>서비스 이용약관 | 개인정보 처리방침 | 고객 센터</span>
-					</div>
-					<div class="right">
-						<img src="${cpath }/resources/image/으헝.jpg">
-					</div>
-				</div>
-			</div>
-		</c:if>
-	</footer>
+<!-- 	<footer> -->
+<%-- 		<c:if test="${footerVisible != false}"> --%>
+<!-- 			<div class="footinfo"> -->
+<!-- 				<div class="top"> -->
+<!-- 					<div class="left"> -->
+<!-- 						<span>고객 센터</span> -->
+<!-- 					</div> -->
+<!-- 					<div class="right"> -->
+<%-- 						<a href="${cpath}/member/login">MEMBER</a> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 				<div class="middle"> -->
+<!-- 					<span> (주)기범컴퍼니 플랜위드는 통신판매중개로서 통신판매의 당사자가 아니며<br> 상품 -->
+<!-- 						거래정보 및 거래등에 대한 책임을 지지않습니다. -->
+<!-- 					</span> -->
+<!-- 				</div> -->
+<!-- 				<div class="bottom"> -->
+<!-- 					<div class="left"> -->
+<!-- 						<span>서비스 이용약관 | 개인정보 처리방침 | 고객 센터</span> -->
+<!-- 					</div> -->
+<!-- 					<div class="right"> -->
+<%-- 						<img src="${cpath }/resources/image/으헝.jpg"> --%>
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<%-- 		</c:if> --%>
+<!-- 	</footer> -->
 
 	<!-- 친구찾기 모달 -->
 	<div id="addModal" class="modal hidden">
 		<div class="overlay"></div>
 		<div class="content">
+			<p>
+				<span>친구찾기</span>
+			</p>
 			<form id="searchFriendForm">
 				<p>
-					<input type="text" name="userid" placeholder="친구 아이디를 입력하세요"
-						autocomplete="off"> <input type="submit" value="검색">
+					<input id="searchFriendId" type="text" name="userid"
+						placeholder="친구 아이디를 입력하세요" autocomplete="off"> <input
+						id="searchSubmit" type="submit" value="검색">
 				</p>
 			</form>
+			<div class="searchFriendList">여기는 검색후 친구 목록 뜨는 곳</div>
+			<p>
+				<button id="closeModal" class="closeModal">닫기</button>
+			</p>
 		</div>
 	</div>
 
 
-<!-- 스크립트 -------------------------------------->
+	<!-- 스크립트 -------------------------------------->
 
 	<script>
 	
@@ -535,18 +621,39 @@ footer>.footinfo>.bottom>.right>img {
               friendList.innerHTML = tag    
       }
 
-      
-      // loadFreindHandler 는 사이드바가 열리면 실행 되게끔 ... 수정
-      const infoBtn = document.getElementById('infoBtn')
-      if (infoBtn) {
-          infoBtn.addEventListener('click', loadFriendListHandler)
-      }
+      	
+		// loadFreindHandler 는 사이드바가 열리면 실행 되게끔 ... 수정
+		const infoBtn = document.getElementById('infoBtn')
+		if (infoBtn) {
+		    infoBtn.addEventListener('click', loadFriendListHandler)
+		}
 
       
-      // 친구 찾기 모달 열기 및 검색 처리
-      function toggleModal() {
-          document.getElementById('addModal').classList.toggle('hidden')
-      }
+		// 친구 찾기 모달 열기 및 검색 처리
+      	function toggleModal() {
+          	document.getElementById('addModal').classList.toggle('hidden')
+      	}
+      
+		// 모달 닫기 버튼 기능 추가
+      	const closeModalButton = document.getElementById('closeModal')
+
+      	// 모달 닫기 함수
+      	function closeModal() {
+          	document.getElementById('addModal').classList.add('hidden')
+      	}
+
+      	// 닫기 버튼 클릭 시 모달 닫기
+      	if (closeModalButton) {
+          	closeModalButton.addEventListener('click', closeModal)
+      	}
+	
+     	// 오버레이 클릭 시 모달 닫기
+      	if (modalOverlay) {
+      	    modalOverlay.addEventListener('click', function () {
+      	        toggleModal()
+      	    })
+      	}
+
 
 	  async function getMemberList(search = '') {
         
