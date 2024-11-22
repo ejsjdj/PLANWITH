@@ -63,6 +63,10 @@ body {
 	resize: none; /* 사이즈 안 고쳐지게 함 */
 	border: none;
 }
+div.middleSideChat img {
+	width: 20px;
+	height: 20px;
+}
 </style>
 
 <style>
@@ -519,7 +523,7 @@ body {
 	width: 90%;
 	height: 80%;
 	display: flex;
-    margin-top: 8rem;
+    margin-top: 72px;
  }
 
 .scheduleContainer {
@@ -702,6 +706,8 @@ body {
 								<p>
 									<c:choose>
 										<c:when test="${message.isUser == 1}">
+											
+											<img class="profileImg" src="${cpath}/upload/${message.storedFileName != null ? message.storedFileName : 'default.png'}">
 							                ${message.nickname}: 
 							            </c:when>
 										<c:otherwise>
@@ -1349,7 +1355,6 @@ body {
 			id: ${login.id},	// memberId인데 memberDTO에서 id라서 id로 해놓음
 			nickname: '${login.nickname}'	
 		}))
-		
 	}
 	
 	// 팀 이름 변경 시 호출
@@ -1398,7 +1403,6 @@ body {
 	   }
 	   const inputChat = document.getElementById('inputChat')
 	   inputChat.addEventListener('keydown', function(event) {
-		   console.log('Enter 입력 함수 실행')
 	      if (event.key === 'Enter') inputMessage(event) 
 	   })
 	   inputChat.addEventListener('click', inputMessage)
@@ -1418,17 +1422,30 @@ body {
 	}
 	
 	// 채팅 메시지 받을 때 마다 호출
-	   function onReceiveMessage(message) {
-	       const msg = JSON.parse(message.body)
-	       const messageDIV = document.createElement('div')
-	       if (msg.isUser === 1) {
-	    	   messageDIV.textContent = msg.storedFileName
-	           messageDIV.textContent += msg.nickname + ': ' + msg.content    // 일반 사용자 채팅 메시지
-	       } else {
-	           messageDIV.textContent = msg.content   // 시스템 메시지
-	       }
-	       middleSideChat.appendChild(messageDIV)
-	   }
+	function onReceiveMessage(message) {
+	    const msg = JSON.parse(message.body);
+	    const messageDIV = document.createElement('div');
+	    const paragraph = document.createElement('p');
+	    
+	    if (msg.isUser === 1) {
+	        // 사용자 메시지
+	        const img = document.createElement('img');
+	        img.className = 'profileImg';
+	        img.src = cpath + '/upload/' + (msg.storedFileName ? msg.storedFileName : 'default.png');
+	        
+	        paragraph.appendChild(img);
+	        paragraph.innerHTML += msg.nickname + ': ' + msg.content;
+	    } else {
+	        // 시스템 또는 다른 사용자의 메시지
+	        paragraph.textContent = msg.nickname + ' ' + msg.content;
+	    }
+	    
+	    messageDIV.appendChild(paragraph);
+	    middleSideChat.appendChild(messageDIV);
+	    
+	    // 스크롤을 최신 메시지로 이동
+	    middleSideChat.scrollTop = middleSideChat.scrollHeight;
+	}
 	
 	// 팀 이름 수정 제출 시 websocket 연결
 	function updateTeamName(event) {
@@ -1449,7 +1466,7 @@ body {
 		drawSchedule(data)
 	}
 	
-	// 팀이름수정 폼 제출 시 
+	// 팀이름수정 폼 제출 시
 	document.getElementById('updateTeamNameForm').onsubmit = updateTeamName		// 팀 이름 폼 제출 시 처리
 	document.getElementById('exitTeamBtn').onclick = exitTeam				
 	stomp.connect({}, onConnect)

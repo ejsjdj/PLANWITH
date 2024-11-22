@@ -62,8 +62,7 @@
 		    where tm.memberId = #{memberId}
 		)
 		group by t.id, t.name, t.createTime, t.inviteCode, s.startTime, s.endTime, p.name
-		order by t.createTime
-
+		order by t.createTime desc
 	</select>
 	
 	<select id="selectTeamByInviteCode" parameterType="String" resultType="team">
@@ -109,11 +108,13 @@
          ms.content,
          ms.sentTime,
          ms.isUser,
-         m.nickname as nickname
+         m.nickname as nickname,
+         mp.storedFileName as storedFileName
       from message ms
         join member m
             on ms.memberId = m.id
-        
+        join MEMBERPHOTO mp
+        	on mp.memberId = ms.memberId
       where teamId = #{teamId}
       order by sentTime 
    </select>  		
