@@ -86,13 +86,15 @@
          ms.content,
          ms.sentTime,
          ms.isUser,
-         m.nickname as nickname
+         m.nickname as nickname,
+         COALESCE (mp.storedfileName , 'default.png') as storedFileName
       from message ms
         join member m
             on ms.memberId = m.id
-        
-      where teamId = #{teamId}
-      order by sentTime 
+        left join MEMBERPHOTO mp
+        	on mp.memberid = ms.memberId 
+      where ms.teamId = #{teamId}
+      order by ms.sentTime asc
    </select>  		
 	
 	
@@ -159,7 +161,5 @@
 	        id DESC
 	    fetch first 1 row only
 	</select>
-	
- 
 	
 </mapper>

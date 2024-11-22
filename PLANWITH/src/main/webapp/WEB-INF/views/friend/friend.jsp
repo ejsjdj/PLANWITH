@@ -60,35 +60,9 @@
 </div>
 
 
-<script>
-// 친구 목록 불러오기
- 	async function loadFriendListHandler() {
-		const url = '${cpath}/friends'
-		const result = await fetch(url).then(resp => resp.json())
-		
-		const friendList = document.getElementById('friendList')
-		
-		let tag = ''
-		result.forEach(member => {
-			tag += '<p><span>' + member.nickname + '(' + member.userid + ') </span>'
-			tag += '<span class="' + (member.status == 1 ? 'green' : 'grey') + '"></span></p>'
-		})
-		friendList.innerHTML = tag
-	}
-
-	const infoBtn = document.getElementById('infoBtn')
-	infoBtn.addEventListener('click', loadFriendListHandler)
-</script>
-
 
 <script>
 
-
-	// 친구찾기를 위한 목록 (친구찾기 버튼을 누르면 모달을 띄우고 친구를 검색할 수 있다)
-
-	function modalHandler() {
-		document.getElementById('addModal').classList.toggle('hidden')
-	}
 	
 	// 모달안에다가 memberList 띄우기
 	async function getMemberList(search) {

@@ -26,7 +26,7 @@ public class FriendsController {
 	public List<MemberDTO> friendList(HttpSession session) {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 		if(login != null) { return friendService.getFriendList(login.getId()); }
-		return null;
+		return List.of();	//  비어있는 리스트
 	}
 	
 	@GetMapping("/memberList")

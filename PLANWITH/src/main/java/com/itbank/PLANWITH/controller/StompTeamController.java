@@ -12,8 +12,10 @@ import org.springframework.stereotype.Controller;
 
 import com.itbank.PLANWITH.model.MemberDTO;
 import com.itbank.PLANWITH.model.MessageDTO;
+import com.itbank.PLANWITH.model.PhotoDTO;
 import com.itbank.PLANWITH.model.ScheduleDTO;
 import com.itbank.PLANWITH.service.MapService;
+import com.itbank.PLANWITH.service.MemberService;
 import com.itbank.PLANWITH.service.TeamService;
 
 @Controller
@@ -21,6 +23,7 @@ public class StompTeamController {
 	
 	@Autowired private TeamService teamService;
 	@Autowired private MapService mapService;
+	@Autowired private MemberService memberService;
 	@Autowired SimpMessagingTemplate template;
 	
 	// 팀에 입장할 때 기존 메시지들을 불러오기 (채팅과 시스템 메시지 구분)
@@ -68,6 +71,8 @@ public class StompTeamController {
     @MessageMapping("/message/{teamId}")
     public void sendMessage(@DestinationVariable int teamId, MessageDTO messageDTO) {
         teamService.insertMessage(messageDTO);  
+        PhotoDTO photoDTO = memberService.selectProfilePhotoByUserid(messageDTO.getMemberId());
+        messageDTO.setStoredFileName(photoDTO.getStoredFileName());
         template.convertAndSend("/broker/team/" + teamId, messageDTO);  // 채팅방에 실시간 전송
     }
     

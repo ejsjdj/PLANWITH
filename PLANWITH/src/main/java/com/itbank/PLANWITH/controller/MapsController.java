@@ -61,12 +61,7 @@ public class MapsController {
 		dto.setEndTime(new Date(dto.getEt()));
 		list.add(dto);
 		
-		session.setAttribute("scheduleList", list);
-//		System.out.println(dto);
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println(sdf.format(dto.getStartTime()));
-		System.out.println(sdf.format(dto.getEndTime()));
-		
+		session.setAttribute("scheduleList", list);		
 		return list;
 	}
 //	@PostMapping("/add")

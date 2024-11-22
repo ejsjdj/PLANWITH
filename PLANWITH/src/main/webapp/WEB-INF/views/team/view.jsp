@@ -63,6 +63,10 @@ body {
 	resize: none; /* 사이즈 안 고쳐지게 함 */
 	border: none;
 }
+.chatProfileImg {
+	width: 30px;
+	height: 30px;
+}
 </style>
 
 <style>
@@ -702,6 +706,8 @@ img {
 								<p>
 									<c:choose>
 										<c:when test="${message.isUser == 1}">
+											
+											<img class="chatProfileImg" src="${cpath}/upload/${message.storedFileName != null ? message.storedFileName : 'default.png'}">
 							                ${message.nickname}: 
 							            </c:when>
 										<c:otherwise>
@@ -1419,16 +1425,30 @@ img {
 	
 	// 채팅 메시지 받을 때 마다 호출
 	   function onReceiveMessage(message) {
-	       const msg = JSON.parse(message.body)
-	       const messageDIV = document.createElement('div')
-	       if (msg.isUser === 1) {
-	    	   messageDIV.textContent = msg.storedFileName
-	           messageDIV.textContent += msg.nickname + ': ' + msg.content    // 일반 사용자 채팅 메시지
-	       } else {
-	           messageDIV.textContent = msg.content   // 시스템 메시지
-	       }
-	       middleSideChat.appendChild(messageDIV)
-	   }
+		    const msg = JSON.parse(message.body);
+		    const messageDIV = document.createElement('div');
+		    const paragraph = document.createElement('p');
+		    
+		    if (msg.isUser === 1) {
+		        // 사용자 메시지
+		        const img = document.createElement('img');
+		        img.className = 'chatProfileImg';
+		        img.src = cpath + '/upload/' + (msg.storedFileName ? msg.storedFileName : 'default.png');
+		        
+		        paragraph.appendChild(img);
+		        paragraph.innerHTML += msg.nickname + ': ' + msg.content;
+		        
+		    } else {
+		        // 시스템 또는 다른 사용자의 메시지
+		        paragraph.textContent = msg.nickname + ' ' + msg.content;
+		    }
+		    
+		    messageDIV.appendChild(paragraph);
+		    middleSideChat.appendChild(messageDIV);
+		    
+		    // 스크롤을 최신 메시지로 이동
+		    middleSideChat.scrollTop = middleSideChat.scrollHeight;
+		}
 	
 	// 팀 이름 수정 제출 시 websocket 연결
 	function updateTeamName(event) {

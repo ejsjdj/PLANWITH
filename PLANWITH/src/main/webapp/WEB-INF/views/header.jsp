@@ -27,6 +27,11 @@ body {
 	font-family: "Noto Sans KR", sans-serif;
 	position: relative;
 }
+
+a {
+	text-decoration: none;
+}
+
 /* 스크롤바 스타일링 */
 ::-webkit-scrollbar {
 	width: 12px;
@@ -120,17 +125,28 @@ header {
 	display: none;
 }
 
+.small-grey {
+   font-size: 0.75rem;
+   /*        color: #adb5bd; */
+   color: #999999;
+   /*        color: #868e90; */
+   font-weight: 400;
+   text-decoration: none;
+   text-align: center;
+}
+
 /*    ----------------------------------------- style 사이드바 수정한 곳 ----------------------------------------- */
 .sidebar {
 	width: 300px;
 	height: 100vh;
 	background-color: #f8f9fa;
+	background-color: white;
 	position: fixed;
 	top: 0;
 	right: -300px;
 	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 	transition: right 0.3s ease;
-	z-index: 5;
+	z-index: 20;
 }
 
 .sidebar.open {
@@ -141,22 +157,70 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 15px;
-	background-color: #96C6D2;
-	color: white;
-	border-bottom: 1px solid #e0e0e0;
+	padding: 20px;
+	color: black;
+	border-bottom: 1px solid #ffffff;
+	height: 30px;
+}
+
+.sidebarHeader .sidebarHeaderImg {
+	width: 100px;
 }
 
 .closeSidebarBtn {
 	background: none;
 	border: none;
 	font-size: 18px;
-	color: white;
+	color: black;
 	cursor: pointer;
 }
 
 .sidebarmodalBox {
 	padding: 20px;
+}
+
+.sidebarmodalBox .sidebarListName {
+	font-size: 0.7rem;
+	background-color: #f1f3f5;
+	background-color: #f8f9fa;
+	background-color: #f3f3f3;
+	padding: 0.3rem 0.7rem;
+	color: #495057;				/* 회색 살짝 들어간 검은색 */
+}
+
+.sidebarmodalBox #friendList {
+	background-color: #f8f9fa;	
+}
+
+.sidebarmodalBox #friendList p{
+	margin: 0;
+	padding:12px;
+}
+
+.sidebarmodalBox .sidebarBtn {
+	width: 15rem;
+	padding: 10px;
+	margin: 5px auto;
+	border: 1px solid #d3d3d3;
+	border-radius: 2rem;
+	font-size: 0.8rem;
+	box-sizing: border-box;
+	justify-content: center;
+	display: flex;
+	background-color: #033495;
+	color: white;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.sidebarmodalBox .sidebarBtn:hover {
+	background-color: pink;
+	
+}
+
+.sidebarmodalBox .sidebarFriendDiv {
+	margin-bottom: 1rem;
 }
 
 .sidebarmodalBox ul {
@@ -166,13 +230,13 @@ header {
 }
 
 .sidebarmodalBox ul li {
-	margin: 15px 0;
+	padding: 1rem 0.7rem;
 }
 
 .sidebarmodalBox ul li a {
 	text-decoration: none;
 	color: #333;
-	font-size: 16px;
+	font-size: 0.9rem;
 	transition: color 0.3s ease;
 }
 
@@ -180,7 +244,25 @@ header {
 	color: #96C6D2;
 }
 
-.modal-overlay {
+.sidebarmodalBox #friendList .friendStatus {
+	display: flex;
+}
+
+.sidebarmodalBox #friendList .loginStatus {
+	  width : 0.8rem;
+	  height : 0.8rem;
+	  border-radius: 50%;
+	  background-color: green;
+}
+
+.sidebarmodalBox #friendList .logoutStatus {
+	  width : 0.8rem;
+	  height : 0.8rem;
+	  border-radius: 50%;
+	  background-color: grey;
+}
+
+.sidebarOverlay {
 	display: none;
 	position: fixed;
 	top: 0;
@@ -195,6 +277,7 @@ header {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
+	padding: 0 0;
 }
 
 .myPage>.myInfo {
@@ -220,12 +303,13 @@ header {
 	font-size: 13px;
 }
 
-.profileImg {
+.myPage .profileImg {
 	width: 70px;
 	height: 70px;
 	border-radius: 50%;
-	margin-left: 20px;
+	margin-left: 10px;
 }
+
 
 /*    -------------------------------- footer ----------------------------------------- */
 footer {
@@ -288,7 +372,7 @@ footer>.footinfo>.bottom>.right>img {
 	border-radius: 50px;
 }
 
-#friendsBtn {
+.sidebarBtn {
 	border: 0;
 	background-color: rgba(255, 255, 255, 0);
 	font-size: 16px;
@@ -298,7 +382,7 @@ footer>.footinfo>.bottom>.right>img {
 	color: #333;
 }
 
-#friendsBtn:hover {
+.sidebarBtn:hover {
 	color: #96C6D2;
 }
 
@@ -330,27 +414,81 @@ footer>.footinfo>.bottom>.right>img {
 	top: 15%;
 }
 
-.modalBox>p {
+.modalBox > p {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	margin: auto;
 }
 
-.modalBox>p>span {
-	color: #4682b4;
-	font-size: 22px;
-	font-weight: 500;
+#searchFriendModal .serchFriendModal-title{
+	font-size: 1.3rem;
+  	margin-bottom: 2rem;
+  	display: flex;
+  	align-items: center;
+  	margin: auto;
+  	font-size: 1.1rem;
+}
+#searchFriendModal .group p {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
+	margin-top: 0;
 }
 
-.modalBox>.searchFriendList {
+#searchFriendModal .group span {
+	display: inline-flex;
+   	justify-content: space-between;
+}
+
+#searchFriendModal .group span:nth-of-type(1) {
+	display: block;
+	width: 100%;
+	margin-right: 0.8rem;
+}
+
+#searchFriendModal .group label {
+	   width: 100%; /* 이미 적용된 스타일 */
+   display: block; /* 줄 전체를 차지하도록 */
+   text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+#searchFriendModal .inpute, .submit {
+	width: calc(100%);
+	padding: 10px;
+	margin: 5px auto;
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+	font-size: 1rem;
+	box-sizing: border-box;
+}
+#searchFriendModal .submit {
+/*    background-color: #628ECB; */
+    background-color: #033495; 
+/*    background-color: #4267a9; */
+   color: white;
+   border: none;
+   cursor: pointer;
+   transition: background-color 0.3s;
+   margin-top: 0;
+}
+
+#searchFriendModal .input {
+	width: 100%;
+}
+
+#searchFriendModal .input:focus {
+    border-color: #B1C9EF;
+    outline: none;
+}
+
+#searchFriendModal .searchFriendList {
 	border: 1px dashed blue;
 	width: 450px;;
 	height: 230px;
 	padding: 10px;
 }
 
-#searchFriendId {
+#searchFriendModal .searchFriendInput {
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
 	font-size: 1rem;
@@ -358,22 +496,20 @@ footer>.footinfo>.bottom>.right>img {
 	padding: 10px;
 }
 
-#searchSubmit {
-	background: linear-gradient(70deg, #172d9d, #561689);
+#searchFriendModal .searchSubmit {
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	box-sizing: border-box;
 	color: white;
 	border: none;
 	cursor: pointer;
 	transition: background-color 0.3s;
-	width: 150px;
+	width: 5rem;
 	height: 40px;
 }
 
-#searchSubmit:hover {
-	background: linear-gradient(70deg, #172d9d, #561689);
+#searchFriendModal .searchSubmit:hover {
 }
 
 .hidden {
@@ -421,16 +557,10 @@ footer>.footinfo>.bottom>.right>img {
 </head>
 <body>
 
-
 	<header>
 		<div class="header-flex">
 			<div class="header-left">
 				<img id="logoImg" src="${cpath }/resources/image/plan with.png">
-			</div>
-			<div class="buttons">
-				<button id="scheduleBtn" class="button disabled">일정</button>
-				<button id="mapBtn" class="button disabled">지도</button>
-				<button id="chatBtn" class="button disabled">채팅</button>
 			</div>
 			<div class="header-right">
 				<button id="boardBtn" class="button">게시판</button>
@@ -439,12 +569,12 @@ footer>.footinfo>.bottom>.right>img {
 		</div>
 	</header>
 
-	<!-- ------------------------------------ jps div 추가 아래부터 modal-overlay 까지 복붙 ------------------------------------------ -->
+	<!-- ------------------------------------ jps div 추가 아래부터 sidebarOverlay 까지 복붙 ------------------------------------------ -->
 
 	<div id="sidebar" class="sidebar">
 		<div class="sidebarHeader">
-			<h3>메뉴</h3>
-			<button id="closeSidebar" class="closeSidebarBtn">X</button>
+			<img class="sidebarHeaderImg" src="${cpath }/resources/image/plan with.png">
+			<button id="closeSidebarBtn" class="closeSidebarBtn">X</button>
 		</div>
 		<div class="sidebarmodalBox">
 			<c:if test="${not empty login }">
@@ -460,22 +590,31 @@ footer>.footinfo>.bottom>.right>img {
 						</p>
 					</div>
 				</div>
-				<div class="friendList"></div>
-				<p>
-					<button id="friendSearchBtn">친구찾기</button>
-				</p>
-				<div class="addFriendRequest"></div>
+				<div class="sidebarFriendDiv">
+					<p>
+						<button id="friendSearchBtn" class="sidebarBtn">친구찾기</button>
+					</p>
+				<div class="sidebarListName">친구 목록</div>
+					<div id="friendList"></div>
+					<div class="addFriendRequest"></div>
+				</div>
+				<ul>
+					<li><a href="${cpath}/team/teamList">나의 일정</a></li>
+					<li><a href="${cpath}/board/boardList">게시판 보기</a></li>
+					<li><a id="logoutBtn" href="${cpath }/member/logout">로그아웃</a></li>
+				</ul>
+				
 			</c:if>
 			<c:if test="${empty login }">
+				<p class="small-grey">로그인이 되어있지 않습니다</p>
+				<a class="sidebarBtn" href="${cpath }/member/login">로그인 후 이용하기</a>
 				<ul>
 					<li><a href="${cpath }/team/main">여행지 검색</a></li>
-					<li><a href="${cpath }/member/login">로그인 후 이용하기</a></li>
 				</ul>
 			</c:if>
 		</div>
 	</div>
-
-	<div class="modal-overlay"></div>
+	<div class="sidebarOverlay"></div>
 
 <!-- 	<footer> -->
 <%-- 		<c:if test="${footerVisible != false}"> --%>
@@ -506,249 +645,199 @@ footer>.footinfo>.bottom>.right>img {
 <!-- 	</footer> -->
 
 	<!-- 친구찾기 모달 -->
-	<div id="addModal" class="modal hidden">
+	<div id="searchFriendModal" class="modal hidden">
 		<div class="overlay"></div>
 		<div class="modalBox">
 			<p>
-				<span>친구찾기</span>
+				<span class="serchFriendModal-title">친구찾기</span>
 			</p>
 			<form id="searchFriendForm">
-				<p>
-					<input id="searchFriendId" type="text" name="userid"
-						placeholder="친구 아이디를 입력하세요" autocomplete="off"> <input
-						id="searchSubmit" type="submit" value="검색">
-				</p>
+				<div class="group">
+					<label for="searchFriendModal-search" class="small-grey">친구 아이디를 입력하세요</label>
+					<p>
+						<span>
+							<input id="searchFriendModal-search" class="searchFriendInput input" 
+							   	   type="text" name="search" autocomplete="off" required> 
+						</span>
+						<span>
+							<input class="searchSubmit submit" type="submit" value="검색">
+						</span>
+					</p>
+				</div>
 			</form>
-			<div class="searchFriendList">여기는 검색후 친구 목록 뜨는 곳</div>
+			<div class="searchFriendList"></div>
 			<p>
-				<button id="closeModal" class="closeModal">닫기</button>
+				<button id="closeModalBtn" class="closeModalBtn">닫기</button>
 			</p>
 		</div>
 	</div>
 
 
-	<!-- 스크립트 -------------------------------------->
-
 	<script>
-	
 		const cpath = '${cpath}'
-		// 회원/비회원 체크
-		const login = '${login != null ? login : 'null'}'
+		const login = '${login != null ? login : 'null'}'	// 회원/비회원 체크 
+						
+	    // 회원의 친구 목록 불러오는 함수
+	    async function loadFriendListHandler() {
+			
+			const url = cpath + '/friends' 
+            let result = await fetch(url).then(resp => resp.json())
+//          	console.log(result)
+			// 친구 목록 
+            const friendList = document.getElementById('friendList')
 	
-	</script>
-
-
-
-
-	<script>
-      function disableHandler() {
-         document.getElementById('scheduleBtn').classList.remove('disabled')
-         document.getElementById('mapBtn').classList.remove('disabled')
-         document.getElementById('chatBtn').classList.remove('disabled')
-      }
-
-      document.getElementById('logoImg').addEventListener('click',
-            function() {
-
-               location.href = cpath + '/team/main'
-
-            })
-
-      document.getElementById('boardBtn').addEventListener('click',
-            function() {
-               location.href = cpath + '/board/boardList'
-            })
-
-      //------------------------------------------ 아래 스크립트 부분 붙여넣기 하면 됨 ------------------------------------------------
-      // 사이드 바 스크립트 내용
-      // 사이드 바 스크립트
-      const menuBtn = document.getElementById('menuBtn')
-      const sidebar = document.getElementById('sidebar')
-      const closeSidebarBtn = document.getElementById('closeSidebar')
-      const modalOverlay = document.querySelector('.modal-overlay')
-      const friendsBtn = document.getElementById('friendsBtn')
-      
-      // 메뉴 버튼 클릭 시 사이드바 열기
-      menuBtn.addEventListener('click', function (event) {
-          sidebar.classList.add('open')
-          modalOverlay.style.display = 'block'
-          event.stopPropagation() // 이벤트 전파 중단
-      })
-      
-      // 닫기 버튼 클릭 시 사이드바 닫기
-      closeSidebarBtn.addEventListener('click', function (event) {
-          sidebar.classList.remove('open')
-          modalOverlay.style.display = 'none'
-          event.stopPropagation() // 이벤트 전파 중단
-      });
-      
-      // 문서의 다른 부분 클릭 시 사이드바 닫기
-      document.addEventListener('click', function () {
-          sidebar.classList.remove('open')
-          modalOverlay.style.display = 'none'
-      })
-      
-      // 사이드바 내부 클릭 시 이벤트 전파 방지
-      sidebar.addEventListener('click', function (event) {
-          event.stopPropagation() // 이벤트 전파 중단
-      });
-      
-      // ----------------------------------------------- 친구목록 ------------------------------------------------
-      
-      // 친구 목록 불러오기
-      async function loadFriendListHandler() {
-
-              const url = '${cpath}/friends' // 서버 API URL
-              let result = await fetch(url)
-              if(!result) result = result.then(resp => resp.json())
-              console.log(result)
-              const friendList = document.getElementById('friendList')
-              if (!friendList) {
-                  console.log('friendList 가 없습니다')
-                  return
-              }
-
-              // 친구 목록 렌더링
-			  let tag = ''
-			  result.forEach(member => {
-				tag += '<p><span>' + member.nickname + '(' + member.userid + ') </span>'
-				tag += '<span class="' + (member.status == 1 ? 'green' : 'grey') + '"></span></p>'
-			  })
-
-              // 결과가 없을 경우
-              if (result.length === 0) {
-                  tag = '<p>친구 목록이 비어 있습니다.</p>'
-              }
-
-              friendList.innerHTML = tag    
-      }
-
-      	
-		// loadFreindHandler 는 사이드바가 열리면 실행 되게끔 ... 수정
-		const infoBtn = document.getElementById('infoBtn')
-		if (infoBtn) {
-		    infoBtn.addEventListener('click', loadFriendListHandler)
-		}
-
-      
-		// 친구 찾기 모달 열기 및 검색 처리
-      	function toggleModal() {
-          	document.getElementById('addModal').classList.toggle('hidden')
-      	}
-      
-		// 모달 닫기 버튼 기능 추가
-      	const closeModalButton = document.getElementById('closeModal')
-
-      	// 모달 닫기 함수
-      	function closeModal() {
-          	document.getElementById('addModal').classList.add('hidden')
-      	}
-
-      	// 닫기 버튼 클릭 시 모달 닫기
-      	if (closeModalButton) {
-          	closeModalButton.addEventListener('click', closeModal)
-      	}
-	
-     	// 오버레이 클릭 시 모달 닫기
-      	if (modalOverlay) {
-      	    modalOverlay.addEventListener('click', function () {
-      	        toggleModal()
-      	    })
-      	}
-
-
-	  async function getMemberList(search = '') {
-        
-              const url = '${cpath}/friends/memberList?search=' + search
-              const result = await fetch(url).then(resp => resp.json())
-              console.log('검색된 회원 목록:', result)
-
-              let memberList = document.querySelector('.memberList')
-              if (!memberList) {
-                  memberList = document.createElement('div')
-                  memberList.classList.add('memberList')
-              }
-
-              // 회원 목록 렌더링
-              let tag = ''
-              result.forEach(member => {
-            	tag += '<p>' + member.nickname +'(' + member.userid + ')</p>'
-      			tag += '<p>'
-            	tag += '	<button id="sendFriendRequestBtn" data-memberId="' + member.id + '">친구요청</button>'
-            	tag += '</p>'
-              })
-
-			memberList.innerHTML = tag
-
-              // 모달에 추가
-			document.querySelector('#addModal > .modalBox').appendChild(memberList)
-    
-            // 아직 친구요청 구현 X .. memberId 가 안넘어옴
-			const sendFriendRequestBtn = document.getElementById('sendFriendRequestBtn')
-			sendFriendRequestBtn.addEventListener('click', function(event) {
-				const memberId = event.target.dataset.memberId
-				console.log(memberId)
-				const message = {
-						sender: '${login.id}',
-						receiver: memberId
-				}
-				stomp.send('/app/friendRequest', {}, JSON.stringify(message))				
-		})         
-      }
-     
-	function getFriendSearchListHandler() {
-          toggleModal()
-
-          // 모달 내부 검색 폼 처리
-	 	  const searchFriendForm = document.getElementById('searchFriendForm')
-		  const searchInput = searchFriendForm.querySelector('input[name="userid"]')
-		  searchInput.addEventListener('keyup', (event) => {
-	             const search = event.target.value
-	             getMemberList(search)
-          })
-	}
-   
-	
-	  const friendSearchBtn = document.getElementById('friendSearchBtn')
-	  console.log(friendSearchBtn)
-	  
-	  if('${login}' != '') {
-		  friendSearchBtn.addEventListener('click', getFriendSearchListHandler)		  
-	  }
- 	</script>
-
-	<script>      
-      // WebSocket 연결
-
-      
-      const sockJS = new SockJS('${cpath}/endpoint')
-      const stomp = Stomp.over(sockJS)
-      
-      if ('${login}' != '') {
-          stomp.connect({}, onConnect)
-      }
-
-      function onConnect() {
-		console.log('WebSocket 연결 성공')
-		stomp.subscribe('/broker/status', onCheckStatus) // /broker/friend의 메시지를 구독하고 수신가능, 수신시 onCheckStatus 함수 실행
-		stomp.send('/app/connection', {} , '${login.nickname}님이 로그인했습니다')	// 내 접속 상태를 알린다
-// 		stomp.subscribe('/broker/online', onReceiveFriendRequest)	// 친구요청을 위한 stomp 구독
-      }
-
-	// 웹소켓으로 메시지를 받으면 친구목록을 새로고침한다
-	function onCheckStatus(message) {
-		loadFriendListHandler()			
-	}
-	
-	// 웹소켓 연결이 끊기면 함수가 실행된다 (끊기는 시점은 .. 로그아웃 했을때)
-	function onDisconnect() {
-		stomp.send('/app/connection', {} , '${login.nickname}님이 로그아웃했습니다')
-		location.href = '${cpath }/member/logout'
-	}
+			let tag = ''
+			result.forEach(member => {
+				tag += '<p class="friendStatus"><span>' + member.nickname + '(' + member.userid + ') </span>'
+				tag += '<span class="' + (member.status == 1 ? 'loginStatus' : 'logoutStatus')+ '"></span></p>'
+			})
+            // 결과가 없을 경우
+            if (result.length === 0) {
+                tag = '<p class="small-grey">친구 목록이 비어 있습니다.</p>'
+            }
+            friendList.innerHTML = tag    
+	    }
 		
-// 	const logoutBtn = document.getElementById('logoutBtn')
-// 	logoutBtn.addEventListener('click', onDisconnect)
+		document.getElementById('logoImg').addEventListener('click', function() {
+				location.href = cpath
+		})
+		document.getElementById('boardBtn').addEventListener('click', function() {
+				location.href = cpath + '/board/boardList'
+		})	
+
+// ----- 사이드 바 스크립트 -----
+		const menuBtn = document.getElementById('menuBtn')
+		const sidebar = document.getElementById('sidebar')
+		const closeSidebarBtn = document.getElementById('closeSidebarBtn')
+		const sidebarModalOverlay = document.querySelector('.sidebarOverlay')
+		const friendsBtn = document.getElementById('friendsBtn')
+	      
+		// 메뉴 버튼 클릭 시 사이드바 열기
+		menuBtn.addEventListener('click', function (event) {
+				if('${login}' != '') {loadFriendListHandler()}
+				sidebar.classList.add('open')
+				sidebarModalOverlay.style.display = 'block'
+				event.stopPropagation() // 이벤트 전파 중단
+		})
+	      
+		// 닫기 버튼 클릭 시 사이드바 닫기
+		closeSidebarBtn.addEventListener('click', function (event) {
+    			sidebar.classList.remove('open')
+    			sidebarModalOverlay.style.display = 'none'
+    			event.stopPropagation() // 이벤트 전파 중단
+		})
+	      
+		// 문서의 다른 부분 클릭 시 사이드바 닫기
+		document.addEventListener('click', function () {
+				sidebar.classList.remove('open')
+				sidebarModalOverlay.style.display = 'none'
+		})
+	      
+		// 사이드바 내부 클릭 시 이벤트 전파 방지
+		sidebar.addEventListener('click', function (event) {
+				event.stopPropagation() // 이벤트 전파 중단
+		})
+	      
+// ----- 친구검색 스크립트 -----
+
+		// 친구 찾기 모달 
+		function toggleModal() {
+			document.getElementById('searchFriendModal').classList.toggle('hidden')
+      	}
+	      
+      	const closeModalBtn = document.getElementById('closeModalBtn')
+      	// 닫기 버튼 클릭 시 친구검색 모달이 닫힌다
+		closeModalBtn.addEventListener('click', toggleModal)
+
+     	// 친구 검색 시 회원을 조회하는 함수
+		async function getMemberList(search = '') {    
+      		
+			const url = cpath + '/friends/memberList?search=' + search
+			const result = await fetch(url).then(resp => resp.json())
+// 			console.log('검색된 회원 목록:', result)
+		
+			// 검색한 회원들의 목록을 띄운다
+			const searchFriendList = document.querySelector('.searchFriendList')
 	
-	window.addEventListener('DOMContentLoaded', loadFriendListHandler)
-      
-   </script>
+	        let tag = ''
+			if(search == '') tag = '<p class="small-grey">검색할 회원의 닉네임을 입력하세요.</p>'
+			else {
+		        result.forEach(member => {
+		      		tag += '<p>' + member.nickname +'(' + member.userid + ')'
+		      		tag += '<button id="sendFriendRequestBtn" data-memberId="' + member.id + '">친구요청</button></p>'
+		        })
+		        if (result.length === 0) {
+					tag = '<p class="small-grey">해당하는 회원이 없습니다.</p>'
+				}				
+			}
+			searchFriendList.innerHTML = tag
+
+		
+		
+		
+	            // 아직 친구요청 구현 X .. memberId 가 안넘어옴
+// 				const sendFriendRequestBtn = document.getElementById('sendFriendRequestBtn')
+// 				sendFriendRequestBtn.addEventListener('click', function(event) {
+// 					const memberId = event.currentTarget.dataset.memberId
+// 					console.log(memberId)
+// 					const message = {
+// 							sender: '${login.id}',
+// 							receiver: memberId
+// 					}
+// 					stomp.send('/app/friendRequest', {}, JSON.stringify(message))				
+// 			})         
+	      }
+      	
+		// 친구찾기 버튼 누르면 실행되는 함수
+		function FriendSearchHandler() {
+			toggleModal()		
+			// 모달 내부 검색 폼 처리
+			const searchFriendForm = document.getElementById('searchFriendForm')
+			const searchFriendInput = searchFriendForm.querySelector('input[name="search"]')
+			searchFriendInput.addEventListener('keyup', function(event) {
+					const search = event.target.value
+					getMemberList(search)
+			})
+		}
+	   				
+		const friendSearchBtn = document.getElementById('friendSearchBtn')	  
+		if('${login}' != '') {
+			friendSearchBtn.addEventListener('click', FriendSearchHandler)		  
+		}
+	 	</script>
+
+		<script>      
+	      // WebSocket 연결	     
+	      const sockJS = new SockJS(cpath + '/endpoint')
+	      const stomp = Stomp.over(sockJS)
+	      
+	      if ('${login}' != '') {
+	          stomp.connect({}, onConnect)
+	      }
+	
+	      function onConnect() {
+			console.log('WebSocket 연결 성공')
+			stomp.subscribe('/broker/status', onCheckStatus) // /broker/friend의 메시지를 구독하고 수신가능, 수신시 onCheckStatus 함수 실행
+			stomp.send('/app/connection', {} , '${login.nickname}님이 로그인했습니다')	// 내 접속 상태를 알린다
+	// 		stomp.subscribe('/broker/online', onReceiveFriendRequest)	// 친구요청을 위한 stomp 구독
+	      }
+	
+		// 웹소켓으로 메시지를 받으면 친구목록을 새로고침한다
+		function onCheckStatus(message) {
+			loadFriendListHandler()			
+		}
+		
+		// 웹소켓 연결이 끊기면 함수가 실행된다 (끊기는 시점은 .. 로그아웃 했을때)
+		function onDisconnect() {
+			stomp.send('/app/connection', {} , '${login.nickname}님이 로그아웃했습니다')
+			location.href = cpath + '/member/logout'
+		}
+			
+		const logoutBtn = document.getElementById('logoutBtn')
+// 		stomp.disconnect(onDisconnect))
+		
+	// 	window.addEventListener('DOMContentLoaded', loadFriendListHandler)
+	      
+	</script>
+	
+	

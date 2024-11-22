@@ -16,6 +16,7 @@
         width: 90%;
         max-width: 350px;
         margin: 4rem auto;
+        margin-top: 8rem;
         padding: 3rem 5rem;
         background-color: #ffffff;
         border-radius: 10px;
@@ -91,6 +92,11 @@
        border-color: #B1C9EF;
        outline: none;
     }
+
+    #findPasswordForm fieldset {
+    	border-radius: 5px;
+    	border: 1px solid #d3d3d3;
+    }
     
     #findPasswordForm fieldset img {
        width: 100%;
@@ -134,10 +140,6 @@
     
     #findPasswordForm .right {
        text-align: right;   
-    }
-
-    #findPasswordForm fieldset {
-    	border-radius: 5px;
     }
 
     .small-point {
