@@ -4,66 +4,48 @@
 
 <style>
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f8ff;
         margin: 0;
         padding: 0;
     }
 
-    h3.update-password-title {
-        text-align: center;
-        color: #4682b4;
-        margin-top: 20px;
+    .update-password-title {
+        font-size: 1.3rem;
+		margin-bottom: 2rem;
     }
 
     .update-password-form {
-        width: 90%;
-        max-width: 500px;
-        margin: 0 auto;
-        padding: 20px;
-        background-color: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+		width: 90%;
+		max-width: 350px;
+		margin: 4rem auto;
+		margin-top: 8rem;
+		padding: 3rem 5rem;
+		background-color: #ffffff;
+		border-radius: 10px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+   	
+   	.update-password-form p {
+		margin-top: 2px;
+	}
 
     .update-password-form div {
-        margin-bottom: 15px;
     }
-
-    .update-password-form label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-        color: #333;
+    
+    .update-password-form .small-grey {
+ 		font-size: 0.75rem;
+/*        color: #adb5bd; */
+       	color: #999999;
+/*        color: #868e90; */
+        font-weight: 400;
+        text-decoration: none;
     }
-
-    .update-password-form input[type="password"] {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        box-sizing: border-box;
+    
+    .update-password-form .update-password-top {
+    	display: flex;
+    	justify-content: space-between;
+    	align-items: center;
     }
-
-    .update-password-form button {
-        display: block;
-        width: 100%;
-        padding: 10px;
-        font-size: 16px;
-        font-weight: bold;
-        color: #ffffff;
-        background-color: #4682b4;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-    .update-password-form button:hover {
-        background-color: #315f7d;
-    }
-
+    
     .update-password-back-link {
         display: block;
         text-align: center;
@@ -71,27 +53,88 @@
         color: #4682b4;
         font-weight: bold;
         text-decoration: none;
+        margin-bottom: 2rem;
+    }
+    
+    .update-password-back-link img {
+   	    width: 2rem;
+    	display: flex;
+    	align-items: center;
     }
 
     .update-password-back-link:hover {
         text-decoration: underline;
     }
+
+	.update-password-form label {
+	   width: 100%; 
+	   display: block; 
+	   text-align: left; 
+	   transition-duration: 0.3s;
+	}
+	
+	.update-password-form .input,
+	.update-password-form .submit {
+        width: calc(100%);
+        padding: 10px;
+        margin: 5px auto;
+        border: 1px solid #d3d3d3;
+        border-radius: 5px;
+        font-size: 1rem;
+        box-sizing: border-box;
+	}
+	
+	.update-password-form .input {
+		margin-top: 0px;
+	}
+	
+	.update-password-form .input:focus,
+	.update-password-form select:focus{
+		border-color: #B1C9EF;
+		outline: none;
+	}
+	
+	.update-password-form select {
+		width: 5rem;
+	    height: 2rem;
+	    border-radius: 5px;
+	    border: 1px solid #d3d3d3;
+	    margin-bottom: 1.5rem;
+	}
+	
+	.update-password-form .submit {
+        background-color: #628ECB;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-top: 1.5rem;
+	}
+	
+	.update-password-form .submit:hover {
+        background-color: pink;
+    }
+    
 </style>
 
-<h3 class="update-password-title">비밀번호 수정</h3>
 
 <form class="update-password-form" action="${cpath}/member/updatePassword" method="POST">
-    <div>
-        <label>현재 비밀번호</label>
-        <input type="password" name="currentPassword" required>
+	<div class="update-password-top">
+		<h3 class="update-password-title">비밀번호 수정</h3>
+		<span><a class="update-password-back-link" href="${cpath}/member/info">
+			<img src="${cpath }/resources/image/arrowBack.png">
+		</a></span>
+	</div>
+    <div class="group">
+        <label for="update-currentPassword" class="small-grey">현재 비밀번호</label>
+        <p><input id="update-currentPassword" class="input" type="password" name="currentPassword" required></p>
     </div>
-    <div>
-        <label>새 비밀번호</label>
-        <input type="password" name="newPassword" required>
+    <div class="group">
+        <label for="update-newPassword" class="small-grey">새 비밀번호</label>
+        <p><input id="update-newPassword" class="input" type="password" name="newPassword" required></p>
     </div>
-    <button type="submit">비밀번호 수정</button>
+    <button class="submit" type="submit">비밀번호 수정</button>
 </form>
-<a class="update-password-back-link" href="${cpath}/member/info">돌아가기</a>
 
 <c:if test="${not empty result && not empty message}">
     <script>

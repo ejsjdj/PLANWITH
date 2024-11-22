@@ -109,33 +109,38 @@
 		
      } 
 
-    /* 회원 탈퇴 버튼만 토마토색 */
-    .info-delete-button {
-       	background-color: tomato !important;
-    }
-
     .info-delete-button:hover {
         background-color: #e04141; 
     }
     
     .info-button-group .submit {
-   		width: 70%;
+ 		width: 70%;
 		padding: 15px;
 		margin: 10px auto;
 		border: 1px solid #d3d3d3;
 		border-radius: 2rem;
 		font-size: 0.9rem;
 		box-sizing: border-box;
-	   	background-color: #6495ED;	/* 이게 나을까? 아니면 아래? ㅁㄹ */
+/* 	   	background-color: #6495ED;	 */
 /* 	   	background-color: #0099FF; */
 /* 	   	background-color: #628ECB; */
 	/*    background-color: #033495; */
 	/*    background-color: #4267a9; */
-	   color: white;
-	   border: none;
-	   cursor: pointer;
-	   transition: background-color 0.3s;
-	   font-weight: 400;
+		background-color: white;
+		color: black;
+		border: none;
+		cursor: pointer;
+		transition: background-color 0.3s;
+		font-weight: 400;
+		box-shadow: 0 14px 28px rgba(0, 0, 0, 0.04), 0 10px 10px rgba(0, 0, 0, 0.04);
+    }
+    
+     .info-delete-button {
+        background-color: #f1f1f1 !important;
+    }
+    
+    .info-button-group .submit:hover {
+    	background-color: #f0f0f0;
     }
     
 </style>
