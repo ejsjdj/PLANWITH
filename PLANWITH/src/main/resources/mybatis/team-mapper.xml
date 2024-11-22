@@ -31,38 +31,16 @@
 	</select>
     
 	<select id="selectTeamListByMemberId" parameterType="int" resultType="team">
-		select 
-		    t.id, 
-		    t.name, 
-		    t.createTime, 
-		    t.inviteCode,
-		    count(tm.memberid) as howmanymembers,
-		    s.startTime,
-		    s.endTime,
-		    p.name as firstPlaceName
-		from team t
-		left join teammember tm
-		    on t.id = tm.teamid
-		left join schedule s
-		    on t.id = s.teamid
-		left join (
-		    select 
-		        p.name, 
-		        s.teamid
-		    from place p
-		    join schedule s
-		        on p.id = s.placeid
-		    where rownum = 1
-		    order by startTime
-		) p
-		    on s.teamid = p.teamid
-		where t.id in (    
-		    select tm.teamId 
-		    from teamMember tm
-		    where tm.memberId = #{memberId}
-		)
-		group by t.id, t.name, t.createTime, t.inviteCode, s.startTime, s.endTime, p.name
-		order by t.createTime desc
+	    select 
+	        id, 
+	        name, 
+	        createTime, 
+	        inviteCode
+	    from team
+	    where id in (	
+	    	select teamId from teamMember 
+	    	where memberId = #{memberId}
+	    )
 	</select>
 	
 	<select id="selectTeamByInviteCode" parameterType="String" resultType="team">
@@ -109,14 +87,14 @@
          ms.sentTime,
          ms.isUser,
          m.nickname as nickname,
-         mp.storedFileName as storedFileName
+         COALESCE (mp.storedfileName , 'default.png') as storedFileName
       from message ms
         join member m
             on ms.memberId = m.id
-        join MEMBERPHOTO mp
-        	on mp.memberId = ms.memberId
-      where teamId = #{teamId}
-      order by sentTime 
+        left join MEMBERPHOTO mp
+        	on mp.memberid = ms.memberId 
+      where ms.teamId = #{teamId}
+      order by ms.sentTime asc
    </select>  		
 	
 	
@@ -183,7 +161,5 @@
 	        id DESC
 	    fetch first 1 row only
 	</select>
-	
- 
 	
 </mapper>

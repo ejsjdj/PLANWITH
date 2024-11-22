@@ -71,7 +71,7 @@ public class StompTeamController {
     @MessageMapping("/message/{teamId}")
     public void sendMessage(@DestinationVariable int teamId, MessageDTO messageDTO) {
         teamService.insertMessage(messageDTO);  
-        PhotoDTO photoDTO = memberService.selectProfilePhotoByUserid(messageDTO.getIsUser());
+        PhotoDTO photoDTO = memberService.selectProfilePhotoByUserid(messageDTO.getMemberId());
         messageDTO.setStoredFileName(photoDTO.getStoredFileName());
         template.convertAndSend("/broker/team/" + teamId, messageDTO);  // 채팅방에 실시간 전송
     }
