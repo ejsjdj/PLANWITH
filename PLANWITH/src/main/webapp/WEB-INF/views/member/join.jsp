@@ -34,28 +34,28 @@ body {
 }
 
 #joinForm .group:nth-of-type(1) p, #joinForm .group:nth-last-of-type(1) p
-   { /* 아이디 그룹 */
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
+	{ /* 아이디 그룹 */
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 #joinForm .group:nth-of-type(1) p span, #joinForm .group:nth-last-of-type(1) p span
-   {
-   display: inline-flex;
-   justify-content: space-between;
+	{
+	display: inline-flex;
+	justify-content: space-between;
 }
 
 #joinForm .group:nth-of-type(1) p span:nth-of-type(1), #joinForm .group:nth-last-of-type(1) p span:nth-of-type(1)
-   {
-   display: block;
-   width: 100%;
-   margin-right: 0.8rem;
+	{
+	display: block;
+	width: 100%;
+	margin-right: 0.8rem;
 }
 
 #joinForm .group:nth-of-type(1) .submit, #joinForm .group:nth-last-of-type(1) .submit
-   {
-   margin-top: 0;
+	{
+	margin-top: 0;
 }
 
 #joinForm #idCheck, #joinForm #reloadBtn {
@@ -204,31 +204,33 @@ a:hover {
 <form id="joinForm" method="POST" action="${cpath}/member/join">
    <h3 class="join-title">회원가입</h3>
 
-   <div class="group">
-      <label for="join-userid" class="small-grey">아이디</label>
-      <p>
-         <span> <input id="join-userid" class="input" type="text"
-            name="userid" autocomplete="off" required autofocus>
-         </span> <span> <input id="idCheck" class="submit" type="button"
-            value="확인">
-         </span>
-      </p>
-   </div>
+	<div class="group">
+		<label for="join-userid" class="small-grey">아이디</label>
+			<p>
+				<span> 
+					<input id="join-userid" class="input" type="text"
+						   name="userid" autocomplete="off" required autofocus>
+				</span> 
+				<span> 
+					<input id="idCheck" class="submit" type="button" value="확인">
+         		</span>
+			</p>
+		</div>
 
-   <div class="group">
-      <label for="join-userpw" class="small-grey">비밀번호</label>
-      <p>
-         <input id="join-userpw" class="input" type="password" name="userpw"
-            maxlength="20" required>
-      </p>
-   </div>
+	<div class="group">
+		<label for="join-userpw" class="small-grey">비밀번호</label>
+		<p>
+			<input id="join-userpw" class="input" type="password" 
+				   name="userpw" maxlength="20" required>
+		</p>
+	</div>
 
-   <div class="group">
-      <label for="join-nickname" class="small-grey">닉네임</label>
-      <p>
-         <input id="join-nickname" class="input" type="text" name="nickname"
-            required>
-      </p>
+	<div class="group">
+		<label for="join-nickname" class="small-grey">닉네임</label>
+		<p>
+			<input id="join-nickname" class="input" type="text" 
+				   name="nickname" required>
+		</p>
    </div>
 
    <div class="group">

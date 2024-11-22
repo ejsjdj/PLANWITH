@@ -24,6 +24,18 @@
     	text-align: center;
     }
 	
+	.schedule-explain {
+       	font-size: 0.85rem;
+/*        color: #adb5bd; */
+/*        	color: #999999; */
+        color: #868e90; 
+        font-weight: 400;
+        text-decoration: none;
+    	text-align: center;
+    	margin-bottom: 0;
+    	margin-top: 5px;
+	}
+	
 	.a {
 		text-decoration: none;
 		color: black;
@@ -147,6 +159,18 @@
         background: pink;
     }
     
+    .createAndJoinTeamModal .modal-close-button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background: #033495;  
+        color: white;
+        border: none;
+        cursor: pointer;
+        text-align: center;
+        width: 7rem;
+    }
+    
     .createAndJoinTeamModal .group p {
     	margin-top: 2px;
 	}
@@ -222,23 +246,11 @@
        
     }
     
-    .createAndJoinTeamModal > .close {
+    .createAndJoinTeamModal > .closeCreateAndJoinTeamModal {
 		width: 100%;
 		text-align: center;
     }
 
-    .modal-close-button {
-        display: inline-block;
-        margin-top: 10px;
-        padding: 10px 20px;
-        background-color: #628ECB; 
-        color: white;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        text-align: center;
-    }
-    
     .teamBox {
     	display: flex;
     	text-align: left;
@@ -303,8 +315,8 @@
 	            
 	            <div class="box-bottom">
 		            <c:if test="${team.startTime != null }">
-			            <p>${team.startTime } ~ ${team.endTime }</p>
-			            <p>${team.firstPlaceName }</p>
+			            <p class="schedule-explain">${team.startTime } ~ ${team.endTime }</p>
+			            <p class="schedule-explain">${team.firstPlaceName }</p>
 		            </c:if>
 		            <c:if test="${team.startTime == null }">
 		            	<p class="small-grey">아직 장소를 정하지 않았습니다.</p>
@@ -336,8 +348,8 @@
 	</div>
  	</div>
   	<!-- 닫기 버튼 추가 -->
-   	<div class="close">
-       	<button class="modal-close-button">닫기</button>
+   	<div class="closeCreateAndJoinTeamModal">
+       	<button class="modal-close-button submit">닫기</button>
    	</div>
 </div>
 
