@@ -19,6 +19,7 @@
         width: 90%;
         max-width: 350px;
         margin: 4rem auto;
+     	margin-top: 8rem;
         padding: 3rem 5rem;
         background-color: #ffffff;
         border-radius: 10px;
@@ -40,7 +41,7 @@
     }
     
     #loginForm .group label {
-          transition-duration: 0.3s;
+        transition-duration: 0.3s;
     }
     
     #loginForm .input,
@@ -176,6 +177,15 @@
        padding: 0.62rem 0.8rem;
        margin-top: 0px;
    }
+   
+    #loginForm fieldset {
+    	border-radius: 5px;
+    	border: 1px solid #d3d3d3;
+    }	
+    
+	#loginForm fieldset img {
+       width: 100%;
+    }
     
     .line {
       display: flex;
@@ -191,7 +201,7 @@
       flex-grow: 1;
       margin: 0px 16px;
       background: rgba(0, 0, 0, 0.35);
-      height: 1px;
+      height: 0.5px;
       font-size: 0px;
       line-height: 0px;
       margin-left: 0px;
@@ -202,7 +212,7 @@
       flex-grow: 1;
       margin: 0px 16px;
       background: rgba(0, 0, 0, 0.35);
-      height: 1px;
+      height: 0.5px;
       font-size: 0px;
       line-height: 0px;
       margin-right: 0px;
@@ -224,11 +234,11 @@
 		<p><input id="login-userpw" class="input" type="password" maxlength="20" name="userpw" required></p>
 	</div>
 	
-    <div id="captcha"></div>
     <div class="right">
 	    <a class="small-grey a" href="${cpath}/member/findUserid">아이디 찾기</a>
 	    <a class="small-grey a" href="${cpath}/member/findPassword">비밀번호 찾기</a>
     </div>
+    <div id="captcha"></div>
     <p><input class="submit" type="submit" value="로그인"></p>
     
     <div id="underLoginForm">

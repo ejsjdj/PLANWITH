@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itbank.PLANWITH.component.FileComponent;
@@ -104,18 +103,24 @@ public class BoardController {
 		log.info(list);
 		log.info("flag : " + flag);
 		
-		// 수정버튼이 눌려져있고, 변경된 사진이 있는 경우
-		if (list != null && list.size() >= 1 && list.get(0).getSize() != 0 && flag) {
+		// 파일 모두 지우기 버튼을 누른 상태면 업로드 파일 무조건 삭제
+		if (flag) {
+			boardService.deleteBoardPhoto(dto.getId());
+		}
+		
+		// 파일 모두 지우기 버튼을 누른 상태로 변경된 사진이 있는 경우, 파일을 업로드하고 DB에 저장
+		if (list != null && list.size() >= 1 && flag) {
 			list.forEach(ob -> {
-				String storedFileName = fileComponent.uploadFile(ob);
-				PhotoDTO boardPhoto = new PhotoDTO();
-				boardPhoto.setOriginalFileName(ob.getOriginalFilename());
-				boardPhoto.setStoredFileName(storedFileName);
-				boardPhoto.setContentType(ob.getContentType());
-				boardPhoto.setRefId(dto.getId());
-				
-				boardService.deleteBoardPhoto(dto.getId());
-				boardService.updateBoardPhoto(boardPhoto);
+				if (ob.getSize() > 0) {
+					String storedFileName = fileComponent.uploadFile(ob);
+					PhotoDTO boardPhoto = new PhotoDTO();
+					boardPhoto.setOriginalFileName(ob.getOriginalFilename());
+					boardPhoto.setStoredFileName(storedFileName);
+					boardPhoto.setContentType(ob.getContentType());
+					boardPhoto.setRefId(dto.getId());
+							
+					boardService.insertBoardPhoto(boardPhoto);
+				}
 			});
 		} 
 		return "redirect:/board/boardList";	

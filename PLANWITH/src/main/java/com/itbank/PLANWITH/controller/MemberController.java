@@ -26,11 +26,6 @@ import lombok.extern.log4j.Log4j;
 @RequestMapping("/member")
 @Log4j
 public class MemberController {
-	/***
-	 * 
-	 * 	깃허브 브랜치 테스트
-	 * 	2024.11.20
-	 */
 
 	@Autowired private MemberService memberService;
 	@Autowired private NaverLoginComponent naverLoginComponent;
@@ -228,6 +223,7 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 		memberService.logout(login);
+		log.info("아이디 : " + login.getId() + ", status : " + login.getStatus());
 		session.invalidate();
 		return "redirect:/";
 	}	

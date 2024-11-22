@@ -18,7 +18,6 @@ public class StompFriendController {
 	@MessageMapping("/connection")
 	@SendTo("/broker/status")
 	public String connection(String message) {
-		log.info(message);
 		return message;
 	}
 	

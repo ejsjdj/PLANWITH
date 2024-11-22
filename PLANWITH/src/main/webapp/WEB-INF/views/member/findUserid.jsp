@@ -4,7 +4,7 @@
 <style>
     body {
         font-family: Arial, sans-serif;
-        background-color: #f8faff;
+/*         background-color: #f8faff; */
         margin: 0;
         padding: 0;
     }
@@ -18,6 +18,7 @@
         width: 90%;
         max-width: 350px;
         margin: 4rem auto;
+        margin-top: 8rem;
         padding: 3rem 5rem;
         background-color: #ffffff;
         border-radius: 10px;
@@ -236,7 +237,7 @@
     }
 
     document.getElementById('requestCodeButton').addEventListener('click', requestVerificationCode)
-    document.getElementById('findUserIdForm').addEventListener('submit', findUserId)
+    document.getElementById('findUseridForm').addEventListener('submit', findUserId)
 </script>
 
 <!-- 스타일 스크립트 -->

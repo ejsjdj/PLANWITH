@@ -79,7 +79,7 @@ public class TeamController {
         }
     }
     
-    // 팀 생성했거나, 팀 목록에서 팀에 들어갈 때
+    // 팀 생성했거나, 팀 목록에서 팀에 들어갈 때, 이전에 했던 내용들을 업데이트
     @GetMapping("/view/{teamId}")
     public String viewChat(@PathVariable int teamId, Model model) {
        
