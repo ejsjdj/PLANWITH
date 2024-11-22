@@ -1437,6 +1437,7 @@ img {
 		        
 		        paragraph.appendChild(img);
 		        paragraph.innerHTML += msg.nickname + ': ' + msg.content;
+		        
 		    } else {
 		        // 시스템 또는 다른 사용자의 메시지
 		        paragraph.textContent = msg.nickname + ' ' + msg.content;
