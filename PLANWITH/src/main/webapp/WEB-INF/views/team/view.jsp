@@ -7,62 +7,103 @@
 body {
 	overflow: hidden;
 }
+
+#chatBoxBtn {
+    position: absolute;
+    right: 10rem;
+    bottom: 5rem;
+    z-index: 300;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    background: lightblue;
+    width: 3rem;
+    height: 3rem;
+    display: flex;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+#chatBoxBtn:hover {
+	cursor: pointer;
+}
+
+#chatBoxBtn img {
+	width: 2rem;
+}
+
 #chatArea {
-	left: 80%;
 	position: absolute;
 	width: 20%;
-	height: 650px;
+	height: 600px;
 	z-index: 15;
-}
-.middleSideChat {
-	height: 450px;
-}
-.chatBox {
+	right: 10rem;
+	bottom: 5rem;
+	width: 650px;
 	background-color: #FDEBC8;
+	border-radius: 2rem;
+/* 	display: flex;  /* 이거 하면 hidden 안 됨 */
+	overflow: hidden;
 }
-#chatBoxBtn {
-	position: absolute;
-	right: 400px;
-	bottom: 50px;
-	z-index: 300;
+
+#chatArea .small-grey {
+    font-size: 0.8rem;
+/*        color: #adb5bd; */
+    color: #999999;
+/*        color: #868e90; */
+   	font-weight: 400;
+   	text-decoration: none;
+	text-align: center;
 }
+
+.topSideChat .topleft img {
+	width: 0.7rem;
+   	opacity: 0.3;
+  	margin: auto;
+}
+
+.chatTop {
+	height: 50px;
+}
+
 .chatBox {
-	border: 1px solid black;
-	height: 700px;
-	width: 300px;
+	height: 100%;
+	width: 600px;
+	background-color: #FDEBC8;
+	border-radius: 2rem;
 }
 
 .topSideChat {
-	border: 1px solid black;
 	height: 100px;
 }
 
-.topSideChat>.topleft {
-	border: 1px solid black;
+.topSideChat .topleft {
 	float: left;
 }
 
-.topSideChat>.topRight {
-	border: 1px solid black;
+.topSideChat .topleft #teamName {
+	font-size: 1.2rem;
+}
+
+.topSideChat .topRight {
 	float: right;
 	display: flex;
 }
 
 .middleSideChat {
-	border: 1px solid black;
-	height: 500px;
+	height: 400px;
 	overflow-y: auto; /* 스크롤 ㄱㄴ */
 }
 
 .bottomSideChat {
-	border: 1px solid black;
 	height: 100px;
+	background-color: white;
 }
 
 #textarea {
 	resize: none; /* 사이즈 안 고쳐지게 함 */
 	border: none;
 }
+
 .chatProfileImg {
 	width: 30px;
 	height: 30px;
@@ -117,7 +158,6 @@ body {
 .hidden {
 	display: none;
 }
-
 
 #modal>.overlay {
 	position: fixed;
@@ -189,7 +229,7 @@ body {
 }
 
 .map_wrap {
-/* 	position: absolute; */
+	/* 	position: absolute; */
 	width: 100%;
 	height: 90%;
 	right: 20%;
@@ -197,14 +237,14 @@ body {
 
 #menu_wrap {
 	position: absolute;
-	top: 120px;
+	top: 70px;
 	bottom: 0;
 	width: 300px;
-	height: 700px;
+	height: 100%;
 	padding: 5px;
 	overflow-y: auto;
 	background: rgba(255, 255, 255, 1);
-	z-index: 3;
+	z-index: 2;
 	font-size: 12px;
 	border-radius: 10px;
 }
@@ -521,16 +561,24 @@ body {
 /* 스케쥴 설정을 위한 디자인 */
 .scheduling {
 	width: 90%;
-	height: 80%;
+	height: 100%;
 	display: flex;
-    margin-top: 8rem;
- }
+	margin-top: 0;
+}
 
 .scheduleContainer {
-	position: absolute;
-	left: 70px;
-	width: 350px;
-	z-index: 300;
+    position: absolute;
+    top: 70px;
+    bottom: 0;
+    width: 350px;
+    height: 100%;
+    padding: 5px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 1);
+    z-index: 3;
+    font-size: 12px;
+    border-radius: 10px;
+    left: 70px;
 }
 
 .schedule {
@@ -551,66 +599,91 @@ body {
 	margin: 5px 0; /* 단락 간격 설정 */
 }
 
-img {
-	width: 60px;
-	height: 60px;
-}
+/* img { */
+/* 	width: 60px; */
+/* 	height: 60px; */
+/* } */
 </style>
 
 <!-- 디자인 기능 구현을 위한 스타일 -->
 <!-- 버튼을 누를때 움직이는 기능 구현 및 관련 스타일 -->
 <style>
-	#viewHandler {
-	    width: 70px;
-	    display: flex;
-	    flex-direction: column; /* 세로로정렬 */
-	    margin-right: 5px;
-	}
+#viewHandler {
+	width: 70px;
+	display: flex;
+	flex-direction: column; /* 세로로정렬 */
+	margin-right: 0px;
+	z-index: 5;
+	border-right: 5px solid white;
+}
+
+#viewHandler .viewHandlerBox {
+	top: 70px;
+	position: relative;
+}
+
+#viewHandler .viewHandlerBox img {
+	width: 2rem;
+}
+
+#viewHandler .viewHandlerBox .viewFunctionSelect:hover {
+	cursor: pointer; 
+}
+
+.viewFunctionSelect {
+	width: 100%;
+	height: 100px;
+	text-align: center;
+	display: flex;
+	align-items: center; /* 수직정렬인데 적용이 되는지모르겠음 */
+	justify-content: center; /* 수평 */
+/* 	border: 2px solid black; /* 테두리모양이다 */ 
+/* 	background-color: #f0f0f0;  */
+}
+
+.viewFunctionSelect:hover { /* 마우스를 올렸을때 어떻게 나타나게 할까? */
 	
-	.viewFunctionSelect {
-	    width: 100%;
-	    height: 100px;
-	    text-align: center;
-	    display: flex;
-	    align-items: center; /* 수직정렬인데 적용이 되는지모르겠음 */
-	    justify-content: center; /* 수평 */
-	    border: 2px solid black; /* 테두리모양이다 */
-	    background-color: #f0f0f0; /* 버튼 색깔이 진부해서 바꿔야 할듯 */
-	}
-	
-	.viewFunctionSelect:hover { /* 마우스를 올렸을때 어떻게 나타나게 할까? */
-		
-	}
+}
 </style>
 
- <!-- 맵에서 표시할 모달 -->
+<!-- 맵에서 표시할 모달 -->
 <div id="modal" class="hidden">
 	<div id="overlay" class="overlay"></div>
-    <div id="content">
-       <div id="imageArea"></div>
-       <div id="titleArea"></div>
-       <div id="addressArea"></div>
-       <div id="linkArea"></div>
-    </div>
- </div>
+	<div id="content">
+		<div id="imageArea"></div>
+		<div id="titleArea"></div>
+		<div id="addressArea"></div>
+		<div id="linkArea"></div>
+	</div>
+</div>
 
 <div id="timeModal" class="hidden">
-<!--     <input id="modalDate" type="date"> -->
-    <input id="modalStartTime" type="time">
-    <input id="modalEndTime" type="time">
-    <button id="modalSubmit">제출</button>
-    <button id="modalClose">닫기</button>
+	<!--     <input id="modalDate" type="date"> -->
+	<input id="modalStartTime" type="time"> <input
+		id="modalEndTime" type="time">
+	<button id="modalSubmit">제출</button>
+	<button id="modalClose">닫기</button>
 </div>
 
 <!--  <div class="wrap"> -->
 <!-- 일정HTML -->
 <div class="scheduling">
-	<div id="chatBoxBtn">채팅박스버튼</div>
+	<div id="chatBoxBtn">
+		<img src="${cpath }/resources/image/whiteChatBoxBtn.png">
+	</div>
 	<div id="range"></div>
 	<div id="viewHandler">
-		<div class="viewFunctionSelect" id="mapHomeBtn">지도검색</div>
-		<div class="viewFunctionSelect" id="planBtn">일정</div>
-		<div class="viewFunctionSelect" id="wishListBtn">위시</div>
+		<div class="viewHandlerBox">
+			<div class="viewFunctionSelect" id="mapHomeBtn">
+				<img id="mapSearchIcon" src="${cpath }/resources/image/mapSearch.png">
+			</div>
+			<div class="viewFunctionSelect" id="planBtn">
+				<img id="planIcon" src="${cpath }/resources/image/planIcon.png">
+			</div>
+			<div class="viewFunctionSelect" id="wishListBtn">
+				<img id="wishListIcon" src="${cpath }/resources/image/wishListIcon.png">
+			</div>
+		</div>
 	</div>
 	<div class="scheduleContainer hidden"></div>
 
@@ -656,7 +729,7 @@ img {
 					<form id="updateTeamNameForm">
 						<input type="text" name="name" placeholder="변경할 팀 이름"
 							value="${team.name}" required>
-						<button type="submit">팀 이름 변경</button>
+						<button type="submit">팀 이름 수정</button>
 					</form>
 				</div>
 				<div>
@@ -664,7 +737,6 @@ img {
 				</div>
 			</c:if>
 		</div>
-
 		<div class="chatBox">
 			<c:choose>
 				<c:when test="${not empty team && not empty login}">
@@ -679,7 +751,12 @@ img {
 									<!-- member 가 마지막사람이 아니면 , 를 넣어준다 -->
 								</c:forEach>
 							</div>
-							<div id="howManyInChatRoom">${memberList.size() }명</div>
+							<div id="howManyInChatRoom">
+								<img src="${cpath }/resources/image/사람 수 아이콘.png" >
+				            	<span class="small-grey">
+				            		${memberList.size() }
+				            	</span>
+							</div>
 						</div>
 
 						<div class="topRight">
@@ -706,8 +783,9 @@ img {
 								<p>
 									<c:choose>
 										<c:when test="${message.isUser == 1}">
-											
-											<img class="chatProfileImg" src="${cpath}/upload/${message.storedFileName != null ? message.storedFileName : 'default.png'}">
+
+											<img class="chatProfileImg"
+												src="${cpath}/upload/${message.storedFileName != null ? message.storedFileName : 'default.png'}">
 							                ${message.nickname}: 
 							            </c:when>
 										<c:otherwise>
@@ -1476,6 +1554,40 @@ img {
 	window.addEventListener('DOMContentLoaded', function() {
 		document.querySelectorAll('button.deleteScheduleBtn').forEach(e => e.onclick = deleteSchedule)
 		teamViewLoadHandler()
+	})
+</script>
+
+<!-- 스타일 스크립트 -->
+<script>
+	
+// 	지도 검색 아이콘 클릭 시 이미지 교체
+	document.getElementById('mapHomeBtn').addEventListener('click', function() {
+		let img = this.querySelector('img')
+	  	if (img.src.includes('mapSearch.png')) {
+		  	img.src = '${cpath}/resources/image/mapSearchHover.png'
+	  	} else {
+		  	img.src = '${cpath}/resources/image/mapSearch.png'
+	  	}
+	})
+	
+	// 계획 아이콘 클릭 시 이미지 교체
+	document.getElementById('planBtn').addEventListener('click', function() {
+		let img = this.querySelector('img')
+	  	if (img.src.includes('planIcon.png')) {
+		  	img.src = '${cpath}/resources/image/planIconHover.png'
+	  	} else {
+		  	img.src = '${cpath}/resources/image/planIcon.png'
+	  	}
+	})
+	
+	// 위시리스트 아이콘 클릭 시 이미지 교체
+	document.getElementById('wishListBtn').addEventListener('click', function() {
+		let img = this.querySelector('img')
+	  	if (img.src.includes('wishListIcon.png')) {
+		  	img.src = '${cpath}/resources/image/wishListIconHover.png'
+	  	} else {
+		  	img.src = '${cpath}/resources/image/wishListIcon.png'
+	  	}
 	})
 </script>
 

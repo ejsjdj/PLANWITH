@@ -126,12 +126,12 @@
 		</a></span>
 	</div>
     <div class="group">
-        <label for="update-currentPassword" class="small-grey">현재 비밀번호</label>
-        <p><input id="update-currentPassword" class="input" type="password" name="currentPassword" required></p>
+        <label for="updateCurrentPassword" class="small-grey">현재 비밀번호</label>
+        <p><input id="updateCurrentPassword" class="input" type="password" name="currentPassword" required></p>
     </div>
     <div class="group">
-        <label for="update-newPassword" class="small-grey">새 비밀번호</label>
-        <p><input id="update-newPassword" class="input" type="password" name="newPassword" required></p>
+        <label for="updateNewPassword" class="small-grey">새 비밀번호</label>
+        <p><input id="updateNewPassword" class="input" type="password" name="newPassword" required></p>
     </div>
     <button class="submit" type="submit">비밀번호 수정</button>
 </form>
