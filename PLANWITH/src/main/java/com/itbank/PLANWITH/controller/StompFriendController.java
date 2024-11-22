@@ -5,7 +5,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-import com.itbank.PLANWITH.service.MemberService;
+import com.itbank.PLANWITH.model.FriendRequestDTO;
+import com.itbank.PLANWITH.service.FriendService;
 
 import lombok.extern.log4j.Log4j;
 
@@ -13,18 +14,21 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class StompFriendController {
 
-	@Autowired private MemberService memberService;
+	@Autowired private FriendService friendService;
 	
 	@MessageMapping("/connection")
-	@SendTo("/broker/status")
+	@SendTo("/broker/login")
 	public String connection(String message) {
+		log.info(message);
 		return message;
 	}
 	
 	@MessageMapping("/friendRequest")
-	@SendTo("/broker/online") 
-	public String friendRequest(String message) {
-//		memberService.insertFriendRequest();
+	@SendTo("/broker/friendRequest") 
+	public String friendRequest(FriendRequestDTO dto) {
+		int row = friendService.insertFriendRequest(dto);
+		String message = "친구요청실패";
+		if (row != 0) message = "친구요청성공";
 		return message;
 	}
 }

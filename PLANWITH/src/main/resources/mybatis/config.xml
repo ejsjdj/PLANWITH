@@ -15,5 +15,6 @@
 		<typeAlias type="com.itbank.PLANWITH.model.PlaceDTO" alias="place"/>
 		<typeAlias type="com.itbank.PLANWITH.model.ReplyDTO" alias="reply"/>
 		<typeAlias type="com.itbank.PLANWITH.model.LikeDTO" alias="like"/>
+		<typeAlias type="com.itbank.PLANWITH.model.FriendRequestDTO" alias="friendRequest"/>
 	</typeAliases>
 </configuration>
