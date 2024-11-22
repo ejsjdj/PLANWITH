@@ -335,8 +335,8 @@
       	<div class="left">
 	    	<form action="${cpath}/team/joinTeam" method="POST">
 	    		<div class="group">
-	    			<label for="createTeam-inviteCode" class="small-grey">초대 코드 입력</label>
-			        <p><input class="input" type="text" name="inviteCode" required></p>
+	    			<label for="createTeamInviteCode" class="small-grey">초대 코드 입력</label>
+			        <p><input id="createTeamInviteCode" class="input" type="text" name="inviteCode" required></p>
 	    		</div>
 		       <button class="submit" type="submit">입장하기</button>
 	        </form>

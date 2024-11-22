@@ -19,11 +19,24 @@
 	</select>
 	
 	<select id="selectMemberList" resultType="member" parameterType="string">
-		select userid, nickname from member 
+		select id, userid, nickname from member 
 			where
 				nickname like '%' || #{search} || '%'
 				or
 				userid like '%' || #{search} || '%'
 	</select>
+	
+	<insert id="insertFriendRequest" parameterType="friendRequest">
+		insert into friendRequest (sender, receiver, state) values (#{sender}, #{receiver}, '0')
+	</insert>
+	
+	<select id="selectFriendRequestList" resultType="friendRequest">
+		select friendRequest.id, member.userid, member.nickname from friendRequest
+			join member on member.id = friendRequest.receiver where friendRequest.state = 0
+	</select>
+	
+	<update id="updateFriendRequest" parameterType="friendRequest">
+		update friendRequest set state = #{state} where id = #{id}
+	</update>
 	
 </mapper>

@@ -1,5 +1,6 @@
 package com.itbank.PLANWITH.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.itbank.PLANWITH.model.FriendRequestDTO;
 import com.itbank.PLANWITH.model.MemberDTO;
 import com.itbank.PLANWITH.service.FriendService;
 
@@ -24,6 +26,11 @@ public class FriendsController {
 	
 	@GetMapping
 	public List<MemberDTO> friendList(HttpSession session) {
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 		if(login != null) { return friendService.getFriendList(login.getId()); }
 		return List.of();	//  비어있는 리스트
@@ -33,4 +40,31 @@ public class FriendsController {
 	public List<MemberDTO> memberList(@RequestParam(defaultValue = "") String search) {
 		return friendService.getMemberList(search);
 	}
+	
+	@GetMapping("/friendRequestList")
+	public List<FriendRequestDTO> friendRequestList() {
+		return friendService.getFriendRequestList();
+	}
+	
+	@GetMapping("/accept")
+	public HashMap<String, Object> friendRequestAccept(@RequestParam int id) {
+		int state = 1;
+		int row = friendService.updateFriendRequest(id, state);
+		
+		HashMap<String, Object> ret = new HashMap<String, Object>();
+		ret.put("success", row != 0);
+		return ret;
+	}
+	
+	
+	@GetMapping("/reject")
+	public HashMap<String, Object> friendRequestReject(@RequestParam int id) {
+		int state = -1;
+		int row = friendService.updateFriendRequest(id, state);
+		
+		HashMap<String, Object> ret = new HashMap<String, Object>();
+		ret.put("success", row != 0);
+		return ret;
+	}
+	
 }
