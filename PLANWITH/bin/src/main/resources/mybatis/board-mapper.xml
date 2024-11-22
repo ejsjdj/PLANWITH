@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+    "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.itbank.PLANWITH.repository.BoardDAO">
+	<select id="selectList" resultType="board">
+		SELECT 
+		    B.id,   
+		    B.title,            
+		    B.writedate,
+            B.content,
+		    B.tag,
+		    B.memberId,
+		    M.nickname,
+            MP.storedFileName AS memberPhoto   
+		        FROM 
+		            board B
+		        LEFT JOIN member M ON B.memberid = M.id
+				LEFT JOIN memberPhoto MP ON M.id = MP.memberId
+		        order by B.id DESC
+	</select>
+	
+	<!-- 게시물 저장 -->
+    <insert id="insertBoard" parameterType="board" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO board (memberId, title, content, tag) VALUES (#{memberId}, #{title}, #{content}, #{tag})
+    </insert>
+
+    <!-- 게시물 사진 저장 -->
+    <insert id="insertBoardPhoto" parameterType="photo">
+	    INSERT INTO BOARDPHOTO (originalFileName, storedFileName, contentType, boardId)
+	    VALUES (#{originalFileName}, #{storedFileName}, #{contentType}, #{refId})
+	</insert>
+
+	<!-- 특정 게시글 조회 -->
+    <select id="selectOne" parameterType="int" resultType="board">
+        SELECT 
+            b.id,   
+            b.title,            
+            b.writedate,
+            b.content,
+            b.tag,   
+            b.memberId,
+            m.nickname,
+            mp.storedFileName AS memberPhoto   
+        FROM 
+            board b
+        left join
+            member m on b.memberid = m.id
+        left join 
+            memberphoto mp on m.id = mp.memberid
+        WHERE b.id = #{id}
+        ORDER BY b.id DESC
+    </select>
+
+    <!-- 게시글 수정 -->
+    <update id="updateBoard" parameterType="board">
+        update board
+        set title = #{title}, content = #{content}, tag = #{tag}
+        where id = #{id}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="deleteBoard" parameterType="int">
+        delete from board where id = #{id}
+    </delete>
+
+	<!-- 댓글 목록 -->
+ 	<select id="getReplyList" resultType="reply" parameterType="int">
+        SELECT 
+            MP.storedFileName AS memberPhoto,
+            M.nickname,
+            R.id,
+            R.memberId,
+            R.boardId,
+            R.content,
+            R.writeDate,
+            R.parentId,
+            R.replyDepth
+        FROM 
+            reply R
+        LEFT JOIN 
+            Member M ON R.memberId = M.id
+        LEFT JOIN 
+            MemberPhoto MP ON M.id = MP.memberId
+        WHERE 
+            R.boardId = #{id}
+        START WITH 
+            R.parentid = 0
+        CONNECT BY 
+            PRIOR R.id = R.parentid
+        ORDER SIBLINGS BY 
+            R.id
+    </select>
+    
+    <!-- 댓글 작성 -->
+    <insert id="writeReply" parameterType="board">
+		insert into reply (boardId, memberId, content, parentId, replyDepth)
+			values(#{boardId}, #{memberId}, #{content}, #{parentId}, #{replyDepth})
+	</insert>
+ 
+ 	<!-- 게시글 사진 불러오기 -->
+	<select id="selectPhotoByBoardId" parameterType="int" resultType="photo">
+		select * from boardPhoto where boardId = #{id}
+	</select> 
+	
+	<delete id="deletePhotoById" parameterType="int">
+		delete from boardPhoto where id = ${id}
+	</delete>
+</mapper>

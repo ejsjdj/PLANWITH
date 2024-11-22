@@ -26,8 +26,6 @@ public class BoardsController {
 	public HashMap<String, Object> likeBoard(HttpSession session, LikeDTO dto) {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 		
-		log.info("좋아요 DTO 의 boardId 들어가야하는데 ... : " + dto.getBoardId());
-		
 		int result = 0;
 		if(login != null) {
 			dto.setMemberId(login.getId());
