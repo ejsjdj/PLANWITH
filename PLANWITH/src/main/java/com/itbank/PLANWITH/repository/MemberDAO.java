@@ -48,5 +48,8 @@ public interface MemberDAO {
 
 	int insertLog(MemberDTO dto);	// 로그 추가
 
+	// 회원정보 수정할때 비밀번호 확인용
+	MemberDTO selectSaltAndHashById(int id);
+
 	
 }

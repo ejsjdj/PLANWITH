@@ -275,6 +275,21 @@ public class MemberService {
 		return photoDTO;
 	}
 
+	public boolean checkPassword(int id, String password) {
+	    MemberDTO member = memberDAO.selectSaltAndHashById(id);
+
+	    if (member == null || member.getSalt() == null || member.getHash() == null) {
+	        return false; 
+	    }
+
+	    String inputHash = hashComponent.getHash(member.getSalt(), password);
+//	    System.out.println("입력된 해시: " + inputHash);
+//	    System.out.println("DB 저장된 해시: " + member.getHash());
+	    return inputHash.equals(member.getHash());
+	}
+  	
+
+
 //	public String getSaltByUserId(String userid) {
 //		 return memberDAO.selectSalt(userid);  
 //	}

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC 
+			"-//mybatis.org//DTD Config 3.0//EN" 
+			"https://mybatis.org/dtd/mybatis-3-config.dtd">
+			
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.itbank.PLANWITH.model.MemberDTO" alias="member"/>
+		<typeAlias type="com.itbank.PLANWITH.model.BoardDTO" alias="board"/>
+		<typeAlias type="com.itbank.PLANWITH.model.PhotoDTO" alias="photo"/>
+		<typeAlias type="com.itbank.PLANWITH.model.TeamDTO" alias="team"/>
+		<typeAlias type="com.itbank.PLANWITH.model.TeamMemberDTO" alias="teamMember"/>
+		<typeAlias type="com.itbank.PLANWITH.model.MessageDTO" alias="message"/>
+		<typeAlias type="com.itbank.PLANWITH.model.ScheduleDTO" alias="schedule"/>
+		<typeAlias type="com.itbank.PLANWITH.model.PlaceDTO" alias="place"/>
+		<typeAlias type="com.itbank.PLANWITH.model.ReplyDTO" alias="reply"/>
+	</typeAliases>
+</configuration>
