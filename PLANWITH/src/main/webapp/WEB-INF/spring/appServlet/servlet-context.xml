@@ -56,7 +56,7 @@
 	</websocket:message-broker>
 	
 	<!-- 로그인 확인 인터셉터 -->
-	<interceptors>
+	<!-- <interceptors>
       <interceptor>
          <mapping path="/board/**" />
          <mapping path="/friend/**"/>
@@ -66,10 +66,33 @@
          
          <beans:bean class="com.itbank.PLANWITH.interceptor.LoginInterceptor" />
       </interceptor>
-   </interceptors>
+   </interceptors> -->
+   
+   <interceptors>
+    <!-- LoginInterceptor 설정 -->
+	    <interceptor>
+	        <mapping path="/board/**" />
+	        <mapping path="/friend/**" />
+	        <mapping path="/team/**" />
+	        <exclude-mapping path="/team/main" />
+	        <exclude-mapping path="/team/view" />
+	        <beans:bean class="com.itbank.PLANWITH.interceptor.LoginInterceptor" />
+	    </interceptor>
+	    
+	    <!-- PasswordCheckInterceptor 설정 -->
+	    <interceptor>
+	        <mapping path="/member/updateInfo" />
+	        <mapping path="/member/updateProfileImage" />
+	        <mapping path="/member/updatePassword" />
+	        <exclude-mapping path="/member/login" />
+	        <exclude-mapping path="/member/checkPassword" />
+	        <beans:bean class="com.itbank.PLANWITH.interceptor.PasswordCheckInterceptor" />
+	    </interceptor>
+	</interceptors>
+   
+
 	
 	
 	<context:component-scan base-package="com.itbank.PLANWITH" />
 	 
 </beans:beans>
-
