@@ -278,6 +278,4 @@ public class MemberService {
 //	public String getSaltByUserId(String userid) {
 //		 return memberDAO.selectSalt(userid);  
 //	}
-
-
 }
