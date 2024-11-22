@@ -244,6 +244,24 @@ header {
 	color: #96C6D2;
 }
 
+.sidebarmodalBox #friendList .friendStatus {
+	display: flex;
+}
+
+.sidebarmodalBox #friendList .loginStatus {
+	  width : 0.8rem;
+	  height : 0.8rem;
+	  border-radius: 50%;
+	  background-color: green;
+}
+
+.sidebarmodalBox #friendList .logoutStatus {
+	  width : 0.8rem;
+	  height : 0.8rem;
+	  border-radius: 50%;
+	  background-color: grey;
+}
+
 .sidebarOverlay {
 	display: none;
 	position: fixed;
@@ -291,13 +309,6 @@ header {
 	border-radius: 50%;
 	margin-left: 10px;
 }
-
-.loginStatus {
-	width: 20px;
-	height: 20px;
-	background-color: green;
-}
-
 
 
 /*    -------------------------------- footer ----------------------------------------- */
@@ -403,27 +414,81 @@ footer>.footinfo>.bottom>.right>img {
 	top: 15%;
 }
 
-.modalBox>p {
+.modalBox > p {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	margin: auto;
 }
 
-.modalBox>p>span {
-	color: #4682b4;
-	font-size: 22px;
-	font-weight: 500;
+#searchFriendModal .serchFriendModal-title{
+	font-size: 1.3rem;
+  	margin-bottom: 2rem;
+  	display: flex;
+  	align-items: center;
+  	margin: auto;
+  	font-size: 1.1rem;
+}
+#searchFriendModal .group p {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
+	margin-top: 0;
 }
 
-.modalBox>.searchFriendList {
+#searchFriendModal .group span {
+	display: inline-flex;
+   	justify-content: space-between;
+}
+
+#searchFriendModal .group span:nth-of-type(1) {
+	display: block;
+	width: 100%;
+	margin-right: 0.8rem;
+}
+
+#searchFriendModal .group label {
+	   width: 100%; /* 이미 적용된 스타일 */
+   display: block; /* 줄 전체를 차지하도록 */
+   text-align: left; /* 텍스트 왼쪽 정렬 */
+}
+
+#searchFriendModal .inpute, .submit {
+	width: calc(100%);
+	padding: 10px;
+	margin: 5px auto;
+	border: 1px solid #d3d3d3;
+	border-radius: 5px;
+	font-size: 1rem;
+	box-sizing: border-box;
+}
+#searchFriendModal .submit {
+/*    background-color: #628ECB; */
+    background-color: #033495; 
+/*    background-color: #4267a9; */
+   color: white;
+   border: none;
+   cursor: pointer;
+   transition: background-color 0.3s;
+   margin-top: 0;
+}
+
+#searchFriendModal .input {
+	width: 100%;
+}
+
+#searchFriendModal .input:focus {
+    border-color: #B1C9EF;
+    outline: none;
+}
+
+#searchFriendModal .searchFriendList {
 	border: 1px dashed blue;
 	width: 450px;;
 	height: 230px;
 	padding: 10px;
 }
 
-.searchFriendInput {
+#searchFriendModal .searchFriendInput {
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
 	font-size: 1rem;
@@ -431,22 +496,20 @@ footer>.footinfo>.bottom>.right>img {
 	padding: 10px;
 }
 
-.searchSubmit {
-	background: linear-gradient(70deg, #172d9d, #561689);
+#searchFriendModal .searchSubmit {
 	border: 1px solid #d3d3d3;
 	border-radius: 5px;
-	font-size: 1rem;
+	font-size: 0.9rem;
 	box-sizing: border-box;
 	color: white;
 	border: none;
 	cursor: pointer;
 	transition: background-color 0.3s;
-	width: 150px;
+	width: 5rem;
 	height: 40px;
 }
 
-.searchSubmit:hover {
-	background: linear-gradient(70deg, #172d9d, #561689);
+#searchFriendModal .searchSubmit:hover {
 }
 
 .hidden {
@@ -586,14 +649,21 @@ footer>.footinfo>.bottom>.right>img {
 		<div class="overlay"></div>
 		<div class="modalBox">
 			<p>
-				<span>친구찾기</span>
+				<span class="serchFriendModal-title">친구찾기</span>
 			</p>
 			<form id="searchFriendForm">
-				<p>
-					<input class="searchFriendInput" type="text" name="search"
-						placeholder="친구 아이디를 입력하세요" autocomplete="off"> 
-					<input class="searchSubmit" type="submit" value="검색">
-				</p>
+				<div class="group">
+					<label for="searchFriendModal-search" class="small-grey">친구 아이디를 입력하세요</label>
+					<p>
+						<span>
+							<input id="searchFriendModal-search" class="searchFriendInput input" 
+							   	   type="text" name="search" autocomplete="off" required> 
+						</span>
+						<span>
+							<input class="searchSubmit submit" type="submit" value="검색">
+						</span>
+					</p>
+				</div>
 			</form>
 			<div class="searchFriendList"></div>
 			<p>
@@ -618,8 +688,8 @@ footer>.footinfo>.bottom>.right>img {
 	
 			let tag = ''
 			result.forEach(member => {
-				tag += '<p><span>' + member.nickname + '(' + member.userid + ') </span>'
-				tag += '<div class="' + (member.status == 1 ? 'loginStatus' : 'logoutStatus') + '"></div></p>'
+				tag += '<p class="friendStatus"><span>' + member.nickname + '(' + member.userid + ') </span>'
+				tag += '<span class="' + (member.status == 1 ? 'loginStatus' : 'logoutStatus')+ '"></span></p>'
 			})
             // 결과가 없을 경우
             if (result.length === 0) {

@@ -527,10 +527,13 @@ div.middleSideChat img {
  }
 
 .scheduleContainer {
-	position: absolute;
-	left: 70px;
-	width: 350px;
-	z-index: 300;
+    position: absolute;
+    left: 70px;
+    width: 350px;
+    height: 850px;
+    z-index: 300;
+    background-color: rgba(245, 245, 245, 0.8);
+    backdrop-filter: blur(5px);
 }
 
 .schedule {
