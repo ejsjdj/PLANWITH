@@ -56,7 +56,7 @@ public class StompTeamController {
     public void exitTeam(@DestinationVariable int teamId, @Payload Map<String, Object> payload) {
     	int memberId = (int)payload.get("memberId");
     	
-    	String exitMessage = teamService.insertExitMessageAndDeleteMember(teamId, memberId);
+    	MessageDTO exitMessage = teamService.insertExitMessageAndDeleteMember(teamId, memberId);
         template.convertAndSend("/broker/team/" + teamId, exitMessage);
         
         // 팀 멤버 목록 갱신
@@ -64,7 +64,7 @@ public class StompTeamController {
         template.convertAndSend("/broker/team/members/" + teamId, updatedMemberList);
 
         // 탈퇴 성공 응답 보내기
-        template.convertAndSend("/broker/team/" + teamId, "success");  // 클라이언트로 응답 전송
+        template.convertAndSend("/broker/team/" + teamId + "/exitSuccess", "success");  // 클라이언트로 응답 전송
     }
     
     // 일반 채팅 메시지 처리
