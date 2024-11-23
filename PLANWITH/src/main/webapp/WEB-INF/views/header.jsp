@@ -413,11 +413,10 @@ footer>.footinfo>.bottom>.right>img {
 	flex-flow: column;
 	position: fixed;
 	background-color: white;
-	border: 1px solid black;
 	border-radius: 25px;
-	z-index: 7;
-	left: 25%;
-	top: 15%;
+	z-index: 20;
+	left: 35%;
+	top: 30%;
 }
 
 .modalBox > p {
@@ -435,6 +434,11 @@ footer>.footinfo>.bottom>.right>img {
   	margin: auto;
   	font-size: 1.1rem;
 }
+
+#searchFriendModal #searchFriendForm{
+	margin: 5px 15px;
+}
+
 #searchFriendModal .group p {
 	display: flex;
 	justify-content: space-between;
@@ -449,7 +453,6 @@ footer>.footinfo>.bottom>.right>img {
 #searchFriendModal .group span:nth-of-type(1) {
 	display: block;
 	width: 100%;
-	margin-right: 0.8rem;
 }
 
 #searchFriendModal .group label {
@@ -476,10 +479,15 @@ footer>.footinfo>.bottom>.right>img {
    cursor: pointer;
    transition: background-color 0.3s;
    margin-top: 0;
+   font-size: 0.9rem;
+   border-radius: 1rem;
 }
 
 #searchFriendModal .input {
-	width: 100%;
+	width: 90%;
+    justify-content: center;
+    display: flex;
+    margin: 5px 0;
 }
 
 #searchFriendModal .input:focus {
@@ -488,10 +496,12 @@ footer>.footinfo>.bottom>.right>img {
 }
 
 #searchFriendModal .searchFriendList {
-	border: 1px dashed blue;
-	width: 450px;;
-	height: 230px;
-	padding: 10px;
+    width: 90%;
+    height: 200px;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #f8f9fa;
+    margin: 5px 15px;
 }
 
 #searchFriendModal .searchFriendInput {
@@ -655,7 +665,7 @@ footer>.footinfo>.bottom>.right>img {
 			</form>
 			<div class="searchFriendList"></div>
 			<p>
-				<button id="closeModalBtn" class="closeModalBtn">닫기</button>
+				<button id="closeModalBtn" class="closeModalBtn submit">닫기</button>
 			</p>
 		</div>
 	</div>
