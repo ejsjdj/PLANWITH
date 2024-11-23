@@ -31,16 +31,40 @@
 	</select>
     
 	<select id="selectTeamListByMemberId" parameterType="int" resultType="team">
-	    select 
-	        id, 
-	        name, 
-	        createTime, 
-	        inviteCode
-	    from team
-	    where id in (	
-	    	select teamId from teamMember 
-	    	where memberId = #{memberId}
-	    )
+		select 
+		    t.id, 
+		    t.name, 
+		    t.createtime, 
+		    t.invitecode,
+		    count(distinct tm.memberid) as howmanymembers,
+		    min(s.starttime) as starttime,
+		    max(s.endtime) as endtime,
+		    (
+		        select p.name
+		        from place p
+		        join schedule s2
+		            on p.id = s2.placeid
+		        where s2.teamid = t.id
+		        and (s2.starttime, s2.id) = (
+		            select min(s3.starttime), min(s3.id)
+		            from schedule s3
+		            where s3.teamid = t.id
+		        )
+		        fetch first row only
+		    ) as firstplacename
+		from team t
+		left join teammember tm
+		    on t.id = tm.teamid
+		left join schedule s
+		    on t.id = s.teamid
+		where t.id in (
+		    select tm.teamid 
+		    from teammember tm
+		    where tm.memberid = #{memberId}
+		)
+		group by
+		    t.id, t.name, t.createtime, t.invitecode
+		order by t.createtime desc
 	</select>
 	
 	<select id="selectTeamByInviteCode" parameterType="String" resultType="team">
