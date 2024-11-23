@@ -1,6 +1,7 @@
 package com.itbank.PLANWITH.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import lombok.Data;
 
@@ -11,13 +12,14 @@ public class MessageDTO {
 	   private int teamId;
 	   private int memberId;
 	   private String content;
-	   private Date sentTime;
+	   private Timestamp sentTime;
 	   private int isUser;
 	   private String nickname;
 	   
 	   private String storedFileName;
 	   
 	   public MessageDTO() {
+		    this.sentTime = new Timestamp(System.currentTimeMillis()); 
 	   }
 	   
 	   public MessageDTO(int teamId, int memberId, String content, int isUser) {
@@ -25,6 +27,16 @@ public class MessageDTO {
 	      this.memberId = memberId;
 	      this.content = content;
 	      this.isUser = isUser;
+	      this.sentTime = new Timestamp(System.currentTimeMillis());
 	   }
+	   
+	   public String getFormattedTime() {
+	      if (sentTime != null) {
+	         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss"); 
+	         return sdf.format(sentTime);
+	      }
+	      return ""; 
+	   }
+    
 	   
 }

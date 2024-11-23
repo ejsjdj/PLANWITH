@@ -130,7 +130,6 @@ public class TeamService {
 			
 	        TeamMemberDTO teamMemberDTO = new TeamMemberDTO(teamId, memberId); 
 	        teamDAO.insertTeamMember(teamMemberDTO);		// 멤버를 팀에 insert
-	        insertJoinSystemMessage(teamId, memberDTO);
 	        return true;
 		}
 		return false;
@@ -144,12 +143,13 @@ public class TeamService {
 	}
 	
 	// 탈퇴메시지 insert, 
-	public String insertExitMessageAndDeleteMember(int teamId, int memberId) {
+	public MessageDTO insertExitMessageAndDeleteMember(int teamId, int memberId) {
 		teamDAO.deleteMemberFromTeam(new TeamMemberDTO(teamId, memberId));
 		String memberNickname = teamDAO.selectMemberNicknameById(memberId);
 		String content = memberNickname + "님이 팀에서 나갔습니다";
+		MessageDTO systeamMessage = new MessageDTO(teamId, memberId, content, 0);
 		insertSystemMessage(teamId, memberId, content);
-		return content;
+		return systeamMessage;
 	}
 	
 	

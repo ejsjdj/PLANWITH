@@ -10,13 +10,15 @@ body {
 
 #chatBoxBtn {
     position: absolute;
-    right: 10rem;
+    right: 5rem;
     bottom: 5rem;
     z-index: 300;
     border-radius: 50%;
     justify-content: center;
     align-items: center;
-    background: lightblue;
+    background: #033495;
+    background: #3379ff;
+    
     width: 3rem;
     height: 3rem;
     display: flex;
@@ -28,37 +30,34 @@ body {
 }
 
 #chatBoxBtn img {
-	width: 2rem;
+	width: 1.5rem;
 }
 
 #chatArea {
 	position: absolute;
-	width: 20%;
-	height: 600px;
+	width: 15%;
+	height: 500px;
 	z-index: 15;
-	right: 10rem;
+	right: 8rem;
 	bottom: 5rem;
-	width: 650px;
-	background-color: #FDEBC8;
-	border-radius: 2rem;
+	width: 400px;
+	background-color: white;
+	border-radius: 0.5rem;
 /* 	display: flex;  /* 이거 하면 hidden 안 됨 */
 	overflow: hidden;
+	box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.3);
 }
 
-#chatArea .small-grey {
+#chatArea .small-white {
     font-size: 0.8rem;
 /*        color: #adb5bd; */
-    color: #999999;
+/*     color: #999999;  */
+/*     color: white;  */
+	color: #cccccc;
 /*        color: #868e90; */
-   	font-weight: 400;
+   	font-weight: 300;
    	text-decoration: none;
 	text-align: center;
-}
-
-.topSideChat .topleft img {
-	width: 0.7rem;
-   	opacity: 0.3;
-  	margin: auto;
 }
 
 .chatTop {
@@ -66,42 +65,185 @@ body {
 }
 
 .chatBox {
+	display: flex;
+	flex-flow: column;
 	height: 100%;
-	width: 600px;
-	background-color: #FDEBC8;
-	border-radius: 2rem;
+	width: 100%;
+	border-radius: 1rem;
 }
 
 .topSideChat {
-	height: 100px;
+	flex: 1;
+	padding: 10px;
+	
+	background: #3379ff;
+	color: white;
 }
 
 .topSideChat .topleft {
 	float: left;
+	padding: 10px;
 }
 
 .topSideChat .topleft #teamName {
 	font-size: 1.2rem;
+	font-weight: 500;
+	margin-top: 5px;
+}
+
+.topSideChat .topleft img {
+	width: 0.7rem;
+   	opacity: 0.3;
+  	margin: auto;
+	filter: invert(100%) sepia(3%) saturate(5%) hue-rotate(352deg) brightness(104%) contrast(100%);
 }
 
 .topSideChat .topRight {
 	float: right;
 	display: flex;
+	padding: 10px;
+}
+
+.topRight button {
+	border-radius: 2rem;
+    height: 30px;
+    box-sizing: border-box;
+    /* background-color: #033495; */
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 100;
+    margin-left: 10px;
+    margin-top: 5px;
+    padding: 8px 10px;
+}
+
+#inviteCode button {
+	border: 0px solid black;
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+#exitTeamBtn button {
+	border: 0px solid black;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.topSideChat #participatingMembers {
+	display: flex;
+	font-weight: 400;
 }
 
 .middleSideChat {
-	height: 400px;
+	flex: 4;
 	overflow-y: auto; /* 스크롤 ㄱㄴ */
+	padding: 20px;
+	font-size: 0.8rem;
+}
+
+.middleSideChat .userMessageContainer {
+	display: flex;
+	align-items: center;
+	margin: 7px 0;
+	margin-right: 3px;
+	align-items: end;
+}
+
+.userMessageContainer .sentTime {
+	font-size: 0.6rem;	
+}
+
+.middleSideChat .myMessageContainer {
+    justify-content: right;
+}
+
+.middleSideChat .otherMessageContainer {
+
+}
+
+.userMessageContainer .userImg {
+    display: flex;
+    margin-right: 5px; 
+}
+
+.userMessageContainer .chatProfileImg {
+	border-radius: 50%;
+}
+
+.otherMessageContainer .messageContainer {
+	margin-right: 5px;
+}
+
+.myMessageContainer .messageContainer {
+	margin-left: 5px;
+}
+
+.userMessageContainer .otherMessageContainer {
+
+}
+
+.userMessageContainer .otherName {
+	font-size: 0.7rem;
+}
+
+.userMessageContainer .messageDiv {
+	border-radius: 0.5rem;
+    background: #3379ff;
+    color: white;
+    padding: 4px 8px;
+    font-size: 0.7rem;
+    text-align: left;
+	
+}
+
+.middleSideChat .systemMessageContainer {
+    padding: 3px;
+    background: #eeeeee;
+    margin: 8px 0;
+    font-size: 0.7rem;
+    text-align: center;
+    border-radius: 1rem;
 }
 
 .bottomSideChat {
-	height: 100px;
+	height: 50px	;
 	background-color: white;
 }
 
-#textarea {
-	resize: none; /* 사이즈 안 고쳐지게 함 */
-	border: none;
+.bottomSideChat #inputChat{
+	height: 100%;
+	display: flex;
+    align-items: center;
+    padding: 1px 10px;
+    border-top: 0.1px solid #f9f8fa;
+}
+
+.bottomSideChat #textarea {
+    resize: none;
+    height: 20px;
+    flex: 9;
+    border: 1px solid #dadada;
+    border-radius: 2rem;
+    margin-right: 10px;
+}
+
+.bottomSideChat input {
+/*     height: 20px; */
+    flex: 1;
+    border-radius: 2rem;
+    border: 0px solid #dadada;
+    height: 25px;
+    box-sizing: border-box;
+/*     background-color: #033495; */
+	background: #788AB2;
+	background: #3379ff;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 100;	
+}
+
+.bottomSideChat #textarea:focus {
+	border-color: #B1C9EF;
+    outline: none;
+
 }
 
 .chatProfileImg {
@@ -111,6 +253,13 @@ body {
 </style>
 
 <style>
+
+.schedule {
+}
+
+.schedule div:nth-of-type(3) {
+	flex: 1;
+}
 .schedule-item {
 	border: 1px solid #e0e0e0;
 	border-radius: 8px;
@@ -125,6 +274,15 @@ body {
 	color: #333;
 	display: block;
 	margin-bottom: 10px;
+}
+
+.scheduleTitle {
+	font-size: 1rem;
+	flex: 1;
+}
+
+.deleteScheduleBtn {
+	height: 1.5rem;
 }
 
 .schedule-time {
@@ -249,6 +407,35 @@ body {
 	border-radius: 10px;
 }
 
+#searchPlacesInput {
+	display: flex;
+}
+
+#searchPlacesInput input,
+#searchPlacesInput button
+ {
+    width: calc(100%);
+    padding: 10px;
+    margin: 5px auto;
+    border: 1px solid #d3d3d3;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+}
+
+#searchPlacesInput button {
+	width: 7rem;
+	background: #3379ff;
+	color: white;
+	border: 0px solid black;
+	height: 95%;
+}
+
+#searchPlacesInput input:focus {
+	border-color: #B1C9EF;
+    outline: none;
+}
+
 .bg_white {
 	background: #fff;
 }
@@ -276,24 +463,25 @@ body {
 /*    카테고리검색을 위한 스타일 */
 #category {
 	position: absolute;
-	right: 20%;
-	border-radius: 5px;
-	border: 1px solid #909090;
-	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
-	background: #fff;
-	overflow: hidden;
-	z-index: 5;
-	top: 130px;
+    right: 0;
+    border-radius: 5px;
+/*     border: 1px solid #909090; */
+/*     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.4); */
+    background: #fff;
+    overflow: hidden;
+    z-index: 5;
+    top: 70px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.3);
 }
 
 #category li {
-	float: left;
-	list-style: none;
-	width: 50px;
-	border-right: 1px solid #acacac;
-	padding: 6px 0;
-	text-align: center;
-	cursor: pointer;
+/* 	float: left; */
+    list-style: none;
+    width: 50px;
+    /* border-right: 1px solid #acacac; */
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
 }
 
 #category li.on {
@@ -302,7 +490,7 @@ body {
 
 #category li:hover {
 	background: #ffe6e6;
-	border-left: 1px solid #acacac;
+/* 	border-left: 1px solid #acacac; */
 	margin-left: -1px;
 }
 
@@ -588,6 +776,7 @@ body {
 	border-radius: 8px; /* 모서리 둥글게 */
 	padding: 20px; /* 내부 여백 */
 	background-color: #f9f9f9; /* 배경색 */
+	align-items: center;
 }
 
 .schedule-item {
@@ -620,10 +809,11 @@ body {
 #viewHandler .viewHandlerBox {
 	top: 70px;
 	position: relative;
+	width: 70px;
 }
 
 #viewHandler .viewHandlerBox img {
-	width: 2rem;
+	width: 1.5rem;
 }
 
 #viewHandler .viewHandlerBox .viewFunctionSelect:hover {
@@ -705,7 +895,7 @@ body {
 		<div id="menu_wrap" class="bg_white hidden">
 			<div class="option">
 				<div>
-					<form onsubmit="searchPlaces(); return false;">
+					<form id="searchPlacesInput" onsubmit="searchPlaces(); return false;">
 						<input type="text" value="센텀드림월드" id="keyword" size="15">
 						<button type="submit">검색하기</button>
 					</form>
@@ -719,10 +909,7 @@ body {
 		<!-- 지도 검색목록 -->
 	</div>
 	<!-- 지도HTML 끝 -->
-
 	<!-- 채팅방 -->
-	<div id="chatArea">
-		<div class="chatTop">
 			<c:if test="${not empty team && not empty login}">
 				<!-- 주소창으로 접근가능해서 걸어둠 -->
 				<div>
@@ -736,14 +923,20 @@ body {
 					<span>코드 : ${team.inviteCode }</span>
 				</div>
 			</c:if>
-		</div>
+	<div id="chatArea">
 		<div class="chatBox">
 			<c:choose>
 				<c:when test="${not empty team && not empty login}">
 					<div class="topSideChat">
 						<div class="topleft">
 							<div id="teamName">${team.name }</div>
-							<div id="participatingMembers">
+							<div id="howManyInChatRoom">
+								<img src="${cpath }/resources/image/사람 수 아이콘.png" >
+				            	<span class="small-white">
+				            		${memberList.size() }
+				            	</span>
+							</div>
+							<div id="participatingMembers" class="small-white">
 								<c:forEach var="member" items="${memberList }"
 									varStatus="status">
 									${member.nickname }
@@ -751,27 +944,21 @@ body {
 									<!-- member 가 마지막사람이 아니면 , 를 넣어준다 -->
 								</c:forEach>
 							</div>
-							<div id="howManyInChatRoom">
-								<img src="${cpath }/resources/image/사람 수 아이콘.png" >
-				            	<span class="small-grey">
-				            		${memberList.size() }
-				            	</span>
-							</div>
 						</div>
 
 						<div class="topRight">
-							<div id="inviteBtn">
-								<button>
-									<img
-										src="https://cdn-icons-png.flaticon.com/512/2228/2228706.png"
-										width="30px">
+							<div id="inviteCode">
+								<button>inviteCode
+<!-- 									<img -->
+<!-- 										src="https://cdn-icons-png.flaticon.com/512/2228/2228706.png" -->
+<!-- 										width="30px"> -->
 								</button>
 							</div>
 							<div id="exitTeamBtn">
-								<button>
-									<img
-										src="https://e7.pngegg.com/pngimages/311/926/png-clipart-button-computer-icons-exit-angle-rectangle-thumbnail.png"
-										width="30px">
+								<button>leave
+<!-- 									<img -->
+<!-- 										src="https://e7.pngegg.com/pngimages/311/926/png-clipart-button-computer-icons-exit-angle-rectangle-thumbnail.png" -->
+<!-- 										width="30px"> -->
 								</button>
 							</div>
 						</div>
@@ -782,17 +969,40 @@ body {
 							<div>
 								<p>
 									<c:choose>
-										<c:when test="${message.isUser == 1}">
-
-											<img class="chatProfileImg"
-												src="${cpath}/upload/${message.storedFileName != null ? message.storedFileName : 'default.png'}">
-							                ${message.nickname}: 
-							            </c:when>
-										<c:otherwise>
-							                ${message.nickname}
-							            </c:otherwise>
+									    <c:when test="${message.isUser == 1}">
+									        <c:choose>
+									            <c:when test="${message.memberId == login.id}">
+									                <!-- 내 메시지 -->
+									                <div class="userMessageContainer myMessageContainer">
+											        	<div class="sentTime">${message.formattedTime}</div> 
+									                    <div class="messageContainer">
+									                        <div class="messageDiv">${message.content}</div>
+									                    </div>
+									                </div>
+									            </c:when>
+									            <c:otherwise>
+									                <!-- 상대방 메시지 -->
+									                <div class="userMessageContainer otherMessageContainer">
+									                    <div class="userImg">
+									                        <img class="chatProfileImg" 
+									                            src="${cpath}/upload/${message.storedFileName != null ? message.storedFileName : 'default.png'}">
+									                    </div>
+									                    <div class="messageContainer">
+									                        <div class="otherName">${message.nickname}</div>
+									                        <div class="messageDiv">${message.content}</div>
+									                    </div>
+									                    <div class="sentTime">${message.formattedTime}</div> 
+									                </div>
+									            </c:otherwise>
+									        </c:choose>
+									    </c:when>
+									    <c:otherwise>
+									        <!-- 시스템 메시지 -->
+									        <div class="systemMessageContainer">
+									            <div class="systemMessage">${message.content}</div>
+									        </div>
+									    </c:otherwise>
 									</c:choose>
-									${message.content}
 								</p>
 							</div>
 						</c:forEach>
@@ -800,8 +1010,8 @@ body {
 
 					<div class="bottomSideChat">
 						<form id="inputChat">
-							<textarea id="textarea" name="msg" placeholder="메시지 입력"></textarea>
-							<input type="submit" value="전송">
+							<textarea id="textarea" name="msg"></textarea>
+							<input type="submit" value="send">
 						</form>
 					</div>
 				</c:when>
@@ -1589,58 +1799,135 @@ body {
 	
 	// 채팅 폼 제출하면 sendMessage(메시지 전송) 연결
 	   
-	   function inputMessage(event) {
-	       event.preventDefault()
-	       sendMessage()
-	   }
-	   const inputChat = document.getElementById('inputChat')
-	   inputChat.addEventListener('keydown', function(event) {
-		   console.log('Enter 입력 함수 실행')
-	      if (event.key === 'Enter') inputMessage(event) 
-	   })
-	   inputChat.addEventListener('click', inputMessage)
+	function inputMessage(event) {
+	    event.preventDefault()
+	    sendMessage()
+	}
+	const inputChat = document.getElementById('inputChat')
+	inputChat.addEventListener('keydown', function(event) {
+	 console.log('Enter 입력 함수 실행')
+	   if (event.key === 'Enter') inputMessage(event) 
+	})
+	inputChat.addEventListener('click', inputMessage)
 	
 	function exitTeam() {
 	    // 탈퇴 요청을 서버로 보냄
 	    stomp.send('/app/exitTeam/' + teamId, {}, JSON.stringify({
 	        memberId: ${login.id}
-	    }));
+	    }))
 
 	    // 탈퇴 성공 여부 응답 받고
-	    stomp.subscribe('/broker/team/' + teamId, function (message) {
+	    stomp.subscribe('/broker/team/' + teamId + '/exitSuccess', function (message) {
 	        if (message.body === 'success') {  // "success" 문자열을 받으면 페이지 이동
 	            window.location.href = cpath + '/team/teamList'
 	        }
-	    });
+	    })
+
 	}
-	
+
 	// 채팅 메시지 받을 때 마다 호출
-	   function onReceiveMessage(message) {
-		    const msg = JSON.parse(message.body);
-		    const messageDIV = document.createElement('div');
-		    const paragraph = document.createElement('p');
-		    
-		    if (msg.isUser === 1) {
-		        // 사용자 메시지
-		        const img = document.createElement('img');
-		        img.className = 'chatProfileImg';
-		        img.src = cpath + '/upload/' + (msg.storedFileName ? msg.storedFileName : 'default.png');
+// 	   function onReceiveMessage(message) {
+// 		    const msg = JSON.parse(message.body)
+// 		    const messageDIV = document.createElement('div')
+// 		    const paragraph = document.createElement('p')
+		   
+// 		    if (msg.isUser === 1) {
+// 		        // 사용자 메시지
+// 		        const img = document.createElement('img')
+// 		        img.className = 'chatProfileImg'
+// 		        img.src = cpath + '/upload/' + (msg.storedFileName ? msg.storedFileName : 'default.png')
 		        
-		        paragraph.appendChild(img);
-		        paragraph.innerHTML += msg.nickname + ': ' + msg.content;
+// 		        paragraph.appendChild(img)
+// 		        paragraph.innerHTML += msg.nickname + ': ' + msg.content
 		        
-		    } else {
-		        // 시스템 또는 다른 사용자의 메시지
-		        paragraph.textContent = msg.nickname + ' ' + msg.content;
-		    }
+// 		    } else {
+// 		        // 시스템 또는 다른 사용자의 메시지
+// 		        paragraph.textContent = msg.nickname + ' ' + msg.content
+// 		    }
 		    
-		    messageDIV.appendChild(paragraph);
-		    middleSideChat.appendChild(messageDIV);
+// 		    messageDIV.appendChild(paragraph);
+// 		    middleSideChat.appendChild(messageDIV);
 		    
-		    // 스크롤을 최신 메시지로 이동
-		    middleSideChat.scrollTop = middleSideChat.scrollHeight;
-		}
-	
+// 		    // 스크롤을 최신 메시지로 이동
+// 		    middleSideChat.scrollTop = middleSideChat.scrollHeight;
+// 		}
+			
+function onReceiveMessage(message) {
+    const msg = JSON.parse(message.body)
+    const messageDIV = document.createElement('div')
+
+    console.log('msg.sentTime', msg.sentTime)
+    console.log('msg.formattedTime', msg.formattedTime)
+
+    if (msg.isUser === 1) {
+        const userMessageContainer = document.createElement('div')
+        userMessageContainer.className = msg.memberId === ${login.id} ? 'userMessageContainer myMessageContainer' : 'userMessageContainer otherMessageContainer'
+
+        if (msg.memberId === ${login.id}) {
+            // 내 메시지일 경우 시간 먼저 추가
+            const sentTimeDiv = document.createElement('div')
+            sentTimeDiv.className = 'sentTime'
+            sentTimeDiv.textContent = msg.formattedTime
+            userMessageContainer.prepend(sentTimeDiv) // 내 메시지일 때만 prepend로 시간 추가
+        } else {
+            // 다른 사용자의 메시지일 경우
+            const userImgDiv = document.createElement('div')
+            userImgDiv.className = 'userImg'
+
+            const userImg = document.createElement('img')
+            userImg.className = 'chatProfileImg'
+            userImg.src = cpath + '/upload/' + (msg.storedFileName ? msg.storedFileName : 'default.png')
+            userImgDiv.appendChild(userImg)
+
+            userMessageContainer.appendChild(userImgDiv)
+        }
+
+        // 메시지 내용 및 시간 처리
+        const messageContainer = document.createElement('div')
+        messageContainer.className = 'messageContainer'
+
+        if (msg.memberId !== ${login.id}) {
+            // 다른 사용자의 메시지에 이름 추가
+            const otherNameDiv = document.createElement('div')
+            otherNameDiv.className = 'otherName'
+            otherNameDiv.textContent = msg.nickname
+            messageContainer.appendChild(otherNameDiv)
+        }
+
+        const messageDiv = document.createElement('div')
+        messageDiv.className = 'messageDiv'
+        messageDiv.textContent = msg.content
+
+        const sentTimeDiv = document.createElement('div')
+        sentTimeDiv.className = 'sentTime'
+        sentTimeDiv.textContent = msg.formattedTime
+
+        messageContainer.appendChild(messageDiv)
+
+        userMessageContainer.appendChild(messageContainer)
+        if (msg.memberId !== ${login.id}) {
+	        userMessageContainer.appendChild(sentTimeDiv)
+        }
+        
+        messageDIV.appendChild(userMessageContainer)
+    } else if (msg.isUser === 0) {
+        const systemMessageDiv = document.createElement('div')
+        systemMessageDiv.className = 'systemMessageContainer'
+
+        const systemMessage = document.createElement('div')
+        systemMessage.className = 'systemMessage'
+        systemMessage.textContent = msg.content
+
+        systemMessageDiv.appendChild(systemMessage)
+        messageDIV.appendChild(systemMessageDiv)
+    }
+
+    middleSideChat.appendChild(messageDIV)
+
+    // 최신 메시지로 스크롤
+    middleSideChat.scrollTop = middleSideChat.scrollHeight
+}
+
 	// 팀 이름 수정 제출 시 websocket 연결
 	function updateTeamName(event) {
 	    event.preventDefault()
@@ -1725,6 +2012,11 @@ body {
 	
 	// 위시리스트 아이콘 클릭 시 이미지 교체
 	document.getElementById('wishListBtn').addEventListener('click', showWishList)
+	
+	window.onload = function() {
+	    const middleSideChat = document.querySelector('.middleSideChat')
+	    middleSideChat.scrollTop = middleSideChat.scrollHeight
+	}
 </script>
 
 </body>
