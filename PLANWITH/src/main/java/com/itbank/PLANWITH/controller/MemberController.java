@@ -238,14 +238,13 @@ public class MemberController {
 	    if (login != null) {
 	        memberService.logout(login);
 	        // 세션 무효화 전에 속성을 제거
-	        session.removeAttribute("login");
-	        session.removeAttribute("snsLogin");   
+//	        session.removeAttribute("login");
+//	        session.removeAttribute("snsLogin");   
 	        // 이후 세션 무효화
 	        session.invalidate();
 	    }
 	    return "redirect:/";
 	}
-
 
 	// 회원 탈퇴 처리
 	@PostMapping("/delete")

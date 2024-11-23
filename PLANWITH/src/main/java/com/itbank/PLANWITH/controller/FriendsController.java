@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,19 +39,25 @@ public class FriendsController {
 	}
 	
 	@GetMapping("/memberList")
-	public List<MemberDTO> memberList(@RequestParam(defaultValue = "") String search) {
-		return friendService.getMemberList(search);
+	public List<MemberDTO> memberList(@ModelAttribute MemberDTO dto) {
+		return friendService.getMemberList(dto);
 	}
 	
 	@GetMapping("/friendRequestList")
-	public List<FriendRequestDTO> friendRequestList() {
-		return friendService.getFriendRequestList();
+	public List<FriendRequestDTO> friendRequestList(@RequestParam int id) {
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		return friendService.getFriendRequestList(id);
 	}
 	
 	@GetMapping("/accept")
 	public HashMap<String, Object> friendRequestAccept(@RequestParam int id) {
 		int state = 1;
 		int row = friendService.updateFriendRequest(id, state);
+		row += friendService.insertFriend(id);
 		
 		HashMap<String, Object> ret = new HashMap<String, Object>();
 		ret.put("success", row != 0);

@@ -18,16 +18,19 @@ public class FriendService {
 		return friendDAO.selectFriendList(id);
 	}
 
-	public List<MemberDTO> getMemberList(String search) {
-		return friendDAO.selectMemberList(search);
+	public List<MemberDTO> getMemberList(MemberDTO dto) {
+//		MemberDTO dto = new memberdto();
+//		dto.setid(id);
+//		dto.setsearch(search);
+		return friendDAO.selectMemberList(dto);
 	}
 
 	public int insertFriendRequest(FriendRequestDTO dto) {
 		return friendDAO.insertFriendRequest(dto);
 	}
 
-	public List<FriendRequestDTO> getFriendRequestList() {
-		return friendDAO.selectFriendRequestList();
+	public List<FriendRequestDTO> getFriendRequestList(int id) {
+		return friendDAO.selectFriendRequestList(id);
 	}
 
 	public int updateFriendRequest(int id, int state) {
@@ -36,6 +39,14 @@ public class FriendService {
 		dto.setState(state);
 		
 		return friendDAO.updateFriendRequest(dto);
+	}
+
+	public int insertFriend(int id) {
+		FriendRequestDTO dto = friendDAO.selectFriendRequestById(id);
+		int i = friendDAO.insertFriendforSender(dto);
+		int j = friendDAO.insertFriendforReceiver(dto);
+		if (i == 1 && j == 1) return 1;
+		return 0;
 	}
 		
 }
