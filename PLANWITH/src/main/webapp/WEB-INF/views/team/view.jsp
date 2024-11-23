@@ -820,7 +820,6 @@ body {
 <!-- 디자인 기능 구현을 위한 스크립트(버튼을 누르면 해당 창이 생겼다 사라졌다 하는 기능) -->
 <script>
 	const searchMenuBtn = document.getElementById('mapHomeBtn')
-	const planBtn = document.getElementById('planBtn')
 	const wishListBtn = document.getElementById('wishListBtn')	
 	const chatBoxBtn = document.getElementById('chatBoxBtn')
 	
@@ -841,11 +840,6 @@ body {
 	    updateMenuWrapPosition();
 	}
 	
-	planBtn.onclick = function () {
-	    const scheduleContainer = document.querySelector('.scheduleContainer');
-	    scheduleContainer.classList.toggle('hidden');
-	    updateMenuWrapPosition();
-	}
 	
 	chatBoxBtn.onclick = function () {
 		const chatArea = document.getElementById('chatArea')
@@ -969,7 +963,8 @@ body {
 				const titleArea = document.getElementById('titleArea')
 				titleArea.innerHTML = '<h2>' + title + '<h2>'
 				titleArea.innerHTML += '<button id="addScheduleBtn">' + '계획추가' + '</button>'
-				/// ㅇㅇㅇㅇ				
+				titleArea.innerHTML += '<button id="addWishList">' + '<img id="wishListIcon" src="/PLANWITH/resources/image/wishListIcon.png">' + '</button>'				
+				
 				function addSchedule() {	
 					stomp.send('/app/addSchedule/' + teamId, {}, JSON.stringify({
 						title: title,
@@ -982,6 +977,28 @@ body {
 					modalHandler()
 			   	}
 				
+				async function addWishList () {
+					const url = '${cpath}/maps/addWishList'
+					const data = {
+							title: title,
+							st: new Date().getTime(),
+							et: new Date().getTime(),
+							address: addressInfo,
+							content: title
+					}
+					const result = await fetch(url, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify(data)
+					}).then(resp => resp.json())
+					console.log('addWishList 함수 실행')
+					drawWishList(result)
+					modalHandler()
+				}
+				
+				document.getElementById('addWishList').onclick = addWishList
 				document.getElementById('addScheduleBtn').onclick = addSchedule
                  
                   let imgIndex = 0
@@ -1286,7 +1303,87 @@ body {
 	document.getElementById('modalSubmit').addEventListener('click', submitTime)
 	document.getElementById('modalClose').addEventListener('click', timeModalHandler)
 	
+	function drawWishList(msg) {
+       	const scheduleContainer = document.querySelector('.scheduleContainer')
+       	scheduleContainer.innerHTML = ''
+		msg.forEach((dto, index) => {
+		    const scheduleBox = document.createElement('div')
+		    scheduleBox.className = 'schedule'
+			
+		    const idDiv = document.createElement('div')
+		    idDiv.className = 'scheduleId'
+		    idDiv.textContent = dto.id
+		    idDiv.style.display = 'none'
+		    scheduleBox.appendChild(idDiv)
+		    
+		    const titleDiv = document.createElement('div')
+		    titleDiv.className = 'scheduleTitle'
+		    titleDiv.textContent = dto.name
+		    scheduleBox.appendChild(titleDiv)
+		    
+		    titleDiv.onclick = async function() {
+				const blogSearchUrl = "${cpath}/maps/blogSearch?title=" + dto.name
+				const imageSearchUrl = "${cpath}/maps/imageSearch?title=" + dto.name
+				
+				// List<NaverBlogDTO>
+				const blogSearchResult = await fetch(blogSearchUrl).then(resp => resp.json())				
+				// List<NaverImageDTO>
+				const imageSearchResult = await fetch(imageSearchUrl).then(resp => resp.json())
+				
+				let imgIndex = 0
+                  const imageArea = document.getElementById('imageArea')
+                  imageArea.innerHTML = ''
+
+                  function appendImage() {
+                      if (imgIndex == imageSearchResult.length) return
+
+                      const img = document.createElement('img')
+                      img.src = imageSearchResult[imgIndex].link
+                      img.style.width = '33.3%'
+                      img.style.objectFit = 'cover'
+                      img.style.height = '200px' // 높이를 고정값으로 설정하거나 필요에 따라 조정
+
+                      img.onerror = function() {
+                          imgIndex++
+                          appendImage()
+                      }
+						
+                      img.onload = function() {	
+                          imageArea.appendChild(img)
+                          imgIndex++
+                          if (imageArea.children.length < 6) {
+                              appendImage()
+                          }
+                      }
+                  }
+
+                  // 3개의 이미지를 로드하기 위한 함수
+                  appendImage()
+                  
+                  const linkArea = document.getElementById('linkArea')
+                  linkArea.innerHTML = ''
+                  for (let i = 0; i < 4; i ++) {
+                     const dto = blogSearchResult[i]
+                     linkArea.innerHTML += dto.title + "'<br>'" + dto.description + '<br><a href="' + dto.link + '" target="_blank">자세히 보기</a><br>'
+                  }
+                  
+                  modalHandler()
+		    }
+		
+		    const deleteBtn = document.createElement('button')
+		    deleteBtn.textContent = '삭제'
+		    deleteBtn.className = 'deleteScheduleBtn'
+		    deleteBtn.onclick = deleteWishList
+		    
+		    scheduleBox.appendChild(deleteBtn)
+		    scheduleContainer.appendChild(scheduleBox)
+		    
+		})
+		
+	}
+	
 	function drawSchedule(msg) {
+		console.log(msg)
        	const scheduleContainer = document.querySelector('.scheduleContainer')
        	scheduleContainer.innerHTML = ''
 		msg.forEach((dto, index) => {
@@ -1405,6 +1502,22 @@ body {
 			id: event.target.previousElementSibling.previousElementSibling.previousElementSibling.textContent
 		}))
 	}
+	
+	async function deleteWishList(event) {
+		const id = event.target.previousElementSibling.previousElementSibling.textContent
+		console.log(id)
+		const url = '${cpath}/maps/deleteWishList?id=' + id 
+		const result = await fetch(url, {
+			method: 'POST',
+			headers: {
+				headers: {
+					'Content-Type': 'application/json',
+				}
+			}
+		}).then(resp => resp.json())
+		console.log('deleteWishList 함수 실행')
+		drawWishList(result);
+	}
 </script>
 
 <!-- 채팅 script -->
@@ -1496,7 +1609,7 @@ body {
 	    // 탈퇴 성공 여부 응답 받고
 	    stomp.subscribe('/broker/team/' + teamId, function (message) {
 	        if (message.body === 'success') {  // "success" 문자열을 받으면 페이지 이동
-	            window.location.href = cpath + '/team/viewTeams'
+	            window.location.href = cpath + '/team/teamList'
 	        }
 	    });
 	}
@@ -1541,12 +1654,6 @@ body {
 	    inputTeamName.value = ''	// 작성란 비움
 	}
 	
-	async function teamViewLoadHandler() {
-		const url = '${cpath}/maps/teamViewLoad/' + ${teamId}
-		const data = await fetch(url).then(resp => resp.json())
-		drawSchedule(data)
-	}
-	
 	// 팀이름수정 폼 제출 시 
 	document.getElementById('updateTeamNameForm').onsubmit = updateTeamName		// 팀 이름 폼 제출 시 처리
 	document.getElementById('exitTeamBtn').onclick = exitTeam				
@@ -1570,25 +1677,54 @@ body {
 	  	}
 	})
 	
-	// 계획 아이콘 클릭 시 이미지 교체
-	document.getElementById('planBtn').addEventListener('click', function() {
+	async function teamViewLoadHandler() {
+		const url = '${cpath}/maps/teamViewLoad/' + ${teamId}
+		const data = await fetch(url).then(resp => resp.json())
+		drawSchedule(data)
+	}
+	
+	function showPlan () {
 		let img = this.querySelector('img')
+		const scheduleContainer = document.querySelector('.scheduleContainer')
 	  	if (img.src.includes('planIcon.png')) {
 		  	img.src = '${cpath}/resources/image/planIconHover.png'
+	  		if (scheduleContainer.classList.contains('hidden')) {
+			    scheduleContainer.classList.toggle('hidden')
+			}
 	  	} else {
 		  	img.src = '${cpath}/resources/image/planIcon.png'
+		  	scheduleContainer.classList.toggle('hidden')
 	  	}
-	})
+		
+		updateMenuWrapPosition()
+	    teamViewLoadHandler()
+	}
 	
-	// 위시리스트 아이콘 클릭 시 이미지 교체
-	document.getElementById('wishListBtn').addEventListener('click', function() {
+	async function showWishList () {
 		let img = this.querySelector('img')
+		const scheduleContainer = document.querySelector('.scheduleContainer')
 	  	if (img.src.includes('wishListIcon.png')) {
 		  	img.src = '${cpath}/resources/image/wishListIconHover.png'
+	  		if (scheduleContainer.classList.contains('hidden')) {
+			    scheduleContainer.classList.toggle('hidden')
+			}
 	  	} else {
 		  	img.src = '${cpath}/resources/image/wishListIcon.png'
+		  	scheduleContainer.classList.toggle('hidden')
 	  	}
-	})
+		console.log('showWishList')
+	    updateMenuWrapPosition()
+	    const url = '${cpath}/maps/getWishList'
+	    const answer = await fetch(url).then(resp => resp.json())
+	    console.log('answer : ', answer)
+		drawWishList(answer)
+	}
+	
+	// 계획 아이콘 클릭 시 이미지 교체
+	document.getElementById('planBtn').addEventListener('click', showPlan)
+	
+	// 위시리스트 아이콘 클릭 시 이미지 교체
+	document.getElementById('wishListBtn').addEventListener('click', showWishList)
 </script>
 
 </body>

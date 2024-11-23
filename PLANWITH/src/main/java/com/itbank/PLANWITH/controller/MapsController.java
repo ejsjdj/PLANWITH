@@ -1,7 +1,6 @@
 package com.itbank.PLANWITH.controller;
 
 import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itbank.PLANWITH.model.NaverBlogDTO;
@@ -64,24 +65,6 @@ public class MapsController {
 		session.setAttribute("scheduleList", list);		
 		return list;
 	}
-//	@PostMapping("/add")
-//	public List<ScheduleDTO> add(ScheduleDTO dto, HttpSession session) {
-//		List<ScheduleDTO> list = (List<ScheduleDTO>) session.getAttribute("scheduleList");
-//		if (list == null) list = new ArrayList<ScheduleDTO>();
-//		int placeId = mapService.insertPlace(dto);
-//		dto.setPlaceId(placeId);
-//		dto.setStartTime(new Date(dto.getSt()));
-//		dto.setEndTime(new Date(dto.getEt()));
-//		list.add(dto);
-//		
-//		session.setAttribute("scheduleList", list);
-////		System.out.println(dto);
-//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//		System.out.println(sdf.format(dto.getStartTime()));
-//		System.out.println(sdf.format(dto.getEndTime()));
-//		
-//		return list;
-//	}
 	
 	@PostMapping("/delete")
 	public List<ScheduleDTO> delete(ScheduleDTO dto, HttpSession session) {
@@ -106,5 +89,38 @@ public class MapsController {
 	public PlaceDTO searchPlaceByScheduleId(@PathVariable int id) {
 		int placeId = mapService.searchPlaceByScheduleId(id);
 		return mapService.selectPlaceById(placeId);
+	}
+	
+	@PostMapping("/addWishList")
+	public List<PlaceDTO> addWishList(HttpSession session, @RequestBody ScheduleDTO scheduleDTO) {
+		
+    	mapService.insertPlace(scheduleDTO);
+    	// placeId설정
+    	int placeId = mapService.searchId(scheduleDTO);
+    	PlaceDTO place = mapService.selectPlaceById(placeId);
+    	List<PlaceDTO> wishList = (List<PlaceDTO>) session.getAttribute("wishList");    	
+    	if (wishList == null) wishList = new ArrayList<PlaceDTO>();
+    	wishList.add(place);
+    	session.setAttribute("wishList", wishList);    	
+    	return wishList;
+	}
+	
+	@PostMapping("/deleteWishList")
+	public List<PlaceDTO> deleteWishList(HttpSession session, int id) {
+		
+		List<PlaceDTO> wishList = (List<PlaceDTO>) session.getAttribute("wishList");
+		
+		wishList.removeIf(o1 -> o1.getId() == id);
+		
+		session.setAttribute("wishList", wishList);
+		
+		return wishList;
+	}
+	
+	@GetMapping("/getWishList")
+	public List<PlaceDTO> getWishList(HttpSession session) {
+		System.out.println("getWishList 실행");
+		List<PlaceDTO> wishList = (List<PlaceDTO>) session.getAttribute("wishList");
+		return wishList;
 	}
 }

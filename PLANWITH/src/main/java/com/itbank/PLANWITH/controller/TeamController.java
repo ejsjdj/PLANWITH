@@ -1,5 +1,6 @@
 package com.itbank.PLANWITH.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itbank.PLANWITH.model.MemberDTO;
 import com.itbank.PLANWITH.model.MessageDTO;
+import com.itbank.PLANWITH.model.PlaceDTO;
 import com.itbank.PLANWITH.model.ScheduleDTO;
 import com.itbank.PLANWITH.model.TeamDTO;
 import com.itbank.PLANWITH.service.TeamService;
@@ -81,13 +83,16 @@ public class TeamController {
     
     // 팀 생성했거나, 팀 목록에서 팀에 들어갈 때, 이전에 했던 내용들을 업데이트
     @GetMapping("/view/{teamId}")
-    public String viewChat(@PathVariable int teamId, Model model) {
+    public String viewChat(@PathVariable int teamId, Model model, HttpSession session) {
        
         TeamDTO team = teamService.selectTeamById(teamId);    // url에서 teamId 들고와서 팀 조회,저장
         
         List<MemberDTO> memberList = teamService.selectMemberListByTeamId(teamId);         // 팀에 참여한 멤버목록
         List<ScheduleDTO> scheduleList = teamService.selectScheduleListByTeamId(teamId);   // 팀끼리 공유하는 일정목록
         List<MessageDTO> messageList = teamService.selectMessageListByTeamId(teamId);      // 메시지 내용들
+        
+        List<PlaceDTO> wishList = (List<PlaceDTO>) session.getAttribute("wishList");
+        if (wishList == null) wishList = new ArrayList<PlaceDTO>();
         
         // model에 각각 정보 저장
         model.addAttribute("team", team); 

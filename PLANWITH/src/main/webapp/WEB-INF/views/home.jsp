@@ -406,10 +406,13 @@
     document.getElementById('startBtn').addEventListener('click', function() {
         location.href = cpath + '/team/main'
     })
-
-    document.getElementById('loginBtn').addEventListener('click', function() {
-        location.href = cpath + '/member/login'
-    })
+	
+    const homeLoginBtn = document.getElementById('loginBtn')
+    if (homeLoginBtn != null) {
+    	homeLoginBtn.addEventListener('click', function() {
+	        location.href = cpath + '/member/login'
+	    })	
+    }
     
     // 헤더 및 배경 변경에 필요한 요소 가져오기
     const header = document.querySelector('.header')
