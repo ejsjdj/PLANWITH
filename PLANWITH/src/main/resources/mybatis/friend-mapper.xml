@@ -18,25 +18,46 @@
 	    where friend.user1 = #{id}  
 	</select>
 	
-	<select id="selectMemberList" resultType="member" parameterType="string">
-		select id, userid, nickname from member 
-			where
-				nickname like '%' || #{search} || '%'
-				or
-				userid like '%' || #{search} || '%'
+	<select id="selectMemberList" resultType="member" parameterType="member">
+		select m.id, m.userid, m.nickname
+		from member m
+		WHERE (m.nickname like '%' || #{search} || '%' OR m.userid like '%' || #{search} || '%')
+			  AND m.id NOT IN (
+			    select fr.receiver from friendRequest fr
+			    		where fr.sender = #{id} and state = 0
+			  )
+			  AND m.id not IN (
+			  	select f.user2 from friend f where user1 = #{id}
+			  )
+			  AND m.id != #{id}
 	</select>
 	
 	<insert id="insertFriendRequest" parameterType="friendRequest">
 		insert into friendRequest (sender, receiver, state) values (#{sender}, #{receiver}, '0')
 	</insert>
 	
-	<select id="selectFriendRequestList" resultType="friendRequest">
+	<select id="selectFriendRequestList" resultType="friendRequest" parameterType="int">
 		select friendRequest.id, member.userid, member.nickname from friendRequest
-			join member on member.id = friendRequest.receiver where friendRequest.state = 0
+			join member on member.id = friendRequest.sender 
+				where friendRequest.state = 0 and friendRequest.receiver = #{id}
 	</select>
 	
 	<update id="updateFriendRequest" parameterType="friendRequest">
 		update friendRequest set state = #{state} where id = #{id}
 	</update>
+	
+	<select id="selectFriendRequestById" resultType="friendRequest" parameterType="int">
+		select * from friendRequest where id = #{id}
+	</select>
+	
+	<insert id="insertFriendforSender" parameterType="friendRequest">
+		INSERT INTO friend (user1, user2)
+					VALUES (#{receiver}, #{sender})
+	</insert>
+	
+	<insert id="insertFriendforReceiver" parameterType="friendRequest">
+		INSERT INTO friend (user1, user2)
+					VALUES (#{sender}, #{receiver})
+	</insert>
 	
 </mapper>

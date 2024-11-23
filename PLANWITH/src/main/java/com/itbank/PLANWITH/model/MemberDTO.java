@@ -21,10 +21,10 @@ public class MemberDTO {
 	private String snsType;	// SNS 타입 저장 (네이버 또는 카카오)
 	
 	private MultipartFile upload;	// 프로필 사진 업로드용
-//	private PhotoDTO member_photo;		// 저장된 프로필 사진 정보
 	
 	private String memberPhoto;	// storedFileName 담을 변수
 	
 	private int status;		// 로그 상태
 	
+	private String search;
 }

@@ -24,11 +24,11 @@ public class StompFriendController {
 	}
 	
 	@MessageMapping("/friendRequest")
-	@SendTo("/broker/friendRequest") 
-	public String friendRequest(FriendRequestDTO dto) {
+	@SendTo("/broker/allMember") 
+	public int friendRequest(FriendRequestDTO dto) {
 		int row = friendService.insertFriendRequest(dto);
-		String message = "친구요청실패";
-		if (row != 0) message = "친구요청성공";
+		int message = 0;
+		if (row != 0) message = dto.getReceiver();
 		return message;
 	}
 }

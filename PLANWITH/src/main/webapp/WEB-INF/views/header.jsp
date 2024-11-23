@@ -502,22 +502,6 @@ footer>.footinfo>.bottom>.right>img {
 	padding: 10px;
 }
 
-#searchFriendModal .searchSubmit {
-	border: 1px solid #d3d3d3;
-	border-radius: 5px;
-	font-size: 0.9rem;
-	box-sizing: border-box;
-	color: white;
-	border: none;
-	cursor: pointer;
-	transition: background-color 0.3s;
-	width: 5rem;
-	height: 40px;
-}
-
-#searchFriendModal .searchSubmit:hover {
-}
-
 .hidden {
 	display: none;
 }
@@ -659,18 +643,14 @@ footer>.footinfo>.bottom>.right>img {
 				<span class="serchFriendModal-title">친구찾기</span>
 			</p>
 			<form id="searchFriendForm">
-				<div class="group">
-					
+				<div class="group">					
+					<label for="searchFriendModalSearch" class="small-grey">친구 아이디를 입력하세요</label>
 					<p>
 						<span>
 							<input id="searchFriendModalSearch" class="searchFriendInput input" 
 							   	   type="text" name="search" autocomplete="off" required> 
 						</span>
-						<span>
-							<input class="searchSubmit submit" type="submit" value="검색">
-						</span>
 					</p>
-					<label for="searchFriendModalSearch" class="small-grey">친구 아이디를 입력하세요</label>
 				</div>
 			</form>
 			<div class="searchFriendList"></div>
@@ -714,18 +694,18 @@ footer>.footinfo>.bottom>.right>img {
 		
 		async function acceptHandler(id) {
 			const url = cpath + '/friends/accept?id=' + id
-			const reult = await fetch(url).then(resp => resp.json())
-			console.log(result)
+			const result = await fetch(url).then(resp => resp.json())
+// 			console.log(result)
 			if(result.success) {
 				stomp.send('/app/connection', {} , '친구수락')
 			}
 					
 		}
 		
-		async function rejectHandler() {
+		async function rejectHandler(id) {
 			const url = cpath + '/friends/reject?id=' + id
-			const reult = await fetch(url).then(resp => resp.json())
-			console.log(result)
+			const result = await fetch(url).then(resp => resp.json())
+// 			console.log(result)
 			if(result.success) {
 				stomp.send('/app/connection', {} , '친구거절')
 			}
@@ -734,7 +714,7 @@ footer>.footinfo>.bottom>.right>img {
 		
 		// 친구요청목록을 불러오는 함수
 		async function friendRequestList() {
-			const url = cpath + '/friends/friendRequestList'
+			const url = cpath + '/friends/friendRequestList?id=${login.id}'
 			const result = await fetch(url).then(resp => resp.json())
 			console.log(result)
 			
@@ -751,15 +731,22 @@ footer>.footinfo>.bottom>.right>img {
             }
 			friendRequestList.innerHTML = tag
 			
-			document.querySelector('.accept').addEventListener('click', function(event) {
-					const id = event.target.parentNode.dataset.id		
-					acceptHandler(id)
-			})
+			const acceptBtn = document.querySelector('.accept')
+			const rejectBtn = document.querySelector('.reject')
 			
-			document.querySelector('.reject').addEventListener('click', function(event) {
-					const id = event.target.parentNode.dataset.id		
-					rejectHandler(id)
-			})
+			if (acceptBtn != null) {
+				acceptBtn.addEventListener('click', function(event) {
+						const id = event.target.parentNode.dataset.id		
+						acceptHandler(id)
+				})				
+			}
+			if (rejectBtn != null) {
+				document.querySelector('.reject').addEventListener('click', function(event) {
+						const id = event.target.parentNode.dataset.id		
+						rejectHandler(id)
+				})				
+			}
+			
 		}
 
 // ----- 사이드 바 스크립트 -----
@@ -812,7 +799,7 @@ footer>.footinfo>.bottom>.right>img {
      	// 친구 검색 시 회원을 조회하는 함수
 		async function getMemberList(search = '') {    
       		
-			const url = cpath + '/friends/memberList?search=' + search
+			const url = cpath + '/friends/memberList?id=${login.id}&search=' + search
 			const result = await fetch(url).then(resp => resp.json())
 // 			console.log('검색된 회원 목록:', result)
 		
@@ -827,7 +814,7 @@ footer>.footinfo>.bottom>.right>img {
 		      		tag += '<button id="sendFriendRequestBtn" data-memberid="' + member.id + '">친구요청</button></p>'
 		        })
 		        if (result.length === 0) {
-					tag = '<p class="small-grey">해당하는 회원이 없습니다.</p>'
+					tag = '<p class="small-grey">이미 친구거나, 해당하는 회원이 없습니다.</p>'
 				}				
 			}
 			searchFriendList.innerHTML = tag
@@ -837,12 +824,13 @@ footer>.footinfo>.bottom>.right>img {
 			if (sendFriendRequestBtn != null) {
 				sendFriendRequestBtn.addEventListener('click', function(event) {
 						const memberId = event.currentTarget.dataset.memberid
-						console.log(memberId)
+						console.log('memberId : ' + memberId + 'login.id : ${login.id}')
 						const message = {
 								sender: '${login.id}',
 								receiver: memberId
 						}
-						stomp.send('/app/friendRequest', {}, JSON.stringify(message))				
+						stomp.send('/app/friendRequest', {}, JSON.stringify(message))
+						toggleModal()
 				})         			
 			}
 			
@@ -879,7 +867,7 @@ footer>.footinfo>.bottom>.right>img {
 			console.log('WebSocket 연결 성공')
 			stomp.subscribe('/broker/login', onLoginConnect)
 			stomp.send('/app/connection', {} , '${login.nickname}님이 로그인했습니다')	// 내 접속 상태를 알린다
-			stomp.subscribe('/broker/friendRequest', onReceiveFriendRequest)	// 친구요청을 위한 stomp 구독
+			stomp.subscribe('/broker/allMember', onReceiveAlert)	// 친구요청을 위한 stomp 구독
 	      }
 	
 		// 웹소켓으로 메시지를 받으면 친구목록을 새로고침한다
@@ -889,8 +877,11 @@ footer>.footinfo>.bottom>.right>img {
 		}
 		
 		// 친구요청을 받았을 때 
-		function onReceiveFriendRequest(message) {
-			console.log(message)
+		function onReceiveAlert(message) {
+// 			console.log("친구요청 받았을 때 아이디가 넘어온다 : " + message)
+			if(message = '${login.id}') {
+				friendRequestList()
+			} 			
 		}
 		
 		const logoutBtn = document.getElementById('logoutBtn')

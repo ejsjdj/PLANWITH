@@ -9,13 +9,19 @@ public interface FriendDAO {
 
 	List<MemberDTO> selectFriendList(int id);
 
-	List<MemberDTO> selectMemberList(String search);
+	List<MemberDTO> selectMemberList(MemberDTO dto);
 
 	int insertFriendRequest(FriendRequestDTO dto);
 
-	List<FriendRequestDTO> selectFriendRequestList();
+	List<FriendRequestDTO> selectFriendRequestList(int id);
 
 	int updateFriendRequest(FriendRequestDTO dto);
+
+	FriendRequestDTO selectFriendRequestById(int id);
+
+	int insertFriendforSender(FriendRequestDTO dto);
+	
+	int insertFriendforReceiver(FriendRequestDTO dto);
 
 
 
