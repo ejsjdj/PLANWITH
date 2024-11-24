@@ -48,18 +48,14 @@ body {
 	background-color: #999;
 }
 
-.grid { /* 선 가이드 (나중에 지우기) */
-	
-}
-
 .bg {
 	background-image: url("${cpath}/resources/image/고화질 구름.jpg");
 	background-color: #F7F2EB;
-	height: 100vh;
+	height: 120vh;
 	width: 100%;
 	background-position: center;
 	background-size: cover;
-	z-index: 4;
+	z-index: 1;
 	position: relative;
 	background-attachment: fixed;
 }
@@ -68,17 +64,12 @@ body {
 	width: 100%;
 	height: 70px;
 	position: fixed;
-	z-index: 5;
+	z-index: 9;
 	/*             background-color: #7096D1  ; */
 	background-color: rgba(255, 255, 255, 0);
 	transition: background-color 0.5s ease;
 	top: 0;
 }
-/*       .header .container {   /* header의 container 따로 높이 지정 */
-/*           height: 70px;  */
-/*           padding: 0; */
-/*           box-sizing: border-box; */
-/*        } */
 
 /* container 공통 클래스 */
 .container {
@@ -86,7 +77,7 @@ body {
 	margin: 0 auto;
 	padding: 20px;
 	box-sizing: border-box;
-	height: 100%;
+	height: 101%;
 }
 
 /* header 내부 container */
@@ -131,6 +122,7 @@ body {
 	width: 100px;
 	position: absolute;
 	z-index: 7;
+	transition: 0.5s ease;
 }
 
 .header-wrap-flex>.left>.titleLink>.logoImgHover {
@@ -138,13 +130,14 @@ body {
 	position: absolute;
 	display: none;
 	z-index: 7;
+	transition: 0.5s ease;
 }
 
-.header-wrap-flex>.left>.titleLink:hover>logoImg {
+.header-wrap-flex>.left:hover>.titleLink>.logoImg {
 	display: none;
 }
 
-.header-wrap-flex>.left>.titleLink:hover>logoImgHover {
+.header-wrap-flex>.left:hover>.titleLink>.logoImgHover {
 	display: block;
 }
 
@@ -170,18 +163,14 @@ body {
 	flex-direction: column; /* 위아래로 배치 */
 	align-items: flex-start;
 	height: 100vh; /* 화면에 맞춰서 가득 차게 */
+	position: fixed;
+	left: 8%;
 }
 
 .container>.title {
 	font-size: 1.8rem;
 	color: white;
 	/*             text-align: center; /* 가운데 정렬 */
-	s
-}
-
-.smaller { /* 좀 더 작은 글씨로 만들고 싶으면 추가 */
-	/*          font-size: 1.5rem; */
-	
 }
 
 .container>.buttons {
@@ -192,93 +181,47 @@ body {
 }
 
 .first-home-button {
-	background-color: rgba(0, 0, 0, 0);
 	color: #fff;
 	border-radius: 10px;
 	padding: 15px;
 	min-height: 30px;
 	min-width: 120px;
-	cursor: pointer;
-	border: 0.05rem solid white;
+	border: 1.5px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+}
+
+.first-home-button:hover {
+	border: 1.5px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
 }
 
 .second-home-button {
-	background-color: rgb(255, 255, 255, 0.2);
 	color: #fff;
 	border-radius: 10px;
 	padding: 15px;
 	min-height: 30px;
 	min-width: 120px;
-	cursor: pointer;
-	border: 0.05rem solid white;
+	border: 1.5px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
-.full-container {
+.second-home-button:hover {
+	border: 1.5px solid rgba(255, 255, 255, 0.2);
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.infoHomeBody {
+	position: relative;
 	width: 100%;
-	height: 900px;
-	z-index: 6;
+	height: 2450px;
+	z-index: 2;
+	top: -20px;
 	background-color: #EDF1F6;
 	padding-top: 0;
-}
-
-/* 	========================================= footer ========================================= */
-footer {
-	top: -70px;
-	width: 100%;
-	height: 205px;
-	display: flex;
-	justify-content: center;
-	background-color: whitesmoke;
-	border-top: 1px solid rgb(219, 219, 219);
-	position: relative;
-	z-index: 5;
-}
-
-footer>.footinfo {
-	width: 80%;
-	height: 90%;
-	padding-top: 20px;
-}
-
-footer>.footinfo>.top {
-	width: 100%;
-	height: 35px;
-	display: flex;
-	justify-content: space-between;
-	margin-top: 20px;
-}
-
-footer>.footinfo>.top>.left {
-	color: rgb(113, 113, 113);
-}
-
-footer>.footinfo>.top>.right>a>button {
-	border: 1px solid rgb(168, 168, 168);
-	border-radius: 5px;
-	width: 80px;
-	height: 30px;
-}
-
-footer>.footinfo>.middle {
-	width: 100%;
-	height: 50px;
-}
-
-footer>.footinfo>.middle>span {
-	color: rgb(169, 169, 169);
-	font-size: 12px;
-}
-
-footer>.footinfo>.bottom {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	margin-top: 20px;
-}
-
-footer>.footinfo>.bottom>.right>img {
-	width: 50px;
-	border-radius: 50px;
+	border-top-left-radius: 20px;
+	border-top-right-radius: 20px;
 }
 
 /* 	============================================ 사이드 바 ============================================  */
@@ -620,15 +563,16 @@ footer>.footinfo>.bottom>.right>img {
 	height: 100%;
 	max-width: 0;
 	transition: 0.5s ease;
-	z-index: 1;
+	z-index: 12;
 	background-color: #eee;
 }
 
 .burger-icon {
 	cursor: pointer;
 	display: flex;
+	flex-flow: column;
 	position: absolute;
-	z-index: 12;
+	z-index: 13;
 	user-select: none;
 	width: 25px;
 	height: 25px;
@@ -637,54 +581,134 @@ footer>.footinfo>.bottom>.right>img {
 	align-items: center;
 }
 
-.burger-icon .burger-sticks {
+.burger-icon .burger-sticks1, .burger-sticks2, .burger-sticks3 {
 	background: white;
 	display: block;
-	height: 2.5px;
+	height: 3px;
 	position: relative;
 	transition: background .2s ease-out;
 	width: 22px;
 	border-radius: 10px;
 }
 
-.burger-icon .burger-sticks:before, .burger-icon .burger-sticks:after {
-	background: white;
-	content: '';
-	display: block;
-	height: 100%;
-	position: absolute;
-	transition: all .2s ease-out;
-	width: 100%;
-	border-radius: 10px;
+.burger-sticks1 {
+	top: -5px;
 }
 
-.burger-icon .burger-sticks:before {
-	top: 7.5px;
-}
-
-.burger-icon .burger-sticks:after {
-	top: -7px;
+.burger-sticks3 {
+	top: 5px;
 }
 
 .burger-check {
 	display: none;
 }
 
-.burger-check:checked ~.burger-icon .burger-sticks {
-	background: transparent;
+.burger-icon:hover>.burger-sticks1, .burger-icon:hover>.burger-sticks2,
+	.burger-icon:hover>.burger-sticks3 {
+	background: black;
 }
 
-.burger-check:checked ~.burger-icon .burger-sticks:before {
-	transform: rotate(-45deg);
+.footer-container {
+	position: relative;
+	z-index: 2;
+	bottom: 20px;
 }
 
-.burger-check:checked ~.burger-icon .burger-sticks:after {
-	transform: rotate(45deg);
+/* ============================================ 본문 ========================================== */
+
+.infoHomeBody {
+    background-color: #f8f9fa;
+    padding: 80px 0;
 }
 
-.burger-check:checked ~.burger-icon:not(.steps) .burger-sticks:before,
-	.burger-check:checked ~.burger-icon:not(.steps) .burger-sticks:after {
-	top: 0;
+.infoThePL {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.features {
+    text-align: center;
+}
+
+.features h2 {
+    font-size: 2.5rem;
+    margin-bottom: 50px;
+    color: #333;
+}
+
+.feature-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+}
+
+.feature-item {
+    background-color: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    height: 600px;
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+}
+
+
+.feature-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.feature-item p {
+    font-size: 1.1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+.sharing {
+	display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 0 45px;
+}
+.sharingInfo {
+	display: flex;
+	flex-flow: column;
+}
+.realTime {
+	display: flex;
+    justify-content: space-between;
+    align-content: center;
+    padding: 0 90px;
+}
+.realTimeInfo {
+	display: flex;
+	flex-flow: column;
+}
+.blackBigger {
+	display: flex;
+    width: 400px;
+    height: 100px;
+    justify-content: center;
+    padding-top: 128px;
+    font-size: 29px;
+    font-weight: bold;
+}
+.greySmall {
+	display: flex;
+	justify-content: center;
+	width: 400px;
+    height: 200px;
+    font-size: 30px;
+}
+.greySmall > span {
+	width: 300px;
+	font-size: 20px;
+	color: grey;
 }
 </style>
 
@@ -699,28 +723,28 @@ footer>.footinfo>.bottom>.right>img {
 
 <body>
 
-	<div class="grid first bg">
-		<div class="header">
-			<div class="container">
-				<div class="header-wrap">
-					<div class="header-wrap-flex">
-						<div class="left">
-							<a class="titleLink" href="${cpath }"> <img class="logoImg"
-								src="${cpath}/resources/image/plan with흰.png"> <img
-								class="logoImgHover"
-								src="${cpath}/resources/image/plan with.png">
-							</a>
-						</div>
-						<div class="right">
-							<input class="burger-check" type="checkbox" id="burger-check" />
-							<label class="burger-icon" for="burger-check">
-								<span class="burger-sticks"></span>
-							</label>
-						</div>
+	<div class="header">
+		<div class="container">
+			<div class="header-wrap">
+				<div class="header-wrap-flex">
+					<div class="left">
+						<a class="titleLink" href="${cpath }"> <img class="logoImg"
+							src="${cpath}/resources/image/plan with흰.png"> <img
+							class="logoImgHover" src="${cpath}/resources/image/plan with.png">
+						</a>
+					</div>
+					<div class="right">
+						<input class="burger-check" type="checkbox" id="burger-check" />
+						<label class="burger-icon" for="burger-check"> <span
+							class="burger-sticks1"></span> <span class="burger-sticks2"></span>
+							<span class="burger-sticks3"></span>
+						</label>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
+	<div class="bg">
 
 		<div class="home">
 			<div class="container">
@@ -820,10 +844,64 @@ footer>.footinfo>.bottom>.right>img {
 
 
 	<!-- 이후 스크롤 내리는 부분 -->
-	<div class="grid full-container">
-		<div class="container"></div>
+	<div class="infoHomeBody">
+		<div class="infoThePL">
+	        <section class="features">
+	            <h2>플랜위드의 특별한 기능</h2>
+	            <div class="feature-grid">
+	                <div class="feature-item">
+	                    <h3>맞춤형 여행 계획</h3>
+	                    <p>당신의 취향에 맞는 완벽한 여행 일정을 만들어보세요.</p>
+	                    <img src="${cpath}/resources/image/지도 및 계획.png" 
+	                    	 alt="기능 1" 
+	                    	 style="width: 960px; border: 1px solid #f5f6f7; border-radius: 20px;">
+	                </div>
+	                <div class="feature-item">
+	                    <h3>다양한 정보 공유</h3>
+	                    <p>다양한 정보를 공유하고 소통하세요.</p>
+	                    <div class="sharing">
+	                    	<div class="sharingInfo">
+		                    	<span class="blackBigger">
+		                    		자유롭게 여행지의 정보와 후기등 <br>
+		                    		다양한 소통을 해보세요!
+		                    	</span>
+		                    	<div class="greySmall">
+			                    	<span>
+				                    	게시판을 이용해서 다양한 여행 정보와
+				                    	꿀팁, 후기등을 알아볼 수 있어요!
+				                    	동시에 다양한 사람들과 소통까지!
+			                    	</span>
+			                    </div>
+	                    	</div>
+		                    <img src="${cpath}/resources/image/게시판.png" 
+		                    	 alt="기능 2" 
+		                    	 style="width: 530px; border: 1px solid #f5f6f7; border-radius: 20px;">
+	                    </div>
+	                </div>
+	                <div class="feature-item">
+	                    <h3>실시간 계획 및 대화</h3>
+	                    <div class="realTime">
+	                    	<div class="realTimeInfo">
+			                    <span class="blackBigger">
+			                    	실시간으로 친구, 가족과 정보를 공유하며 계획을 만들어보세요.
+			                    </span>
+			                    <div class="greySmall">
+			                    	<span>
+				                    	우리 플랜위드는 실시간으로 지도와 계획표, 
+				                    	그리고 채팅창을 한눈에 이용할 수 있어요!
+				                    	보다 원활한 계획을 완성해보세요!
+			                    	</span>
+			                    </div>
+	                    	</div>
+		                    <img src="${cpath}/resources/image/대화.png" 
+		                    	 alt="기능 3" 
+		                    	 style="width: 400px; border: 1px solid #f5f6f7; border-radius: 20px;">
+	                    </div>
+	                </div>
+	            </div>
+	        </section>
+	    </div>
 	</div>
-
 
 	<script> 
     const cpath = '${cpath}'
@@ -921,13 +999,12 @@ footer>.footinfo>.bottom>.right>img {
     
     // 헤더 및 배경 변경에 필요한 요소 가져오기
     const header = document.querySelector('.header')
-    const changePoint = document.querySelector('.full-container').offsetTop
+    const changePoint = document.querySelector('.infoHomeBody').offsetTop
 
     // 스크롤 이벤트 등록
     window.addEventListener('scroll', () => {
         if (window.scrollY >= changePoint) {
-            header.style.backgroundColor = '#96C6D2' // 스크롤 지점 이후 색상 변경
-            
+            header.style.backgroundColor = '#dadada' // 스크롤 지점 이후 색상 변경
         } else {
             header.style.backgroundColor = 'rgba(255,255,255,0)' // 초기 색상 (투명)
         }
@@ -1088,4 +1165,4 @@ footer>.footinfo>.bottom>.right>img {
     
 </script>
 
-<%@ include file="footer.jsp"%>
+	<%@ include file="footer.jsp"%>
