@@ -361,7 +361,5 @@
 		const like = document.getElementById('like')
 		like.addEventListener('click', likeHandler)
 	</script>
-	
-	
-</body>
-</html>
+
+<%@ include file="../footer.jsp"%>

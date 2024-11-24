@@ -146,7 +146,7 @@ header {
 	right: -300px;
 	box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
 	transition: right 0.3s ease;
-	z-index: 20;
+	z-index: 11;
 }
 
 .sidebar.open {
@@ -269,14 +269,13 @@ header {
 }
 
 .sidebarOverlay {
-	display: none;
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	background: rgba(0, 0, 0, 0.4);
-	z-index: 4;
+	z-index: 10;
 }
 
 .myPage {
@@ -314,68 +313,6 @@ header {
 	height: 70px;
 	border-radius: 50%;
 	margin-left: 10px;
-}
-
-
-/*    -------------------------------- footer ----------------------------------------- */
-footer {
-	bottom: -50%;
-	width: 100%;
-	height: 205px;
-	display: flex;
-	justify-content: center;
-	background-color: whitesmoke;
-	border-top: 1px solid rgb(219, 219, 219);
-	position: absolute;
-	z-index: 5;
-	width: 100%;
-}
-
-footer>.footinfo {
-	width: 80%;
-	height: 90%;
-	padding-top: 20px;
-}
-
-footer>.footinfo>.top {
-	width: 100%;
-	height: 35px;
-	display: flex;
-	justify-content: space-between;
-	margin-top: 20px;
-}
-
-footer>.footinfo>.top>.left {
-	color: rgb(113, 113, 113);
-}
-
-footer>.footinfo>.top>.right>a>button {
-	border: 1px solid rgb(168, 168, 168);
-	border-radius: 5px;
-	width: 80px;
-	height: 30px;
-}
-
-footer>.footinfo>.middle {
-	width: 100%;
-	height: 50px;
-}
-
-footer>.footinfo>.middle>span {
-	color: rgb(169, 169, 169);
-	font-size: 12px;
-}
-
-footer>.footinfo>.bottom {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	margin-top: 20px;
-}
-
-footer>.footinfo>.bottom>.right>img {
-	width: 50px;
-	border-radius: 50px;
 }
 
 .sidebarBtn {
@@ -512,9 +449,20 @@ footer>.footinfo>.bottom>.right>img {
 	padding: 10px;
 }
 
-.hidden {
+.friendOverlay.hidden, .modal.hidden, .sidebarOverlay.hidden {
 	display: none;
 }
+
+.friendOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 12;
+}
+
 </style>
 
 
@@ -571,6 +519,12 @@ footer>.footinfo>.bottom>.right>img {
 
 	<!-- ------------------------------------ jps div 추가 아래부터 sidebarOverlay 까지 복붙 ------------------------------------------ -->
 
+	
+	<!-- 사이드바 모음 -->
+	<div id="friendOverlay" class="friendOverlay hidden"></div>
+	<div id="sidebarOverlay" class="sidebarOverlay hidden"></div>
+	
+
 	<div id="sidebar" class="sidebar">
 		<div class="sidebarHeader">
 			<img class="sidebarHeaderImg" src="${cpath }/resources/image/plan with.png">
@@ -615,39 +569,9 @@ footer>.footinfo>.bottom>.right>img {
 			</c:if>
 		</div>
 	</div>
-	<div class="sidebarOverlay"></div>
-
-<!-- 	<footer> -->
-<%-- 		<c:if test="${footerVisible != false}"> --%>
-<!-- 			<div class="footinfo"> -->
-<!-- 				<div class="top"> -->
-<!-- 					<div class="left"> -->
-<!-- 						<span>고객 센터</span> -->
-<!-- 					</div> -->
-<!-- 					<div class="right"> -->
-<%-- 						<a href="${cpath}/member/login">MEMBER</a> --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 				<div class="middle"> -->
-<!-- 					<span> (주)기범컴퍼니 플랜위드는 통신판매중개로서 통신판매의 당사자가 아니며<br> 상품 -->
-<!-- 						거래정보 및 거래등에 대한 책임을 지지않습니다. -->
-<!-- 					</span> -->
-<!-- 				</div> -->
-<!-- 				<div class="bottom"> -->
-<!-- 					<div class="left"> -->
-<!-- 						<span>서비스 이용약관 | 개인정보 처리방침 | 고객 센터</span> -->
-<!-- 					</div> -->
-<!-- 					<div class="right"> -->
-<%-- 						<img src="${cpath }/resources/image/으헝.jpg"> --%>
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<%-- 		</c:if> --%>
-<!-- 	</footer> -->
 
 	<!-- 친구찾기 모달 -->
 	<div id="searchFriendModal" class="modal hidden">
-		<div class="overlay"></div>
 		<div class="modalBox">
 			<p>
 				<span class="serchFriendModal-title">친구찾기</span>
@@ -763,9 +687,10 @@ footer>.footinfo>.bottom>.right>img {
 		const menuBtn = document.getElementById('menuBtn')
 		const sidebar = document.getElementById('sidebar')
 		const closeSidebarBtn = document.getElementById('closeSidebarBtn')
-		const sidebarModalOverlay = document.querySelector('.sidebarOverlay')
+		const sidebarOverlay = document.querySelector('.sidebarOverlay')
 		const friendsBtn = document.getElementById('friendsBtn')
-	      
+	   	const friendOverlay = document.querySelector('.friendOverlay')
+		
 		// 메뉴 버튼 클릭 시 사이드바 열기
 		menuBtn.addEventListener('click', function (event) {
 				if('${login}' != '') {
@@ -773,23 +698,23 @@ footer>.footinfo>.bottom>.right>img {
 					friendRequestList()
 				}
 				sidebar.classList.add('open')
-				sidebarModalOverlay.style.display = 'block'
+				sidebarOverlay.style.display = 'block'
 				event.stopPropagation() // 이벤트 전파 중단
 		})
 	      
 		// 닫기 버튼 클릭 시 사이드바 닫기
 		closeSidebarBtn.addEventListener('click', function (event) {
     			sidebar.classList.remove('open')
-    			sidebarModalOverlay.style.display = 'none'
+    			sidebarOverlay.style.display = 'none'
     			event.stopPropagation() // 이벤트 전파 중단
 		})
-	      
-		// 문서의 다른 부분 클릭 시 사이드바 닫기
-		document.addEventListener('click', function () {
-				sidebar.classList.remove('open')
-				sidebarModalOverlay.style.display = 'none'
+	    
+	    // 오버레이 클릭시 사이드바 끔
+	    sidebarOverlay.addEventListener('click', function () {
+	    	sidebar.classList.remove('open')
+			sidebarOverlay.style.display = 'none'
 		})
-	      
+	    
 		// 사이드바 내부 클릭 시 이벤트 전파 방지
 		sidebar.addEventListener('click', function (event) {
 				event.stopPropagation() // 이벤트 전파 중단
@@ -800,7 +725,13 @@ footer>.footinfo>.bottom>.right>img {
 		// 친구 찾기 모달 
 		function toggleModal() {
 			document.getElementById('searchFriendModal').classList.toggle('hidden')
+			document.getElementById('friendOverlay').classList.toggle('hidden')
       	}
+      	
+		friendOverlay.addEventListener('click', function () {
+			document.getElementById('searchFriendModal').classList.toggle('hidden')
+			document.getElementById('friendOverlay').classList.toggle('hidden')
+		})
 	      
       	const closeModalBtn = document.getElementById('closeModalBtn')
       	// 닫기 버튼 클릭 시 친구검색 모달이 닫힌다

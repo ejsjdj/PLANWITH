@@ -117,6 +117,4 @@ h3 {
 	}))
 </script>
 
-
-</body>
-</html>
+<%@ include file="../footer.jsp"%>

@@ -160,5 +160,4 @@
     document.querySelector('input[name="address"]').onclick = execDaumPostcode
 </script>
 
-</body>
-</html>
+<%@ include file="../footer.jsp"%>

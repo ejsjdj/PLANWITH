@@ -151,3 +151,5 @@
     }
     const passwordForm = document.getElementById('passwordForm')
 </script>
+
+<%@ include file="../footer.jsp"%>
