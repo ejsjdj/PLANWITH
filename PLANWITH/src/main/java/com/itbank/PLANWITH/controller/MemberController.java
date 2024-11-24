@@ -38,24 +38,25 @@ public class MemberController {
 	public void login(Model model, HttpSession session) {
 		String naverLoginURL = naverLoginComponent.getAuthorizationUrl(); // 네이버로그인URL
 		String kakaoLoginURL = kakaoLoginComponent.getLoginURI(session); // 카카오로그인URL
-		model.addAttribute("naverLoginURL", naverLoginURL);
-		model.addAttribute("kakaoLoginURL", kakaoLoginURL);
+		model.addAttribute("naverLoginURL", naverLoginURL);	// 모델에 네이버 로그인 URL 추가
+		model.addAttribute("kakaoLoginURL", kakaoLoginURL);	// 모델에 카카오 로그인 URL 추가
+		
 		// 로그인 시 시도 횟수 카운트
 		Integer loginCnt = (Integer) session.getAttribute("loginCnt");
 		if (loginCnt == null)
-			loginCnt = 1;
-		session.setAttribute("result", loginCnt >= 3);
+			loginCnt = 1;	 // 초기화
+		session.setAttribute("result", loginCnt >= 3);	// 3번 이상 실패 여부를 세션에 저장
 	}
 
 	@PostMapping("/login")
 	public String login(MemberDTO dto, HttpSession session, RedirectAttributes rttr) {
-		Integer loginCnt = (Integer) session.getAttribute("loginCnt");
+		Integer loginCnt = (Integer) session.getAttribute("loginCnt");	// 로그인 실패 횟수 세션에서 가져옴
 		if (loginCnt == null)
-			loginCnt = 0;
+			loginCnt = 0;	 // 초기화
 
 		try {
-			MemberDTO login = memberService.selectLogin(dto);
-			session.setAttribute("login", login);
+			MemberDTO login = memberService.selectLogin(dto); // 입력된 ID, PW로 로그인 시도
+			session.setAttribute("login", login); // 로그인 성공 시 세션에 사용자 정보 저장
 			session.removeAttribute("loginCnt"); // 로그인 성공 시 실패 카운트 초기화
 			session.removeAttribute("snsLogin"); // SNS 로그인 플래그 초기화
 			rttr.addFlashAttribute("message", "로그인 성공!");
@@ -75,11 +76,11 @@ public class MemberController {
 	// naverCallback을 통해 accessToken을 받고, acessToken으로 네이버 프로필정보를 받는다
 	@GetMapping("/naverCallback")
 	public String naverCallback(String code, String state, HttpSession session) throws Exception {
-		String access_token = naverLoginComponent.getAccessToken(code, state);
-		access_token = objectMapper.readTree(access_token).get("access_token").asText();
+		String access_token = naverLoginComponent.getAccessToken(code, state);	// 인증 코드로 AccessToken 요청
+		access_token = objectMapper.readTree(access_token).get("access_token").asText(); // AccessToken 파싱
 
-		String userProfile = naverLoginComponent.getProfile(access_token);
-		JsonNode profileJson = objectMapper.readTree(userProfile);
+		String userProfile = naverLoginComponent.getProfile(access_token);	// AccessToken으로 사용자 프로필 요청
+		JsonNode profileJson = objectMapper.readTree(userProfile);	// 프로필 데이터를 JSON으로 변환
 
 		String naverId = profileJson.get("response").get("id").asText();
 		String nickname = profileJson.get("response").get("nickname").asText();
@@ -93,11 +94,12 @@ public class MemberController {
 		dto.setEmail(email);
 		dto.setGender(gender);
 
+		// 네이버 로그인 처리 (회원가입 또는 기존 회원 조회)
 		MemberDTO login = memberService.processNaverLogin(naverId, dto);
-		session.setAttribute("login", login);
-		session.setAttribute("snsLogin", true); // SNS 로그인 여부 저장
+		session.setAttribute("login", login);	// 로그인 정보 세션 저장
+		session.setAttribute("snsLogin", true); // SNS 로그인 여부 세션저장
 
-		return "member/naverCallback";
+		return "member/naverCallback";	// 네이버 로그인 결과 페이지
 	}
 
 	// kakaoCallback을 통해 accessToken을 받고, acessToken으로 네이버 프로필정보를 받는다
@@ -129,6 +131,7 @@ public class MemberController {
 	// 일반 회원가입
 	@GetMapping("/join")
 	public void join(Model model) {
+		// 이용약관 내용을 모델에 추가
 		model.addAttribute("agreement", memberService.getAgreement());
 	}
 
@@ -283,11 +286,12 @@ public class MemberController {
 	    if (login == null) {
 	        return "redirect:/member/login";
 	    }
-
+	    // 비밀번호 검증
 	    boolean isValid = memberService.checkPassword(login.getId(), password);
 
-	    if (isValid) {
-	        session.setAttribute("passwordCheck", true);
+	    if (isValid) {	 // 비밀번호 확인 성공
+	        session.setAttribute("passwordCheck", true); // 세션에 비밀번호 확인 상태 저장
+	        // 리다이렉트 URL 가져오기
 	        String redirectUrl = (String) session.getAttribute("redirectAfterPasswordCheck");
 	        session.removeAttribute("redirectAfterPasswordCheck"); // 사용 후 제거
 	        rttr.addFlashAttribute("result", "true");
