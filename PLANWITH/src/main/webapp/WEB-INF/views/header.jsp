@@ -606,11 +606,13 @@ header {
 //          	console.log(result)
 			// 친구 목록 
             const friendList = document.getElementById('friendList')
-	
+			
 			let tag = ''
 			result.forEach(member => {
 				tag += '<p class="friendStatus"><span>' + member.nickname + '(' + member.userid + ') </span>'
-				tag += '<span class="' + (member.status == 1 ? 'loginStatus' : 'logoutStatus')+ '"></span></p>'
+				console.log('member.status', member.status)
+				tag += '<span class="' + (member.status == -1 ? 'logoutStatus' : 'loginStatus')+ '"></span></p>'
+				console.log(member.status)
 			})
             // 결과가 없을 경우
             if (result.length === 0) {

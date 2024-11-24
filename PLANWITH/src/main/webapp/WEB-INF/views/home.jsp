@@ -21,12 +21,11 @@ html {
 }
 
 body {
-	height: 3000px;
 	margin: 0;
 	font-size: 0.8rem;
 	font-family: "Noto Sans KR", sans-serif;
 	width: 100%;
-}
+} 
 
 /* 스크롤바 스타일링 */
 ::-webkit-scrollbar {
@@ -216,7 +215,7 @@ body {
 
 .full-container {
 	width: 100%;
-	height: 3000px;
+	height: 900px;
 	z-index: 6;
 	background-color: #EDF1F6;
 	padding-top: 0;
@@ -824,32 +823,6 @@ footer>.footinfo>.bottom>.right>img {
 	<div class="grid full-container">
 		<div class="container"></div>
 	</div>
-
-	<footer>
-		<div class="footinfo">
-			<div class="top">
-				<div class="left">
-					<span>고객 센터</span>
-				</div>
-				<div class="right">
-					<a href="${cpath}/member/login">로그인</a>
-				</div>
-			</div>
-			<div class="middle">
-				<span> (주)기범컴퍼니 플랜위드는 통신판매중개로서 통신판매의 당사자가 아니며<br> 상품
-					거래정보 및 거래등에 대한 책임을 지지않습니다.
-				</span>
-			</div>
-			<div class="bottom">
-				<div class="left">
-					<span>서비스 이용약관 | 개인정보 처리방침 | 고객 센터</span>
-				</div>
-				<div class="right">
-					<img src="${cpath }/resources/image/으헝.jpg">
-				</div>
-			</div>
-		</div>
-	</footer>
 
 
 	<script> 

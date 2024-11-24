@@ -22,7 +22,4 @@ public interface FriendDAO {
 	int insertFriendforSender(FriendRequestDTO dto);
 	
 	int insertFriendforReceiver(FriendRequestDTO dto);
-
-
-
 }

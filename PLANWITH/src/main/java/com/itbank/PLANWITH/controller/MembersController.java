@@ -22,12 +22,6 @@ import com.itbank.PLANWITH.service.MemberService;
 @RestController
 @RequestMapping("/members")
 public class MembersController {
-	
-	/***
-	 * 
-	 * 	깃허브 브랜치 테스트
-	 * 	2024.11.20
-	 */
 
     @Autowired private MemberService memberService;
     @Autowired private CaptchaService captchaService;

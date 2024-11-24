@@ -38,19 +38,11 @@ public class MemberService {
         String salt = memberDAO.selectSalt(dto.getUserid());
         String hash = hashComponent.getHash(salt, dto.getUserpw());
         dto.setHash(hash);
-        
-//        System.out.print("service의 dto 출력 : ");
-//        System.out.println(dto);
                 
         MemberDTO member = memberDAO.selectLogin(dto);
-//        System.out.print("service의 member 출력 : ");
-//        System.out.println(member);
 		
 		if (member != null) {
 			int row = insertLogin(member);
-//	        System.out.print("status 처리후 의 member 출력 : ");
-//			System.out.println(member);
-//	        log.info("로그인아이디 : " + member.getId() + ", 로그인status : " + member.getStatus());
 		} else {
 			throw new MemberNotFoundException();
 		}
@@ -67,10 +59,7 @@ public class MemberService {
             memberDAO.insertSNSMember(dto);
             member = memberDAO.selectSNSLogin(naverId);	 
         } 
-        
         int row = insertLogin(member);
-        log.info(row);
-        
         return member;
     }
     
@@ -84,11 +73,8 @@ public class MemberService {
             memberDAO.insertSNSMember(dto);
             member = memberDAO.selectSNSLogin(kakaoId);
         }
-        
         int row = insertLogin(member);
-        log.info(row);
-        
-       return member; 
+        return member; 
     }
     
     // memberId로 DB에 저장된 memberPhoto 불러오기
@@ -128,15 +114,11 @@ public class MemberService {
         int row = 0;        
         if (upload != null && !upload.isEmpty()) {
             String storedFileName = fileComponent.uploadFile(upload);
-//            log.info("storedFileName : " + storedFileName);
             PhotoDTO photoDTO = new PhotoDTO();
             photoDTO.setOriginalFileName(upload.getOriginalFilename());
             photoDTO.setStoredFileName(storedFileName);
             photoDTO.setContentType(upload.getContentType());
             photoDTO.setRefId(login.getId());  // 여기서 refId(참조하는 memberId) 설정 
-//            System.out.println("Inserting photo for memberId: " + id); 
-
-            log.info(photoDTO);
 
             // [memberPhoto] 테이블에 있으면 update, 아니면 insert
             PhotoDTO memberPhoto = memberDAO.getPhotoByMemberId(login.getId());
@@ -239,13 +221,6 @@ public class MemberService {
 		return memberDAO.insertLog(dto);
 	}
 	
-	
-	// 로그 추가 함수
-//	public int insertLog(MemberDTO dto) {
-//		return memberDAO.insertLog(dto);
-//	}
-
-	
 	// service 작업 시 로그 추가 함수 
 	public int insertLogin(MemberDTO login) {
 		login.setStatus(1);
@@ -284,14 +259,6 @@ public class MemberService {
 	    }
 
 	    String inputHash = hashComponent.getHash(member.getSalt(), password);
-//	    System.out.println("입력된 해시: " + inputHash);
-//	    System.out.println("DB 저장된 해시: " + member.getHash());
 	    return inputHash.equals(member.getHash());
 	}
-  	
-
-
-//	public String getSaltByUserId(String userid) {
-//		 return memberDAO.selectSalt(userid);  
-//	}
 }
