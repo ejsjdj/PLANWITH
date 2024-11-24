@@ -3,8 +3,6 @@
 <%@ include file="../header.jsp"%>
 
 <style>
-
-
 h3 {
     display: flex;
     justify-content: center;
