@@ -210,11 +210,9 @@ public class MemberController {
 	@PostMapping("/updatePassword")
 	public String updatePassword(@RequestParam String currentPassword, @RequestParam String newPassword,
 			HttpSession session, RedirectAttributes rttr) {
-//		log.info("현재비밀번호(currentPassword) : " + currentPassword);
 
 		int row = memberService.updatePassword(currentPassword, newPassword, session);
 
-//	     HashMap 으로 하면 jsp 에서 하나로 합칠 수 있을 것만 같은 느낌....
 		if (row > 0) {
 			rttr.addFlashAttribute("result", true);
 			rttr.addFlashAttribute("message", "비밀번호 수정 성공: 비밀번호 변경을 성공했습니다.");
@@ -226,24 +224,12 @@ public class MemberController {
 		}
 	}
 
-	// 로그아웃
-//	@GetMapping("/logout")
-//	public String logout(HttpSession session) {
-//		MemberDTO login = (MemberDTO) session.getAttribute("login");
-//		memberService.logout(login);
-//		session.invalidate();
-//		return "redirect:/";
-//	}
 	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
 	    if (login != null) {
 	        memberService.logout(login);
-	        // 세션 무효화 전에 속성을 제거
-//	        session.removeAttribute("login");
-//	        session.removeAttribute("snsLogin");   
-	        // 이후 세션 무효화
 	        session.invalidate();
 	    }
 	    return "redirect:/";
@@ -303,7 +289,4 @@ public class MemberController {
 	        return "redirect:/member/checkPassword";
 	    }
 	}
-
-
-
 }

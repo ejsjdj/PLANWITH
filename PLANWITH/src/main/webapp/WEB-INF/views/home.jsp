@@ -21,12 +21,11 @@ html {
 }
 
 body {
-	height: 3000px;
 	margin: 0;
 	font-size: 0.8rem;
 	font-family: "Noto Sans KR", sans-serif;
 	width: 100%;
-}
+} 
 
 /* 스크롤바 스타일링 */
 ::-webkit-scrollbar {
@@ -903,7 +902,7 @@ body {
 	        </section>
 	    </div>
 	</div>
-	
+
 	<script> 
     const cpath = '${cpath}'
     const login = '${login != null ? login : ''}'
