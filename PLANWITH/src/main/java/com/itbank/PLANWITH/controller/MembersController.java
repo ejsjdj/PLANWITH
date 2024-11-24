@@ -125,7 +125,7 @@ public class MembersController {
         	ret.put("success", true);
         	ret.put("message", "회원님의 아이디는 " + userId + " 입니다."); 
         	ret.put("icon", "info");
-            session.removeAttribute("verificationCode");             
+            session.removeAttribute("verificationCode"); // 인증번호 세션 제거             
         } else {
         	ret.put("title", "아이디 찾기 실패");
         	ret.put("success", false);

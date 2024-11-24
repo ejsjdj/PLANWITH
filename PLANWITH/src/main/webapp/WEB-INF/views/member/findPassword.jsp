@@ -240,7 +240,7 @@
       tag += '<img src="${cpath}/upload/captcha/' + result.captchaImage + '" width="300">'
       tag += '<div class="group">'
       tag += '<label for="findPassword-captcha" class="small-grey">그림에 나타난 글자를 입력하세요</label>'
-      tag += '<p><span><input id="findPassword-captcha" class="input" type="text" name="captcha" required></span>'
+      tag += '<p><span><input id="findPassword-captcha" class="input" type="text" name="user_captcha" required></span>'
       tag += '<span><input id="reloadBtn" class="submit" type="button" name="reload" value="새로고침"></span></p>'
       tag += '</div>'
       tag += '</fieldset>'
