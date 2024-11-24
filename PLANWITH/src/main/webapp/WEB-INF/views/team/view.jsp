@@ -117,14 +117,23 @@ body {
     padding: 8px 10px;
 }
 
-#inviteCode button {
+#inviteCodeBtn button {
 	border: 0px solid black;
 	background-color: rgba(255, 255, 255, 0.1);
+}
+
+#inviteCodeBtn button:hover {
+	cursor: pointer;
 }
 
 #exitTeamBtn button {
 	border: 0px solid black;
     background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+#exitTeamBtn button:hover {
+	cursor: pointer;
 }
 
 .topSideChat #participatingMembers {
@@ -947,8 +956,8 @@ body {
 						</div>
 
 						<div class="topRight">
-							<div id="inviteCode">
-								<button>inviteCode
+							<div id="inviteCodeBtn">
+								<button class="button-text">inviteCode
 <!-- 									<img -->
 <!-- 										src="https://cdn-icons-png.flaticon.com/512/2228/2228706.png" -->
 <!-- 										width="30px"> -->
@@ -1949,6 +1958,20 @@ function onReceiveMessage(message) {
 		document.querySelectorAll('button.deleteScheduleBtn').forEach(e => e.onclick = deleteSchedule)
 		teamViewLoadHandler()
 	})
+	
+	const inviteCodeBtn = document.getElementById('inviteCodeBtn')
+	const buttonText = inviteCodeBtn.querySelector('.button-text')
+	let isInviteCodeShown = false
+	
+	inviteCodeBtn.addEventListener("click", function() {
+	    if (isInviteCodeShown) { buttonText.textContent = 'inviteCode' } 
+	    else { buttonText.textContent = '${team.inviteCode}' }
+	    isInviteCodeShown = !isInviteCodeShown
+	})
+	
+	
+	
+	
 </script>
 
 <!-- 스타일 스크립트 -->
