@@ -10,6 +10,7 @@ h3 {
 
 .bodyBox {
     width: 100%;
+    min-height: 500px;
     display: flex;
     justify-content: center;
     height: auto;
@@ -19,7 +20,7 @@ h3 {
     width: 960px;
     padding: 20px;
     margin: 0 auto;
-    height: 100%;
+    height: auto;
 }
 
 .bodyBox > .inlineBox > .items {
@@ -27,7 +28,16 @@ h3 {
     flex-flow: column;
     width: 100%;
 }
-
+.bodyBox > .inlineBox > .items > .nothing {
+	width: 100%;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.bodyBox > .inlineBox > .items > .nothing > span {
+	color: #999999;
+}
 .bodyBox > .inlineBox > .items > .item {
     width: 930px;
     margin-bottom: 20px;
@@ -80,29 +90,36 @@ h3 {
         <a id="insert" href="${cpath }/board/insert">작성</a>
 
         <div class="items" id="postContainer">
+        	<c:if test="${empty list }">
+        		<div class="nothing">
+        			<span>현재 게시글이 없어요. 새 게시글을 작성해보세요!</span>
+        		</div>
+        	</c:if>
             <!-- 서버에서 전달된 list를 사용하여 게시글 목록을 출력 -->
-            <c:forEach var="board" items="${list}">
-                <div class="item" data-id="${board.id }">
-                    <!-- 게시글 제목 -->
-                    <div class="title">
-                        ${board.title }
-                    </div>
-                    <!-- 게시글 작성자 및 작성일 -->
-                    <div class="meta">
-                        <span>${board.nickname }</span> <span>${board.writeDate }</span>
-                    </div>
-                    <!-- 게시글 내용 -->
-                    <div class="content">
-                        <c:if test="${board.content.length() > 100}">
-                            ${board.content.substring(0, 100)}...
-                        </c:if>
-                        <c:if test="${board.content.length() <= 100}">
-                            ${board.content}
-                        </c:if>
-                    </div>
-                    <p> ❤ ${board.like }</p>
-                </div>
-            </c:forEach>
+            <c:if test="${not empty list }">
+	            <c:forEach var="board" items="${list}">
+	                <div class="item" data-id="${board.id }">
+	                    <!-- 게시글 제목 -->
+	                    <div class="title">
+	                        ${board.title }
+	                    </div>
+	                    <!-- 게시글 작성자 및 작성일 -->
+	                    <div class="meta">
+	                        <span>${board.nickname }</span> <span>${board.writeDate }</span>
+	                    </div>
+	                    <!-- 게시글 내용 -->
+	                    <div class="content">
+	                        <c:if test="${board.content.length() > 100}">
+	                            ${board.content.substring(0, 100)}...
+	                        </c:if>
+	                        <c:if test="${board.content.length() <= 100}">
+	                            ${board.content}
+	                        </c:if>
+	                    </div>
+	                    <p> ❤ ${board.like }</p>
+	                </div>
+	            </c:forEach>
+            </c:if>
         </div>
     </div>
 </div>
