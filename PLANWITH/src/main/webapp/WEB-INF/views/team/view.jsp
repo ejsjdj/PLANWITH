@@ -327,33 +327,60 @@ body {
 	z-index: 500;
 }
 
-#modal>div#content {
-	background-color: white;
-	width: 80%;
-	max-width: 600px;
-	margin: 50px auto;
-	padding: 20px;
-	border-radius: 5px;
-	position: fixed;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100%;
-	height: 100%;
-	z-index: 1000;
-	overflow-y: auto;
+#modal #content {
+    background-color: white;
+    width: 80%;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 5px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 600px;
+    z-index: 1000;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+#content #titleArea {
+    display: flex;
+    font-size: 1.2rem;
+    height: 50px;
+    /* align-items: center; */
+    flex-flow: column;
+}
+
+#content #titleArea .titleAreaTitle{
+	
+}
+
+#content #titleArea .titleAreaTitle{
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+#content #addressArea {
+
+}
+
+#content #linkArea {
+
 }
 
 #imageArea img {
 	max-width: 100%;
-	height: auto;
+    height: 170px;
+    width: 150px;
 }
 
-#titleArea {
-	font-size: 24px;
-	font-weight: bold;
-	margin-bottom: 10px;
-}
+/* #titleArea { */
+/* 	font-size: 24px; */
+/* 	font-weight: bold; */
+/* 	margin-bottom: 10px; */
+/* } */
 
 #addressArea {
 	margin-bottom: 20px;
@@ -1171,10 +1198,15 @@ body {
 				// 값을 모달에 하나씩 집어 넣는 명령어
 				// 타이틀에 내용추가
 				const titleArea = document.getElementById('titleArea')
-				titleArea.innerHTML = '<h2>' + title + '<h2>'
-				titleArea.innerHTML += '<button id="addScheduleBtn">' + '계획추가' + '</button>'
-				titleArea.innerHTML += '<button id="addWishList">' + '<img id="wishListIcon" src="/PLANWITH/resources/image/wishListIcon.png">' + '</button>'				
-				
+				titleArea.innerHTML = 
+					'<p class="titleAreaTitle">' + title + '</p>' +
+				    '<div class="titlebuttonArea">' +
+				        '<button id="addScheduleBtn">계획추가</button>' +
+				        '<button id="addWishList">' +
+				            '<img id="wishListIcon" src="/PLANWITH/resources/image/wishListIcon.png">' +
+				        '</button>' +
+				    '</div>'
+
 				function addSchedule() {	
 					stomp.send('/app/addSchedule/' + teamId, {}, JSON.stringify({
 						title: title,
@@ -1222,7 +1254,7 @@ body {
                       img.src = imageSearchResult[imgIndex].link
                       img.style.width = '33.3%'
                       img.style.objectFit = 'cover'
-                      img.style.height = '200px' // 높이를 고정값으로 설정하거나 필요에 따라 조정
+//                       img.style.height = '200px' // 높이를 고정값으로 설정하거나 필요에 따라 조정
 
                       img.onerror = function() {
                           imgIndex++
