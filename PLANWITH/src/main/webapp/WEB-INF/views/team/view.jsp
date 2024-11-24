@@ -19,8 +19,8 @@ body {
     background: #033495;
     background: #3379ff;
     
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     display: flex;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.2), 0 10px 10px rgba(0, 0, 0, 0.2);
 }
@@ -30,7 +30,7 @@ body {
 }
 
 #chatBoxBtn img {
-	width: 1.5rem;
+	width: 1.4rem;
 }
 
 #chatArea {
@@ -91,6 +91,48 @@ body {
 	margin-top: 5px;
 }
 
+#updateTeamNameForm {
+    font-size: 1.2rem;
+    box-sizing: border-box;
+    height: 32px;
+}
+
+#updateTeamNameForm input{
+    width: 250px;
+    height: 26px;
+    border-radius: 2rem;
+    border: none;
+    font-size: 1rem;
+    background: #3379ff;
+    color: white;
+}
+
+#updateTeamNameForm input:focus{
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+#updateTeamNameForm button {
+    right: 20px;
+    position: absolute;
+    border: none;
+    
+    border-radius: 2rem;
+    height: 30px;
+    box-sizing: border-box;
+    /* background-color: #033495; */
+    color: white;
+    font-size: 0.7rem;
+    font-weight: 100;
+    padding: 8px 10px;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+#updateTeamNameForm button:hover{
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
 .topSideChat .topleft img {
 	width: 0.7rem;
    	opacity: 0.3;
@@ -99,9 +141,11 @@ body {
 }
 
 .topSideChat .topRight {
-	float: right;
-	display: flex;
-	padding: 10px;
+    float: right;
+    display: flex;
+    padding: 10px;
+    position: absolute;
+    right: 10px;
 }
 
 .topRight button {
@@ -249,6 +293,9 @@ body {
     font-weight: 100;	
 }
 
+.bottomSideChat input:hover {
+	cursor: pointer;
+}
 .bottomSideChat #textarea:focus {
 	border-color: #B1C9EF;
     outline: none;
@@ -359,11 +406,8 @@ body {
     font-size: 1.2rem;
     height: 50px;
     /* align-items: center; */
-    flex-flow: column;
-}
-
-#content #titleArea .titleAreaTitle{
-	
+    align-items: center;
+    justify-content: space-between;
 }
 
 #content #titleArea .titleAreaTitle{
@@ -371,12 +415,64 @@ body {
 	font-weight: 600;
 }
 
-#content #addressArea {
+#content #titleArea .titlebuttonArea{
+	display: flex;
+    float: right;
+}
 
+#content #titleArea .titlebuttonArea #addScheduleBtn{
+    border: 0px solid black;
+    margin: auto 10px;
+    border-radius: 2rem;
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 30px;
+    padding: 0 12px;
+    margin-right: 0;
+    background: #3379ff;
+    color: white;
+}
+
+#content #titleArea .titlebuttonArea #addWishList{
+	align-items: center;
+    border: 0px solid black;
+    margin: auto 10px;
+    /* border-radius: 2rem; */
+    /* background-color: rgba(0, 0, 0, 0.3); */
+    height: 40px;
+    display: flex;
+    margin-right: 0;
+}
+
+#content #titleArea .titlebuttonArea #wishListIcon:hover,
+#content #titleArea .titlebuttonArea #addScheduleBtn:hover {
+	cursor: pointer;
+}
+
+#content #titleArea .titlebuttonArea #addWishList img{
+	height: 25px;
+}
+
+#content #addressArea {
+    font-size: 0.85rem;
+    margin-bottom: 10px;
 }
 
 #content #linkArea {
+	font-size: 0.7rem;
+}
 
+#content #linkArea .linkAreaTitle {
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    font-weight: 500;
+    border-top: 1rem solid #f9f8fa;
+	
+}
+
+#content #linkArea .section {
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 10px;
+    color: #343a40;
 }
 
 #imageArea img {
@@ -949,11 +1045,11 @@ body {
 			<c:if test="${not empty team && not empty login}">
 				<!-- 주소창으로 접근가능해서 걸어둠 -->
 				<div>
-					<form id="updateTeamNameForm">
-						<input type="text" name="name" placeholder="변경할 팀 이름"
-							value="${team.name}" required>
-						<button type="submit">팀 이름 수정</button>
-					</form>
+<!-- 					<form id="updateTeamNameForm"> -->
+<!-- 						<input type="text" name="name" placeholder="변경할 팀 이름" -->
+<%-- 							value="${team.name}" required> --%>
+<!-- 						<button type="submit">팀 이름 수정</button> -->
+<!-- 					</form> -->
 				</div>
 				<div>
 					<span>코드 : ${team.inviteCode }</span>
@@ -965,7 +1061,15 @@ body {
 				<c:when test="${not empty team && not empty login}">
 					<div class="topSideChat">
 						<div class="topleft">
-							<div id="teamName">${team.name }</div>
+<%-- 							<div id="teamName">${team.name }</div> --%>
+<div id="teamNameContainer">
+  <div id="teamName" class="editable">${team.name}</div>
+  <form id="updateTeamNameForm" style="display: none;">
+    <input type="text" name="name" placeholder="변경할 팀 이름" value="${team.name}" required>
+    <button type="submit">팀 이름 수정</button>
+  </form>
+</div>
+	
 							<div id="howManyInChatRoom">
 								<img src="${cpath }/resources/image/사람 수 아이콘.png" >
 				            	<span class="small-white">
@@ -982,7 +1086,7 @@ body {
 							</div>
 						</div>
 
-						<div class="topRight">
+						<div class="topRight" id="topRight">
 							<div id="inviteCodeBtn">
 								<button class="button-text">inviteCode
 <!-- 									<img -->
@@ -1210,10 +1314,10 @@ body {
 				titleArea.innerHTML = 
 					'<p class="titleAreaTitle">' + title + '</p>' +
 				    '<div class="titlebuttonArea">' +
-				        '<button id="addScheduleBtn">계획추가</button>' +
-				        '<button id="addWishList">' +
-				            '<img id="wishListIcon" src="/PLANWITH/resources/image/wishListIcon.png">' +
-				        '</button>' +
+					        '<div id="addWishList">' +
+					            '<img id="wishListIcon" src="/PLANWITH/resources/image/위시리스트버튼.png">' +
+					        '</div>' +
+				        '<button id="addScheduleBtn">add schedule</button>' +
 				    '</div>'
 
 				function addSchedule() {	
@@ -1287,13 +1391,21 @@ body {
                   const addressInfo = event.target.parentNode.children[1].innerText
                   addressArea.innerHTML += addressInfo
                   const linkArea = document.getElementById('linkArea')
-                  linkArea.innerHTML = ''
+                  linkArea.innerHTML = '<div class="linkAreaTitle">블로그 리뷰</div>'
                   for (let i = 0; i < 4; i ++) {
                      const dto = blogSearchResult[i]
-                     linkArea.innerHTML += dto.title + "'<br>'" + dto.description + '<br><a href="' + dto.link + '" target="_blank">자세히 보기</a><br>'
-                  }
+                     
+                     const sectionHTML = 
+                   	    '<div class="section">' + 
+                   	    dto.title + "'<br>'" + 
+                   	    dto.description + '<br>' + 
+                   	    '<a href="' + dto.link + '" target="_blank">자세히 보기</a>' + 
+                   	    '</div>';
+                   	  
+                   	  linkArea.innerHTML += sectionHTML; // 섹션 추가
+                   	}
 //                blogSearchResult.forEach(dto => linkArea.innerHTML += dto.title + "'<br>'" + dto.description + '<br><a href="' + dto.link + '" target="_blank">자세히 보기</a><br>')
-                  modalHandler()
+               		modalHandler()
                }
                
                itemEl.onmouseover =  function () {
@@ -1615,7 +1727,7 @@ body {
                   linkArea.innerHTML = ''
                   for (let i = 0; i < 4; i ++) {
                      const dto = blogSearchResult[i]
-                     linkArea.innerHTML += dto.title + "'<br>'" + dto.description + '<br><a href="' + dto.link + '" target="_blank">자세히 보기</a><br>'
+                     linkArea.innerHTML += dto.title + "'<br>'" + dto.description + '<br><a href="' + dto.link + '" target="_blank" class="linkBtn">자세히 보기</a><br>'
                   }
                   
                   modalHandler()
@@ -2072,6 +2184,34 @@ function onReceiveMessage(message) {
 	    const middleSideChat = document.querySelector('.middleSideChat')
 	    middleSideChat.scrollTop = middleSideChat.scrollHeight
 	}
+	
+	// 팀 이름 클릭 시 input으로 전환
+	const teamNameDiv = document.getElementById('teamName')
+	const updateTeamNameForm = document.getElementById('updateTeamNameForm')
+	const topRight = document.getElementById('topRight')
+
+	// 팀 이름 클릭 -> form 보이기
+	teamNameDiv.addEventListener('click', function () {
+		teamNameDiv.style.display = 'none' // 팀 이름 텍스트 숨기기
+		updateTeamNameForm.style.display = 'block' // 폼 보이기
+		topRight.style.display = 'none'
+
+		// 입력 칸에 기존 팀 이름 설정
+		const inputField = updateTeamNameForm.querySelector('input[name="name"]')
+		inputField.value = teamNameDiv.textContent.trim()
+	})
+
+	// 폼 제출 -> 페이지 리로드
+	updateTeamNameForm.addEventListener('submit', function (event) {
+		event.preventDefault() // 기본 제출 막기
+
+		// 새 팀 이름을 서버에 전송 (필요시 서버로 전송하는 코드 추가)
+		// 서버에서 처리 후 페이지를 리로드 (서버가 새 팀 이름 반영하면 되겠죠?)
+
+		// 페이지 리로드
+		location.reload()
+	})
+
 </script>
 
 </body>
