@@ -120,16 +120,6 @@
       where ms.teamId = #{teamId}
       order by ms.sentTime asc
    </select>  		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 
 	<insert id="insertMessage" parameterType="message">
 	    insert into message
