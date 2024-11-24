@@ -11,7 +11,7 @@ body {
 #chatBoxBtn {
     position: absolute;
     right: 5rem;
-    bottom: 5rem;
+    bottom: 5rem; 
     z-index: 300;
     border-radius: 50%;
     justify-content: center;
@@ -338,7 +338,16 @@ body {
 }
 
 .deleteScheduleBtn {
-	height: 1.5rem;
+	border-radius: 1rem;
+    height: 1.5rem;
+    border: none;
+    font-size: 0.75rem;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.deleteScheduleBtn:hover {
+	cursor: pointer;
+	background: rgba(0, 0, 0, 0.2);
 }
 
 .schedule-time {
@@ -360,13 +369,62 @@ body {
 <style>
 /*    모달구현을 위한 스타일 */
 #timeModal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.7);
-	z-index: 1000;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    width: 400px;
+    height: 200px;
+    z-index: 1000;
+    border-radius: 0.8rem;
+    background: #f9f8fa;
+    text-align: center;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.3);
+    
+}
+
+#timeModal .timeModalDiv {
+	display: flex;
+    align-items: center;
+    flex-flow: column;
+    height: 100%;
+}
+
+.timeModalTopDiv {
+    flex: 1;
+    margin-top: 70px;
+}
+
+#modalStartTime, #modalEndTime {
+    height: 25px;
+    border: none;
+    border-radius: 0.4rem;
+    padding: 3px 10px;
+    font-size: 0.8rem;
+}
+
+#modalSubmit, #modalClose {
+    border-radius: 0.6rem;
+    border: none;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 2px 8px;
+    margin: auto;
+    height: 29px;
+    box-sizing: border-box;
+    color: white;
+    font-size: 0.75rem;
+}
+
+#modalSubmit {
+	background: #3379ff;
+	color: white;
+}
+
+.timeModalBottomDiv {
+	flex: 1;
+    /* margin-top: 30px; */
+    margin-bottom: 50px;
+    position: absolute;
+    bottom: 0;
 }
 
 .hidden {
@@ -526,21 +584,22 @@ body {
 }
 
 #menu_wrap {
-	position: absolute;
-	top: 70px;
-	bottom: 0;
-	width: 300px;
-	height: 100%;
-	padding: 5px;
-	overflow-y: auto;
-	background: rgba(255, 255, 255, 1);
-	z-index: 2;
-	font-size: 12px;
-	border-radius: 10px;
+    position: absolute;
+    top: 70px;
+    bottom: 0;
+    width: 300px;
+    height: 100%;
+    padding: 5px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 1);
+    z-index: 3;
+    font-size: 12px;
+    border-radius: 10px;
 }
 
 #searchPlacesInput {
 	display: flex;
+    align-items: center;
 }
 
 #searchPlacesInput input,
@@ -550,7 +609,7 @@ body {
     padding: 10px;
     margin: 5px auto;
     border: 1px solid #d3d3d3;
-    border-radius: 5px;
+    border-radius: 0.5rem;
     font-size: 0.8rem;
     box-sizing: border-box;
 }
@@ -561,6 +620,12 @@ body {
 	color: white;
 	border: 0px solid black;
 	height: 95%;
+}
+
+#searchPlacesInput button:hover {
+	cursor: pointer;
+	filter: brightness(0.9);
+	
 }
 
 #searchPlacesInput input:focus {
@@ -576,7 +641,7 @@ body {
 	display: block;
 	height: 1px;
 	border: 0;
-	border-top: 2px solid #5F5F5F;
+/* 	border-top: 2px solid #dddddd; */
 	margin: 3px 0;
 }
 
@@ -753,7 +818,7 @@ body {
 
 #placesList .item {
 	position: relative;
-	border-bottom: 1px solid #888;
+	border-bottom: 0.1px solid #dddddd;
 	overflow: hidden;
 	cursor: pointer;
 	min-height: 65px;
@@ -899,16 +964,32 @@ body {
     font-size: 12px;
     border-radius: 10px;
     left: 70px;
+    
 }
 
 .schedule {
-	display: flex; /* Flexbox 사용 */
-	justify-content: space-between; /* 아이템 사이의 공간을 균등하게 분배 */
-	border: 1px solid #ccc; /* 테두리 추가 */
-	border-radius: 8px; /* 모서리 둥글게 */
-	padding: 20px; /* 내부 여백 */
-	background-color: #f9f9f9; /* 배경색 */
-	align-items: center;
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid #ccc; */
+    /* border-radius: 8px; */
+    padding: 20px;
+    border-bottom: 0.1px solid #ccc;
+    /* background-color: #f9f9f9; */
+    align-items: center;
+}
+
+.schedule:nth-last-of-type(1) {
+	border-bottom: none;
+	
+}
+
+.schedule div:nth-of-type(3) {
+    /* flex: 1; */
+    margin-left: 3px;
+    margin-right: 0;
+    width: 110px;
+    position: absolute;
+    right: 61px;
 }
 
 .schedule-item {
@@ -981,10 +1062,16 @@ body {
 
 <div id="timeModal" class="hidden">
 	<!--     <input id="modalDate" type="date"> -->
-	<input id="modalStartTime" type="time"> <input
-		id="modalEndTime" type="time">
-	<button id="modalSubmit">제출</button>
-	<button id="modalClose">닫기</button>
+	<div class="timeModalDiv">
+		<div class="timeModalTopDiv">
+			<input id="modalStartTime" type="time"> <input
+				id="modalEndTime" type="time">
+			<button id="modalSubmit">변경</button>
+		</div>
+		<div class="timeModalBottomDiv">
+			<button id="modalClose">닫기</button>
+		</div>
+	</div>
 </div>
 
 <!--  <div class="wrap"> -->
@@ -1868,7 +1955,6 @@ body {
 	
 	async function deleteWishList(event) {
 		const id = event.target.previousElementSibling.previousElementSibling.textContent
-		console.log(id)
 		const url = '${cpath}/maps/deleteWishList?id=' + id 
 		const result = await fetch(url, {
 			method: 'POST',
@@ -1878,7 +1964,6 @@ body {
 				}
 			}
 		}).then(resp => resp.json())
-		console.log('deleteWishList 함수 실행')
 		drawWishList(result);
 	}
 </script>
