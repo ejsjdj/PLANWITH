@@ -10,7 +10,7 @@ h3 {
 
 .bodyBox {
     width: 100%;
-    min-height: 500px;
+    min-height: 750px;
     display: flex;
     justify-content: center;
     height: auto;
@@ -30,7 +30,7 @@ h3 {
 }
 .bodyBox > .inlineBox > .items > .nothing {
 	width: 100%;
-	height: 100px;
+	height: 500px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
