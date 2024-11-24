@@ -30,23 +30,13 @@ public class MapsController {
 	
 	@GetMapping("/blogSearch")
 	public List<NaverBlogDTO> blogSerach(String title) {
-		List<NaverBlogDTO> list = mapService.getBlogSearch(title);
-		
-		// 테스트용 출력문 아래 코드가 출력값이 없으면 list 가 비어있는것
-//		System.out.println("blogSearch 함수 실행");
-//		for (NaverBlogDTO dto : list) {System.out.println(dto.toString());}
-		
+		List<NaverBlogDTO> list = mapService.getBlogSearch(title);	
 		return list;
 	}
 	
 	@GetMapping("/imageSearch")
 	public List<NaverImageDTO> imageSearch(String title) {
 		List<NaverImageDTO> list = mapService.getImageSearch(title);
-		
-		// 테스트용 출력문 웹페이지에서 이미지가 출력되지 않는다면 테스트
-//		System.out.println("imageSearch 함수 실행");
-//		for (NaverImageDTO dto : list) {System.out.println(dto.toString());}
-		
 		return list;
 	}
 	
@@ -66,18 +56,17 @@ public class MapsController {
 		return list;
 	}
 	
-	@PostMapping("/delete")
-	public List<ScheduleDTO> delete(ScheduleDTO dto, HttpSession session) {
-	    List<ScheduleDTO> list = (List<ScheduleDTO>) session.getAttribute("scheduleList");
-
-        list.removeIf(o1 -> 
-            o1.getAddress().equals(dto.getAddress()) && 
-            o1.getTitle().equals(dto.getTitle())
-        );	// 이름과 주소가 똑같으면 삭제
-        session.setAttribute("scheduleList", list);  // 세션 업데이트
-        
-	    return list;  // 수정된 리스트 반환
-	}
+//	@PostMapping("/delete")
+//	public List<ScheduleDTO> delete(ScheduleDTO dto, HttpSession session) {
+//	    List<ScheduleDTO> list = (List<ScheduleDTO>) session.getAttribute("scheduleList");
+//	    System.out.println("delete 메서드 실행");
+//        list.removeIf(o1 -> 
+//            o1.getAddress().equals(dto.getAddress()) && 
+//            o1.getTitle().equals(dto.getTitle())
+//        );	// 이름과 주소가 똑같으면 삭제
+//        session.setAttribute("scheduleList", list);  // 세션 업데이트
+//	    return list;  // 수정된 리스트 반환
+//	}
 	
 	@GetMapping("/teamViewLoad/{teamId}")
 	public List<ScheduleDTO> teamViewLoad(@PathVariable int teamId) {
@@ -109,17 +98,13 @@ public class MapsController {
 	public List<PlaceDTO> deleteWishList(HttpSession session, int id) {
 		
 		List<PlaceDTO> wishList = (List<PlaceDTO>) session.getAttribute("wishList");
-		
 		wishList.removeIf(o1 -> o1.getId() == id);
-		
 		session.setAttribute("wishList", wishList);
-		
 		return wishList;
 	}
 	
 	@GetMapping("/getWishList")
 	public List<PlaceDTO> getWishList(HttpSession session) {
-		System.out.println("getWishList 실행");
 		List<PlaceDTO> wishList = (List<PlaceDTO>) session.getAttribute("wishList");
 		return wishList;
 	}

@@ -95,6 +95,4 @@ public class KakaoLoginComponent {
 		System.out.println(response.getStatusCodeValue());	
 		return response.getBody();
 	}
-	
-	
 }

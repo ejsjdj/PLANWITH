@@ -19,7 +19,7 @@ public class MailComponent {
 		MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
 		
 		try {
-			helper.setFrom("khh5327@naver.com");	// 실제 테스트를 할때는 아이디를 올바르게 입력해야 한다
+			helper.setFrom("ejsjdj@naver.com");	// 실제 테스트를 할때는 아이디를 올바르게 입력해야 한다
 			helper.setTo(email);
 			helper.setSubject(subject);
 			helper.setText(content);
