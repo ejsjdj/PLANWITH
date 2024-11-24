@@ -375,7 +375,7 @@ body {
     width: 400px;
     height: 200px;
     z-index: 1000;
-    border-radius: 0.5rem;
+    border-radius: 0.8rem;
     background: #f9f8fa;
     text-align: center;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.3), 0 10px 10px rgba(0, 0, 0, 0.3);
