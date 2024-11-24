@@ -42,21 +42,14 @@
 		    (
 		        select p.name
 		        from place p
-		        join schedule s2
-		            on p.id = s2.placeid
+		        join schedule s2 on p.id = s2.placeid
 		        where s2.teamid = t.id
-		        and (s2.starttime, s2.id) = (
-		            select min(s3.starttime), min(s3.id)
-		            from schedule s3
-		            where s3.teamid = t.id
-		        )
-		        fetch first row only
+		        order by s2.starttime 
+		        fetch first 1 row only
 		    ) as firstplacename
 		from team t
-		left join teammember tm
-		    on t.id = tm.teamid
-		left join schedule s
-		    on t.id = s.teamid
+		left join teammember tm on t.id = tm.teamid
+		left join schedule s on t.id = s.teamid
 		where t.id in (
 		    select tm.teamid 
 		    from teammember tm
