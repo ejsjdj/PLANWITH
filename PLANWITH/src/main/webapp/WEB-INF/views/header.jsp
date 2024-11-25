@@ -105,11 +105,13 @@ header {
 }
 
 .button {
-	border: 1px solid #dadada;
-	margin: 5px;
-	border-radius: 10px;
-	width: 60px;
-	height: 40px;
+   border: 1px solid #dadada;
+   margin: 5px;
+   border-radius: 10px;
+   width: 60px;
+   height: 40px;
+   background-color: #f9f8fa;
+   border: none;
 }
 
 #logoImg:hover {
