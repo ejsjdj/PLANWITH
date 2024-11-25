@@ -15,8 +15,8 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class NaverLoginComponent {
 	
-	private String clientId = "ucPpOaAXwmvP5mLx4Igl";
-	private String clientSecret = "2ApBXv540i";
+	private String clientId = "jgFSVqThsovLV7enoXu1";
+	private String clientSecret = "xodukmmhJ2";
 	private String callbackURL = "http://localhost:8080/PLANWITH/member/naverCallback";
 	
 	// 임의로 state 를 생성하여 네이버에 로그인 URL을 요청하고 콜백주소로 이동한다

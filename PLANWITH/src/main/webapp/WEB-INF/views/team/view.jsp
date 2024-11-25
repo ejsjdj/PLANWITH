@@ -1252,7 +1252,7 @@ body {
 	</div>
 	<!-- chatArea -->
 </div>
-<!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=발급받은 APP KEY를 사용하세요&libraries=services"></script> -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cdd0bea37aa97b2e9066b9c46c0ef810&libraries=services"></script>
 
 <!-- 디자인 기능 구현을 위한 스크립트(버튼을 누르면 해당 창이 생겼다 사라졌다 하는 기능) -->
 <script>
